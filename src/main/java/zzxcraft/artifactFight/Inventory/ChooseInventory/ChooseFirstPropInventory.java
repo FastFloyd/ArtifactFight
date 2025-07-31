@@ -2,12 +2,15 @@ package zzxcraft.artifactFight.Inventory.ChooseInventory;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactPropType;
@@ -28,6 +31,13 @@ public class ChooseFirstPropInventory implements InventoryHolder {
         this.player=player;
         this.inventorys = Set.of(javaPlugin.getServer().createInventory(this,54));
         this.getInventory().setItem(49,NameItemStack(ItemStack.of(Material.BLACK_WOOL)));
+        PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
+        for(int i=1,I=0;i<=2;i++){
+            Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_prop"+i), PersistentDataType.BOOLEAN);
+            if(c==null) continue;
+            addPropType(I,ArtifactPropType.getProp(i));
+            I++;
+        }
     }
     public ChooseItemInventory getSuperInventory(){return this.superInventory;}
     @Override

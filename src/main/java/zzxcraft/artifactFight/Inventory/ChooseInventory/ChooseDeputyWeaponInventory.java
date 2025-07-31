@@ -3,16 +3,20 @@ package zzxcraft.artifactFight.Inventory.ChooseInventory;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactShieldFather;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactBowType;
+import zzxcraft.artifactFight.Artifact.Type.ArtifactMainWeaponType;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactShieldType;
 import zzxcraft.artifactFight.ArtifactFight;
 
@@ -25,6 +29,7 @@ public class ChooseDeputyWeaponInventory implements InventoryHolder {
     private final FileConfiguration config =ArtifactFight.getMainClass().getConfig();
     private final Player player;
     private final ChooseItemInventory superInventory;
+    private HashMap<Integer, ArtifactMainWeaponType> mainWeaponTypeHashMap=new HashMap<>();
     private HashMap<Integer, ArtifactShieldType> shieldTypeHashMap=new HashMap<>();
     private HashMap<Integer, ArtifactBowType> bowTypeHashMap=new HashMap<>();
     public ChooseDeputyWeaponInventory(Player player,ChooseItemInventory chooseItemInventory){
@@ -32,6 +37,26 @@ public class ChooseDeputyWeaponInventory implements InventoryHolder {
         this.player=player;
         this.inventorys = Set.of(javaPlugin.getServer().createInventory(this,54));
         this.getInventory().setItem(49,NameItemStack(ItemStack.of(Material.BLACK_WOOL)));
+        PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
+        int I=0;
+        for(int i=1;i<=5;i++){
+            Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_mainWeapon"+i), PersistentDataType.BOOLEAN);
+            if(c==null) continue;
+            addDeputyWeaponType(I,ArtifactMainWeaponType.getWeapon(i));
+            I++;
+        }
+        for(int i=1;i<=3;i++){
+            Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_shield"+i),PersistentDataType.BOOLEAN);
+            if(c==null) continue;
+            addDeputyWeaponType(I,ArtifactShieldType.getShield(i));
+            I++;
+        }
+        for(int i=1;i<=4;i++){
+            Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_bow"+i),PersistentDataType.BOOLEAN);
+            if(c==null) continue;
+            addDeputyWeaponType(I,ArtifactBowType.getBow(i));
+            I++;
+        }
     }
     public ChooseItemInventory getSuperInventory(){return this.superInventory;}
     @Override
@@ -55,12 +80,19 @@ public class ChooseDeputyWeaponInventory implements InventoryHolder {
         this.bowTypeHashMap.put(slot,artifactBowType);
         this.getInventory().setItem(slot,artifactBowType.getItemStack());
     }
-    public Pair<Integer,Object> getDeputyWeaponType(int slot){
-        if(slot<this.shieldTypeHashMap.size()){
-            return Pair.of(1,this.shieldTypeHashMap.get(slot));
+    private void addDeputyWeaponType(int slot,ArtifactMainWeaponType artifactMainWeaponType){
+        this.mainWeaponTypeHashMap.put(slot,artifactMainWeaponType);
+        this.getInventory().setItem(slot,artifactMainWeaponType.getItemStack());
+    }
+    public Object getDeputyWeaponType(int slot){
+        if(slot<this.mainWeaponTypeHashMap.size()){
+            return this.mainWeaponTypeHashMap.get(slot);
         }
-        else{
-            return Pair.of(2,this.bowTypeHashMap.get(slot));
+        else if(slot<this.mainWeaponTypeHashMap.size()+this.shieldTypeHashMap.size()){
+            return this.shieldTypeHashMap.get(slot);
+        }
+        else  {
+            return this.bowTypeHashMap.get(slot);
         }
     }
 }

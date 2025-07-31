@@ -378,7 +378,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-helmet"+((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_helmet"+((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetHelmetInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -393,7 +395,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-chestplate"+((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_chestplate"+((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetChestPlateInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -408,7 +412,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-legging"+((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_legging"+((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetLeggingInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -423,7 +429,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetBootInventory) inventoryHolder).getArtifactBootType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetBootInventory) inventoryHolder).getArtifactBootType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-boot"+((GetBootInventory) inventoryHolder).getArtifactBootType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_boot"+((GetBootInventory) inventoryHolder).getArtifactBootType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetBootInventory) inventoryHolder).getArtifactBootType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetBootInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -438,7 +446,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-mainWeapon"+((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_mainWeapon"+((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetMainWeaponInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -453,7 +463,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetShieldInventory) inventoryHolder).getArtifactShieldType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetShieldInventory) inventoryHolder).getArtifactShieldType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-shield"+((GetShieldInventory) inventoryHolder).getArtifactShieldType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_shield"+((GetShieldInventory) inventoryHolder).getArtifactShieldType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetShieldInventory) inventoryHolder).getArtifactShieldType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetShieldInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -468,7 +480,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetBowInventory) inventoryHolder).getArtifactBowType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetBowInventory) inventoryHolder).getArtifactBowType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-bow"+((GetBowInventory) inventoryHolder).getArtifactBowType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_bow"+((GetBowInventory) inventoryHolder).getArtifactBowType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetBowInventory) inventoryHolder).getArtifactBowType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetBowInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -483,7 +497,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetPropInventory) inventoryHolder).getArtifactPropType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetPropInventory) inventoryHolder).getArtifactPropType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-prop"+((GetPropInventory) inventoryHolder).getArtifactPropType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_prop"+((GetPropInventory) inventoryHolder).getArtifactPropType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetPropInventory) inventoryHolder).getArtifactPropType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetPropInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255,0,0)));
@@ -498,7 +514,9 @@ public class ArtifactFightPlayerListener implements Listener {
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetElytraInventory) inventoryHolder).getArtifactElytraType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetElytraInventory) inventoryHolder).getArtifactElytraType().getPrice());
-                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought-elytra"+((GetElytraInventory) inventoryHolder).getArtifactElytraType().getId()),PersistentDataType.BOOLEAN,true);
+                    persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_elytra"+((GetElytraInventory) inventoryHolder).getArtifactElytraType().getId()),PersistentDataType.BOOLEAN,true);
+                    player.sendMessage(Component.text("你成功的购买了"+((GetElytraInventory) inventoryHolder).getArtifactElytraType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
+                    player.openInventory(((GetElytraInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
                     player.sendMessage(Component.text("你没有足够的钱做这件事！", TextColor.color(255, 0, 0)));
