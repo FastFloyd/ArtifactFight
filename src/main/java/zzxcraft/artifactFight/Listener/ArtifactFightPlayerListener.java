@@ -199,13 +199,13 @@ public class ArtifactFightPlayerListener implements Listener {
             else{
                 Object o=((ChooseDeputyWeaponInventory)inventoryHolder).getDeputyWeaponType(slot);
                 if(o instanceof ArtifactMainWeaponType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactMainWeaponType) o).getId()*10+1);
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,((ArtifactMainWeaponType) o).getId()*10+1);
                 }
                 else if(o instanceof ArtifactBowType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactBowType) o).getId()*10+2);
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,((ArtifactBowType) o).getId()*10+2);
                 }
                 else if(o instanceof ArtifactShieldType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactShieldType) o).getId()*10+3);
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,((ArtifactShieldType) o).getId()*10+3);
                 }
             }
         }
