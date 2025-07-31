@@ -152,14 +152,17 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else{
                 Object o=((ChooseChestPlateInventory) inventoryHolder).getChestPlateType(slot);
-                if(o instanceof ArtifactChestPlateType){
-                    Integer integer=((ArtifactChestPlateType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_chestplate"),PersistentDataType.INTEGER,integer*10+1);
+                if(o!=null){
+                    if(o instanceof ArtifactChestPlateType){
+                        Integer integer=((ArtifactChestPlateType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_chestplate"),PersistentDataType.INTEGER,integer*10+1);
+                    }
+                    else{
+                        Integer integer=((ArtifactElytraType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_chestplate"),PersistentDataType.INTEGER,integer*10+2);
+                    }
                 }
-                else{
-                    Integer integer=((ArtifactElytraType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_elytra"),PersistentDataType.INTEGER,integer*10+2);
-                }
+
             }
         }
         else if((inventoryHolder instanceof ChooseLeggingInventory)){
@@ -186,18 +189,21 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else{
                 Object o=((ChooseMainWeaponInventory)inventoryHolder).getMainWeaponType(slot);
-                if(o instanceof ArtifactMainWeaponType){
-                    Integer integer=((ArtifactMainWeaponType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+1);
+                if(o!=null){
+                    if(o instanceof ArtifactMainWeaponType){
+                        Integer integer=((ArtifactMainWeaponType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+1);
+                    }
+                    else if(o instanceof ArtifactBowType){
+                        Integer integer=((ArtifactBowType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+2);
+                    }
+                    else if(o instanceof ArtifactShieldType){
+                        Integer integer=((ArtifactShieldType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+3);
+                    }
                 }
-                else if(o instanceof ArtifactBowType){
-                    Integer integer=((ArtifactBowType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+2);
-                }
-                else if(o instanceof ArtifactShieldType){
-                    Integer integer=((ArtifactShieldType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+3);
-                }
+
             }
         }
         else if((inventoryHolder instanceof ChooseDeputyWeaponInventory)){
@@ -206,18 +212,21 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else{
                 Object o=((ChooseDeputyWeaponInventory)inventoryHolder).getDeputyWeaponType(slot);
-                if(o instanceof ArtifactMainWeaponType){
-                    Integer integer=((ArtifactMainWeaponType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+1);
+                if(o!=null){
+                    if(o instanceof ArtifactMainWeaponType){
+                        Integer integer=((ArtifactMainWeaponType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+1);
+                    }
+                    else if(o instanceof ArtifactBowType){
+                        Integer integer=((ArtifactBowType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+2);
+                    }
+                    else if(o instanceof ArtifactShieldType){
+                        Integer integer=((ArtifactShieldType) o).getId();
+                        if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+3);
+                    }
                 }
-                else if(o instanceof ArtifactBowType){
-                    Integer integer=((ArtifactBowType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+2);
-                }
-                else if(o instanceof ArtifactShieldType){
-                    Integer integer=((ArtifactShieldType) o).getId();
-                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+3);
-                }
+
             }
         }
         else if((inventoryHolder instanceof ChooseFirstPropInventory)){
