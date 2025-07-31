@@ -1,0 +1,73 @@
+package zzxcraft.artifactFight.Artifact.Type;
+
+import net.kyori.adventure.text.Component;
+import org.apache.commons.lang3.tuple.Pair;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactHelmetFather;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactPropFather;
+import zzxcraft.artifactFight.Artifact.Helmet.diamond_helmet;
+import zzxcraft.artifactFight.Artifact.Helmet.iron_helmet;
+import zzxcraft.artifactFight.Artifact.Helmet.leather_helmet;
+import zzxcraft.artifactFight.Artifact.Helmet.netherite_helmet;
+import zzxcraft.artifactFight.Artifact.Prop.firework_rocket;
+import zzxcraft.artifactFight.Artifact.Prop.snowball;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Set;
+
+public class ArtifactPropType {
+    Class<? extends ArtifactPropFather> prclass;
+    ItemStack itemStack;
+    Set<ArtifactPropType> children;
+    Integer price;
+    Integer id;
+    public static final ArtifactPropType FIREWORK_ROCKET = new ArtifactPropType(2,createItemStack(Material.FIREWORK_ROCKET,16,"烟花火箭",List.of(),Set.of()), firework_rocket.class,Set.of(),100);
+
+    public static final ArtifactPropType SNOWBALL = new ArtifactPropType(1,createItemStack(Material.SNOWBALL,16,"雪球", List.of(),Set.of()), snowball.class,Set.of(),0);
+    public static final ArtifactPropType BUY_PROP= new ArtifactPropType(-1,ItemStack.of(Material.BARRIER), ArtifactPropFather.class,Set.of(ArtifactPropType.SNOWBALL,ArtifactPropType.FIREWORK_ROCKET),0);
+    private ArtifactPropType(Integer id,ItemStack itemStack,Class<? extends ArtifactPropFather> prclass,Set<ArtifactPropType> children,Integer price){
+        this.id=id;
+        this.itemStack=itemStack;
+        this.prclass=prclass;
+        this.children=children;
+        this.price=price;
+
+    }
+    public ItemStack getItemStack() {return this.itemStack;}
+    public ArtifactPropFather createRunnable(Player player) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        if(prclass==null) return null;
+        return prclass.getConstructor(Player.class).newInstance(player);
+    }
+    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet){
+        ItemStack itemStack1=ItemStack.of(material,count);
+        ItemMeta itemMeta=itemStack1.getItemMeta();
+        itemMeta.displayName(Component.text(name));
+        itemMeta.lore(lore);
+        itemStack1.setItemMeta(itemMeta);
+        for(Pair<Enchantment,Integer> pair: EnchSet){
+            itemStack1.addEnchantment(pair.getLeft(),pair.getRight());
+        }
+        return itemStack1;
+    }
+    public Set<ArtifactPropType> getChildren(){
+        return this.children;
+    }
+    public Integer getPrice(){
+        return this.price;
+    }
+    public Integer getId(){
+        return this.id;
+    }
+    public static ArtifactPropType getProp(Integer id){
+        return switch (id) {
+            case 1 -> ArtifactPropType.SNOWBALL;
+            case 2 -> ArtifactPropType.FIREWORK_ROCKET;
+            default -> null;
+        };
+    }
+}

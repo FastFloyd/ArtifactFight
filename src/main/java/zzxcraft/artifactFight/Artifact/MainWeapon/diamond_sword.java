@@ -1,0 +1,31 @@
+package zzxcraft.artifactFight.Artifact.MainWeapon;
+
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class diamond_sword extends ArtifactMainWeaponFather {
+    public diamond_sword(Player player) {
+        super(player);
+        this.setItemStack(ItemStack.of(Material.DIAMOND_SWORD));
+        this.setSlot(0);
+    }
+    @Override
+    public void onFight(EntityDamageByEntityEvent event) {
+        if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
+            this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
+        }
+    }
+
+    @Override
+    public void run() {
+        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+    }
+}

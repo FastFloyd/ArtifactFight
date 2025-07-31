@@ -1,0 +1,8 @@
+name: ArtifactFight
+version: '1.0-SNAPSHOT'
+main: zzxcraft.artifactFight.ArtifactFight
+api-version: '1.21'
+commands:
+  tent:
+    description: about tent
+    usage: /<command>
