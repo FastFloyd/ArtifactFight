@@ -20,7 +20,7 @@ public class ChooseItemInventory implements InventoryHolder {
     private final static JavaPlugin javaPlugin = ArtifactFight.getMainClass();
     private final FileConfiguration config =ArtifactFight.getMainClass().getConfig();
     private final Player player;
-    private final String[] SlotName={"helmet","chestplate","legging","boots","mainweapon","deputyweapon","firstprop","secondprop","thirdprop"};
+    private final String[] SlotName={"helmet","chestplate","legging","boot","mainweapon","deputyweapon","firstprop","secondprop","thirdprop"};
     public ChooseItemInventory(Player player) {
         this.player=player;
         inventory = javaPlugin.getServer().createInventory(this,9);
