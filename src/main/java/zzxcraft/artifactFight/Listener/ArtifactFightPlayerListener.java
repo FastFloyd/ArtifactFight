@@ -142,7 +142,8 @@ public class ArtifactFightPlayerListener implements Listener {
                 player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_helmet"),PersistentDataType.INTEGER, ((ChooseHelmetInventory) inventoryHolder).getHelmetType(slot).getId());
+                Integer integer=((ChooseHelmetInventory) inventoryHolder).getHelmetType(slot).getId();
+                if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_helmet"),PersistentDataType.INTEGER, integer);
             }
         }
         else if((inventoryHolder instanceof ChooseChestPlateInventory)){
@@ -152,10 +153,12 @@ public class ArtifactFightPlayerListener implements Listener {
             else{
                 Object o=((ChooseChestPlateInventory) inventoryHolder).getChestPlateType(slot);
                 if(o instanceof ArtifactChestPlateType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_chestplate"),PersistentDataType.INTEGER,((ArtifactChestPlateType) o).getId()*10+1);
+                    Integer integer=((ArtifactChestPlateType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_chestplate"),PersistentDataType.INTEGER,integer*10+1);
                 }
                 else{
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_elytra"),PersistentDataType.INTEGER,((ArtifactElytraType) o).getId()*10+2);
+                    Integer integer=((ArtifactElytraType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_elytra"),PersistentDataType.INTEGER,integer*10+2);
                 }
             }
         }
@@ -164,7 +167,8 @@ public class ArtifactFightPlayerListener implements Listener {
                 player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_legging"),PersistentDataType.INTEGER,((ChooseLeggingInventory) inventoryHolder).getLeggingType(slot).getId());
+                Integer integer=((ChooseLeggingInventory) inventoryHolder).getLeggingType(slot).getId();
+                if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_legging"),PersistentDataType.INTEGER,integer);
             }
         }
         else if((inventoryHolder instanceof ChooseBootInventory)){
@@ -172,7 +176,8 @@ public class ArtifactFightPlayerListener implements Listener {
                 player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_boot"),PersistentDataType.INTEGER,((ChooseBootInventory) inventoryHolder).getBootType(slot).getId());
+                Integer integer=((ChooseBootInventory) inventoryHolder).getBootType(slot).getId();
+                if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_boot"),PersistentDataType.INTEGER,integer);
             }
         }
         else if((inventoryHolder instanceof ChooseMainWeaponInventory)){
@@ -182,13 +187,16 @@ public class ArtifactFightPlayerListener implements Listener {
             else{
                 Object o=((ChooseMainWeaponInventory)inventoryHolder).getMainWeaponType(slot);
                 if(o instanceof ArtifactMainWeaponType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactMainWeaponType) o).getId()*10+1);
+                    Integer integer=((ArtifactMainWeaponType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+1);
                 }
                 else if(o instanceof ArtifactBowType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactBowType) o).getId()*10+2);
+                    Integer integer=((ArtifactBowType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+2);
                 }
                 else if(o instanceof ArtifactShieldType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactShieldType) o).getId()*10+3);
+                    Integer integer=((ArtifactShieldType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,integer*10+3);
                 }
             }
         }
@@ -199,13 +207,16 @@ public class ArtifactFightPlayerListener implements Listener {
             else{
                 Object o=((ChooseDeputyWeaponInventory)inventoryHolder).getDeputyWeaponType(slot);
                 if(o instanceof ArtifactMainWeaponType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,((ArtifactMainWeaponType) o).getId()*10+1);
+                    Integer integer=((ArtifactMainWeaponType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+1);
                 }
                 else if(o instanceof ArtifactBowType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,((ArtifactBowType) o).getId()*10+2);
+                    Integer integer=((ArtifactBowType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+2);
                 }
                 else if(o instanceof ArtifactShieldType){
-                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,((ArtifactShieldType) o).getId()*10+3);
+                    Integer integer=((ArtifactShieldType) o).getId();
+                    if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_deputyweapon"),PersistentDataType.INTEGER,integer*10+3);
                 }
             }
         }
@@ -214,7 +225,8 @@ public class ArtifactFightPlayerListener implements Listener {
                 player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_firstprop"),PersistentDataType.INTEGER,((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId());
+                Integer integer=((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId();
+                if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_firstprop"),PersistentDataType.INTEGER,integer);
             }
         }
         else if((inventoryHolder instanceof ChooseSecondPropInventory)){
@@ -222,7 +234,8 @@ public class ArtifactFightPlayerListener implements Listener {
                 player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_secondprop"),PersistentDataType.INTEGER,((ChooseSecondPropInventory) inventoryHolder).getPropType(slot).getId());
+                Integer integer=((ChooseSecondPropInventory) inventoryHolder).getPropType(slot).getId();
+                if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_secondprop"),PersistentDataType.INTEGER,integer);
             }
         }
         else if((inventoryHolder instanceof ChooseThirdPropInventory)){
@@ -230,7 +243,8 @@ public class ArtifactFightPlayerListener implements Listener {
                 player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_thirdprop"),PersistentDataType.INTEGER,((ChooseThirdPropInventory) inventoryHolder).getPropType(slot).getId());
+                Integer integer=((ChooseThirdPropInventory) inventoryHolder).getPropType(slot).getId();
+                if(integer!=null) player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_thirdprop"),PersistentDataType.INTEGER,integer);
             }
         }
         else if((inventoryHolder instanceof BuyHelmetInventory)){

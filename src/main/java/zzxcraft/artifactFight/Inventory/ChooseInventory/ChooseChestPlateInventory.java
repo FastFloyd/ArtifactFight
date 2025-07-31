@@ -43,7 +43,7 @@ public class ChooseChestPlateInventory implements InventoryHolder {
             I++;
         }
         for(int i=1;i<=3;i++){
-            Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_eltra"+i), PersistentDataType.BOOLEAN);
+            Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_elytra"+i), PersistentDataType.BOOLEAN);
             if(c==null) continue;;
             addChestPlate(I, ArtifactElytraType.getElytra(i));
             I++;
