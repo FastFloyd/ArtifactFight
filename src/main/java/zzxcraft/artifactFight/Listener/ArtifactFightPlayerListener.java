@@ -139,7 +139,7 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseHelmetInventory)){
             if(slot==49){
-                player.openInventory(((ChooseHelmetInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
                 player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_helmet"),PersistentDataType.INTEGER, ((ChooseHelmetInventory) inventoryHolder).getHelmetType(slot).getId());
@@ -147,7 +147,7 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseChestPlateInventory)){
             if(slot==49){
-                player.openInventory(((ChooseChestPlateInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
                 Object o=((ChooseChestPlateInventory) inventoryHolder).getChestPlateType(slot);
@@ -161,7 +161,7 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseLeggingInventory)){
             if(slot==49){
-                player.openInventory(((ChooseLeggingInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
                 player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_legging"),PersistentDataType.INTEGER,((ChooseLeggingInventory) inventoryHolder).getLeggingType(slot).getId());
@@ -169,7 +169,7 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseBootInventory)){
             if(slot==49){
-                player.openInventory(((ChooseBootInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
                 player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_boot"),PersistentDataType.INTEGER,((ChooseBootInventory) inventoryHolder).getBootType(slot).getId());
@@ -177,7 +177,7 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseMainWeaponInventory)){
             if(slot==49){
-                player.openInventory(((ChooseMainWeaponInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
                 Object o=((ChooseMainWeaponInventory)inventoryHolder).getMainWeaponType(slot);
@@ -194,7 +194,7 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseDeputyWeaponInventory)){
             if(slot==49){
-                player.openInventory(((ChooseDeputyWeaponInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
                 Object o=((ChooseDeputyWeaponInventory)inventoryHolder).getDeputyWeaponType(slot);
@@ -211,7 +211,7 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseFirstPropInventory)){
             if(slot==49){
-                player.openInventory(((ChooseFirstPropInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
                 player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_firstprop"),PersistentDataType.INTEGER,((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId());
@@ -219,18 +219,18 @@ public class ArtifactFightPlayerListener implements Listener {
         }
         else if((inventoryHolder instanceof ChooseSecondPropInventory)){
             if(slot==49){
-                player.openInventory(((ChooseSecondPropInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_secondprop"),PersistentDataType.INTEGER,((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId());
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_secondprop"),PersistentDataType.INTEGER,((ChooseSecondPropInventory) inventoryHolder).getPropType(slot).getId());
             }
         }
         else if((inventoryHolder instanceof ChooseThirdPropInventory)){
             if(slot==49){
-                player.openInventory(((ChooseThirdPropInventory) inventoryHolder).getSuperInventory().getInventory());
+                player.openInventory(new ChooseItemInventory(player).getInventory());
             }
             else{
-                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_thirdprop"),PersistentDataType.INTEGER,((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId());
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_thirdprop"),PersistentDataType.INTEGER,((ChooseThirdPropInventory) inventoryHolder).getPropType(slot).getId());
             }
         }
         else if((inventoryHolder instanceof BuyHelmetInventory)){
