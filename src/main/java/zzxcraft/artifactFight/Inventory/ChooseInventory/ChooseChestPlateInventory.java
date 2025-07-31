@@ -14,6 +14,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactChestPlateType;
+import zzxcraft.artifactFight.Artifact.Type.ArtifactElytraType;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactHelmetType;
 import zzxcraft.artifactFight.ArtifactFight;
 
@@ -27,16 +28,24 @@ public class ChooseChestPlateInventory implements InventoryHolder {
     private final Player player;
     private final ChooseItemInventory superInventory;
     private HashMap<Integer,ArtifactChestPlateType> chestPlateTypeHashMap=new HashMap<>();
+    private HashMap<Integer, ArtifactElytraType> elytraTypeHashMap=new HashMap<>();
     public ChooseChestPlateInventory(Player player,ChooseItemInventory chooseItemInventory){
         this.superInventory=chooseItemInventory;
         this.player=player;
         this.inventorys = Set.of(javaPlugin.getServer().createInventory(this,54));
         this.getInventory().setItem(49,NameItemStack(ItemStack.of(Material.BLACK_WOOL)));
         PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-        for(int i=1,I=0;i<=4;i++){
+        int I=0;
+        for(int i=1;i<=4;i++){
             Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_chestplate"+i), PersistentDataType.BOOLEAN);
             if(c==null) continue;
             addChestPlate(I, ArtifactChestPlateType.getChestplate(i));
+            I++;
+        }
+        for(int i=1;i<=3;i++){
+            Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_eltra"+i), PersistentDataType.BOOLEAN);
+            if(c==null) continue;;
+            addChestPlate(I, ArtifactElytraType.getElytra(i));
             I++;
         }
     }
@@ -58,7 +67,16 @@ public class ChooseChestPlateInventory implements InventoryHolder {
         this.chestPlateTypeHashMap.put(slot,artifactChestPlateType);
         this.getInventory().setItem(slot,artifactChestPlateType.getItemStack());
     }
-    public ArtifactChestPlateType getChestPlateType(int slot){
-        return this.chestPlateTypeHashMap.get(slot);
+    private void addChestPlate(int slot,ArtifactElytraType artifactElytraType){
+        this.elytraTypeHashMap.put(slot,artifactElytraType);
+        this.getInventory().setItem(slot,artifactElytraType.getItemStack());
+    }
+    public Object getChestPlateType(int slot){
+        if(slot<this.chestPlateTypeHashMap.size()){
+            return this.chestPlateTypeHashMap.get(slot);
+        }
+        else{
+            return this.elytraTypeHashMap.get(slot);
+        }
     }
 }

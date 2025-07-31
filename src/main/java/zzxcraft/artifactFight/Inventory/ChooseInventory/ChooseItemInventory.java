@@ -30,7 +30,7 @@ public class ChooseItemInventory implements InventoryHolder {
     }
     private void itemdisplay(int slot){
         PersistentDataContainer playerPersistentDataContainer = player.getPersistentDataContainer();
-        Integer type=playerPersistentDataContainer.get(new NamespacedKey(javaPlugin,"chose"+SlotName[slot]), PersistentDataType.INTEGER);
+        Integer type=playerPersistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_"+SlotName[slot]), PersistentDataType.INTEGER);
         if(type==null){
             inventory.setItem(slot, ItemStack.of(Material.BARRIER));
         }
@@ -44,10 +44,10 @@ public class ChooseItemInventory implements InventoryHolder {
                 };
                 case 2 -> ArtifactLeggingType.getLegging(type).getItemStack();
                 case 3 -> ArtifactBootType.getBoot(type).getItemStack();
-                case 4 -> ArtifactMainWeaponType.getWeapon(type).getItemStack();
-                case 5 -> switch (type%10){
-                    case 1 -> ArtifactBowType.getBow(type/10).getItemStack();
-                    case 2 -> ArtifactShieldType.getShield(type/10).getItemStack();
+                case 4, 5 -> switch (type%10){
+                    case 1 -> ArtifactMainWeaponType.getWeapon(type/10).getItemStack();
+                    case 2 -> ArtifactBowType.getBow(type/10).getItemStack();
+                    case 3 -> ArtifactShieldType.getShield(type/10).getItemStack();
                     default -> null;
                 };
                 case 6, 7, 8 -> ArtifactPropType.getProp(type).getItemStack();

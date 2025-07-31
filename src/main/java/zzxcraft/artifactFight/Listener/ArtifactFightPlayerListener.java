@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.units.qual.N;
 import zzxcraft.artifactFight.Artifact.Type.*;
 import zzxcraft.artifactFight.ArtifactFight;
 import zzxcraft.artifactFight.Inventory.ChooseInventory.*;
@@ -140,45 +141,96 @@ public class ArtifactFightPlayerListener implements Listener {
             if(slot==49){
                 player.openInventory(((ChooseHelmetInventory) inventoryHolder).getSuperInventory().getInventory());
             }
+            else{
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_helmet"),PersistentDataType.INTEGER, ((ChooseHelmetInventory) inventoryHolder).getHelmetType(slot).getId());
+            }
         }
         else if((inventoryHolder instanceof ChooseChestPlateInventory)){
             if(slot==49){
                 player.openInventory(((ChooseChestPlateInventory) inventoryHolder).getSuperInventory().getInventory());
+            }
+            else{
+                Object o=((ChooseChestPlateInventory) inventoryHolder).getChestPlateType(slot);
+                if(o instanceof ArtifactChestPlateType){
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_chestplate"),PersistentDataType.INTEGER,((ArtifactChestPlateType) o).getId()*10+1);
+                }
+                else{
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_elytra"),PersistentDataType.INTEGER,((ArtifactElytraType) o).getId()*10+2);
+                }
             }
         }
         else if((inventoryHolder instanceof ChooseLeggingInventory)){
             if(slot==49){
                 player.openInventory(((ChooseLeggingInventory) inventoryHolder).getSuperInventory().getInventory());
             }
+            else{
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_legging"),PersistentDataType.INTEGER,((ChooseLeggingInventory) inventoryHolder).getLeggingType(slot).getId());
+            }
         }
         else if((inventoryHolder instanceof ChooseBootInventory)){
             if(slot==49){
                 player.openInventory(((ChooseBootInventory) inventoryHolder).getSuperInventory().getInventory());
+            }
+            else{
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_boot"),PersistentDataType.INTEGER,((ChooseBootInventory) inventoryHolder).getBootType(slot).getId());
             }
         }
         else if((inventoryHolder instanceof ChooseMainWeaponInventory)){
             if(slot==49){
                 player.openInventory(((ChooseMainWeaponInventory) inventoryHolder).getSuperInventory().getInventory());
             }
+            else{
+                Object o=((ChooseMainWeaponInventory)inventoryHolder).getMainWeaponType(slot);
+                if(o instanceof ArtifactMainWeaponType){
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactMainWeaponType) o).getId()*10+1);
+                }
+                else if(o instanceof ArtifactBowType){
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactBowType) o).getId()*10+2);
+                }
+                else if(o instanceof ArtifactShieldType){
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactShieldType) o).getId()*10+3);
+                }
+            }
         }
         else if((inventoryHolder instanceof ChooseDeputyWeaponInventory)){
             if(slot==49){
                 player.openInventory(((ChooseDeputyWeaponInventory) inventoryHolder).getSuperInventory().getInventory());
+            }
+            else{
+                Object o=((ChooseDeputyWeaponInventory)inventoryHolder).getDeputyWeaponType(slot);
+                if(o instanceof ArtifactMainWeaponType){
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactMainWeaponType) o).getId()*10+1);
+                }
+                else if(o instanceof ArtifactBowType){
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactBowType) o).getId()*10+2);
+                }
+                else if(o instanceof ArtifactShieldType){
+                    player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER,((ArtifactShieldType) o).getId()*10+3);
+                }
             }
         }
         else if((inventoryHolder instanceof ChooseFirstPropInventory)){
             if(slot==49){
                 player.openInventory(((ChooseFirstPropInventory) inventoryHolder).getSuperInventory().getInventory());
             }
+            else{
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_firstprop"),PersistentDataType.INTEGER,((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId());
+            }
         }
         else if((inventoryHolder instanceof ChooseSecondPropInventory)){
             if(slot==49){
                 player.openInventory(((ChooseSecondPropInventory) inventoryHolder).getSuperInventory().getInventory());
             }
+            else{
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_secondprop"),PersistentDataType.INTEGER,((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId());
+            }
         }
         else if((inventoryHolder instanceof ChooseThirdPropInventory)){
             if(slot==49){
                 player.openInventory(((ChooseThirdPropInventory) inventoryHolder).getSuperInventory().getInventory());
+            }
+            else{
+                player.getPersistentDataContainer().set(new NamespacedKey(javaPlugin,"chose_thirdprop"),PersistentDataType.INTEGER,((ChooseFirstPropInventory) inventoryHolder).getPropType(slot).getId());
             }
         }
         else if((inventoryHolder instanceof BuyHelmetInventory)){
@@ -379,7 +431,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_helmet"+((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetHelmetInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -396,7 +447,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_chestplate"+((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetChestPlateInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -413,7 +463,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_legging"+((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetLeggingInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -430,7 +479,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetBootInventory) inventoryHolder).getArtifactBootType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetBootInventory) inventoryHolder).getArtifactBootType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_boot"+((GetBootInventory) inventoryHolder).getArtifactBootType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetBootInventory) inventoryHolder).getArtifactBootType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetBootInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -447,7 +495,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_mainWeapon"+((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetMainWeaponInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -464,7 +511,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetShieldInventory) inventoryHolder).getArtifactShieldType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetShieldInventory) inventoryHolder).getArtifactShieldType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_shield"+((GetShieldInventory) inventoryHolder).getArtifactShieldType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetShieldInventory) inventoryHolder).getArtifactShieldType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetShieldInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -481,7 +527,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetBowInventory) inventoryHolder).getArtifactBowType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetBowInventory) inventoryHolder).getArtifactBowType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_bow"+((GetBowInventory) inventoryHolder).getArtifactBowType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetBowInventory) inventoryHolder).getArtifactBowType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetBowInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -498,7 +543,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetPropInventory) inventoryHolder).getArtifactPropType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetPropInventory) inventoryHolder).getArtifactPropType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_prop"+((GetPropInventory) inventoryHolder).getArtifactPropType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetPropInventory) inventoryHolder).getArtifactPropType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetPropInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
@@ -515,7 +559,6 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetElytraInventory) inventoryHolder).getArtifactElytraType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetElytraInventory) inventoryHolder).getArtifactElytraType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_elytra"+((GetElytraInventory) inventoryHolder).getArtifactElytraType().getId()),PersistentDataType.BOOLEAN,true);
-                    player.sendMessage(Component.text("你成功的购买了"+((GetElytraInventory) inventoryHolder).getArtifactElytraType().getItemStack().getItemMeta().displayName()+"!",TextColor.color(0,255,0)));
                     player.openInventory(((GetElytraInventory) inventoryHolder).getSuper_inventory().getInventory());
                 }
                 else{
