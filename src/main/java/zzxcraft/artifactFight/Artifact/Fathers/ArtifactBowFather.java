@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public abstract class ArtifactBowFather extends ArtifactFather {
-    public ArtifactBowFather(Player player) {
-        super(player);
+    public ArtifactBowFather(Player player,Integer slot) {
+        super(player,slot);
     }
 
     public abstract void onHit(ProjectileHitEvent event);
     public abstract void onLaunch(ProjectileLaunchEvent event);
-    public abstract void onLoad(EntityLoadCrossbowEvent event);
 }

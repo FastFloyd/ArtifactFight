@@ -13,7 +13,6 @@ public class diamond_helmet extends ArtifactHelmetFather {
     public diamond_helmet(Player player) {
         super(player);
         this.setItemStack(ItemStack.of(Material.DIAMOND_HELMET));
-        this.setSlot(103);
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {
@@ -25,6 +24,6 @@ public class diamond_helmet extends ArtifactHelmetFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getHelmet(),this.getItemStack())) this.getPlayer().getInventory().setHelmet(this.getItemStack());
     }
 }

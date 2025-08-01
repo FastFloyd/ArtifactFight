@@ -13,7 +13,6 @@ public class leather_helmet extends ArtifactHelmetFather {
     public leather_helmet(Player player) {
         super(player);
         this.setItemStack(ItemStack.of(Material.LEATHER_HELMET));
-        this.setSlot(103);
     }
 
     @Override
@@ -25,6 +24,6 @@ public class leather_helmet extends ArtifactHelmetFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getHelmet(),this.getItemStack())) this.getPlayer().getInventory().setHelmet(this.getItemStack());
     }
 }

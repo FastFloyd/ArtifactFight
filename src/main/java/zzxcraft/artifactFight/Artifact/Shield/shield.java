@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class shield extends ArtifactShieldFather {
-    public shield(Player player) {
-        super(player);
+    public shield(Player player,Integer slot) {
+        super(player,slot);
         this.setItemStack(ItemStack.of(Material.SHIELD));
-        this.setSlot(99);
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {

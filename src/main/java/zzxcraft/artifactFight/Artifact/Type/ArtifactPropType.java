@@ -27,7 +27,6 @@ public class ArtifactPropType {
     Integer price;
     Integer id;
     public static final ArtifactPropType FIREWORK_ROCKET = new ArtifactPropType(2,createItemStack(Material.FIREWORK_ROCKET,16,"烟花火箭",List.of(),Set.of()), firework_rocket.class,Set.of(),100);
-
     public static final ArtifactPropType SNOWBALL = new ArtifactPropType(1,createItemStack(Material.SNOWBALL,16,"雪球", List.of(),Set.of()), snowball.class,Set.of(),0);
     public static final ArtifactPropType BUY_PROP= new ArtifactPropType(-1,ItemStack.of(Material.BARRIER), ArtifactPropFather.class,Set.of(ArtifactPropType.SNOWBALL,ArtifactPropType.FIREWORK_ROCKET),0);
     private ArtifactPropType(Integer id,ItemStack itemStack,Class<? extends ArtifactPropFather> prclass,Set<ArtifactPropType> children,Integer price){
@@ -39,9 +38,9 @@ public class ArtifactPropType {
 
     }
     public ItemStack getItemStack() {return this.itemStack;}
-    public ArtifactPropFather createRunnable(Player player) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public ArtifactPropFather createRunnable(Player player,Integer slot) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         if(prclass==null) return null;
-        return prclass.getConstructor(Player.class).newInstance(player);
+        return prclass.getConstructor(Player.class,Integer.class).newInstance(player,slot);
     }
     private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet){
         ItemStack itemStack1=ItemStack.of(material,count);

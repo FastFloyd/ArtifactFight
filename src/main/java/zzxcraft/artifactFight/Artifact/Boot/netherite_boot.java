@@ -13,7 +13,6 @@ public class netherite_boot extends ArtifactBootFather {
     public netherite_boot(Player player) {
         super(player);
         this.setItemStack(ItemStack.of(Material.NETHERITE_BOOTS));
-        this.setSlot(100);
     }
 
     @Override
@@ -25,6 +24,6 @@ public class netherite_boot extends ArtifactBootFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getBoots(),this.getItemStack())) this.getPlayer().getInventory().setBoots(this.getItemStack());
     }
 }

@@ -15,7 +15,6 @@ public class iron_chestplate extends ArtifactChestPlateFather {
     public iron_chestplate(Player player) {
         super(player);
         this.setItemStack(ItemStack.of(Material.IRON_CHESTPLATE));
-        this.setSlot(102);
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {
@@ -28,6 +27,6 @@ public class iron_chestplate extends ArtifactChestPlateFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getChestplate(),this.getItemStack())) this.getPlayer().getInventory().setChestplate(this.getItemStack());
     }
 }

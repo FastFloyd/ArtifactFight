@@ -39,9 +39,9 @@ public class ArtifactShieldType {
         this.price=price;
     }
     public ItemStack getItemStack() {return this.itemStack;}
-    public ArtifactShieldFather createRunnable(Player player) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public ArtifactShieldFather createRunnable(Player player,Integer slot) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         if(prclass==null) return null;
-        return prclass.getConstructor(Player.class).newInstance(player);
+        return prclass.getConstructor(Player.class, Integer.class).newInstance(player,slot);
     }
     private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet){
         ItemStack itemStack1=ItemStack.of(material,count);

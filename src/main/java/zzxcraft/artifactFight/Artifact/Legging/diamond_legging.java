@@ -14,7 +14,6 @@ public class diamond_legging extends ArtifactLeggingFather {
     public diamond_legging(Player player) {
         super(player);
         this.setItemStack(ItemStack.of(Material.DIAMOND_LEGGINGS));
-        this.setSlot(101);
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {
@@ -25,6 +24,6 @@ public class diamond_legging extends ArtifactLeggingFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getLeggings(),this.getItemStack())) this.getPlayer().getInventory().setLeggings(this.getItemStack());
     }
 }

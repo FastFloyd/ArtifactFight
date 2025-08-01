@@ -13,15 +13,15 @@ import java.util.Objects;
 public class snowball extends ArtifactPropFather {
     private int count;
     private int i;
-    public snowball(Player player,int slot) {
-        super(player);
+    public snowball(Player player,Integer slot) {
+        super(player,slot);
         this.count=16;
         this.setItemStack(ItemStack.of(Material.SNOWBALL,16));
-        this.setSlot(slot);
         i=0;
     }
     @Override
     public void onUse(PlayerInteractEvent event) {
+        if(this.count==0) event.setCancelled(true);
         this.count--;
         this.setItemStack(ItemStack.of(Material.SNOWBALL,count));
     }
@@ -29,6 +29,7 @@ public class snowball extends ArtifactPropFather {
 
     @Override
     public void run() {
+        if(this.count==16) i=0;
         i++;
         if(i==20){
             this.count++;

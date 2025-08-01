@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public abstract class ArtifactShieldFather extends ArtifactFather{
-    public ArtifactShieldFather(Player player) {
-        super(player);
+    public ArtifactShieldFather(Player player,Integer slot) {
+        super(player,slot);
     }
     public abstract void OnFighted(EntityDamageByEntityEvent event);
 }

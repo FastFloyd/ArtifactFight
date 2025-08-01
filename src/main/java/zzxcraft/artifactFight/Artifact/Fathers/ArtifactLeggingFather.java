@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public abstract class ArtifactLeggingFather extends ArtifactFather {
     public ArtifactLeggingFather(Player player) {
-        super(player);
+        super(player,101);
     }
 
     public abstract void OnFighted(EntityDamageByEntityEvent event);

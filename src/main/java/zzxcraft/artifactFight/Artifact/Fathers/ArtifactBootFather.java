@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public abstract class ArtifactBootFather extends ArtifactFather {
     public ArtifactBootFather(Player player) {
-        super(player);
+        super(player,100);
     }
 
     public abstract void OnFighted(EntityDamageByEntityEvent event);

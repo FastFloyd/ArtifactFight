@@ -13,11 +13,10 @@ import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBowFather;
 import java.util.Objects;
 
 public class super_power_bow extends ArtifactBowFather {
-    public super_power_bow(Player player) {
-        super(player);
+    public super_power_bow(Player player,Integer slot) {
+        super(player,slot);
         this.setItemStack(ItemStack.of(Material.BOW));
         this.getItemStack().addEnchantment(Enchantment.POWER,5);
-        this.setSlot(1);
     }
 
     @Override
@@ -30,11 +29,6 @@ public class super_power_bow extends ArtifactBowFather {
         if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
             this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
         }
-    }
-
-    @Override
-    public void onLoad(EntityLoadCrossbowEvent event) {
-
     }
 
     @Override

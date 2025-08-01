@@ -12,7 +12,7 @@ import java.util.Vector;
 
 public abstract class ArtifactHelmetFather extends ArtifactFather {
     public ArtifactHelmetFather(Player player) {
-        super(player);
+        super(player,103);
     }
 
     public abstract void OnFighted(EntityDamageByEntityEvent event);

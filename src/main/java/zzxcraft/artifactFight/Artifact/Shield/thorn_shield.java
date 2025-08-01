@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class thorn_shield extends ArtifactShieldFather {
-    public thorn_shield(Player player) {
-        super(player);
+    public thorn_shield(Player player,Integer slot) {
+        super(player,slot);
         this.setItemStack(ItemStack.of(Material.SHIELD));
-        this.setSlot(99);
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {

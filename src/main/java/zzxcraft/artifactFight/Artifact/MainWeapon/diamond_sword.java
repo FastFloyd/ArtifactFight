@@ -12,13 +12,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class diamond_sword extends ArtifactMainWeaponFather {
-    public diamond_sword(Player player) {
-        super(player);
+    public diamond_sword(Player player,Integer slot) {
+        super(player,slot);
         this.setItemStack(ItemStack.of(Material.DIAMOND_SWORD));
-        this.setSlot(0);
     }
     @Override
-    public void onFight(EntityDamageByEntityEvent event) {
+    public void OnFight(EntityDamageByEntityEvent event) {
         if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
             this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
         }

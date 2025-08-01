@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public abstract class ArtifactMainWeaponFather extends ArtifactFather{
-    public ArtifactMainWeaponFather(Player player) {
-        super(player);
+    public ArtifactMainWeaponFather(Player player,Integer slot) {
+        super(player,slot);
     }
-    public abstract void onFight(EntityDamageByEntityEvent event);
+    public abstract void OnFight(EntityDamageByEntityEvent event);
 }

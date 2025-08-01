@@ -12,23 +12,24 @@ import java.util.Objects;
 public class firework_rocket extends ArtifactPropFather {
     private int count;
     private int i;
-    public firework_rocket(Player player,int slot) {
-        super(player);
+    public firework_rocket(Player player,Integer slot) {
+        super(player,slot);
         this.count=16;
         this.setItemStack(ItemStack.of(Material.FIREWORK_ROCKET,16));
-        this.setSlot(slot);
         i=0;
     }
     @Override
     public void onUse(PlayerInteractEvent event) {
+        if(this.count==0) event.setCancelled(true);
         this.count--;
         this.setItemStack(ItemStack.of(Material.FIREWORK_ROCKET,count));
     }
 
     @Override
     public void run() {
+        if(this.count==16) i=0;
         i++;
-        if(i==20){
+        if(i==100){
             this.count++;
             i=0;
         }

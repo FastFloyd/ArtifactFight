@@ -13,10 +13,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class bow extends ArtifactBowFather {
-    public bow(Player player) {
-        super(player);
+    public bow(Player player,Integer slot) {
+        super(player,slot);
         this.setItemStack(ItemStack.of(Material.BOW));
-        this.setSlot(1);
     }
     @Override
     public void onHit(ProjectileHitEvent event) {
@@ -28,11 +27,6 @@ public class bow extends ArtifactBowFather {
         if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
             this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
         }
-    }
-
-    @Override
-    public void onLoad(EntityLoadCrossbowEvent event) {
-
     }
 
 

@@ -10,8 +10,9 @@ public abstract class ArtifactFather extends BukkitRunnable {
     private ItemStack itemStack;
     private int slot;
     private Player player;
-    public ArtifactFather(Player player) {
+    public ArtifactFather(Player player,Integer slot) {
         this.player=player;
+        this.slot=slot;
         this.runTaskTimer(ArtifactFight.getMainClass(),0,1);
     }
     public ItemStack getItemStack() {
@@ -31,5 +32,8 @@ public abstract class ArtifactFather extends BukkitRunnable {
     }
     protected void setPlayer(Player player){
         this.player=player;
+    }
+    public void finish(){
+        this.cancel();
     }
 }

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public abstract class ArtifactPropFather extends ArtifactFather {
-    public ArtifactPropFather(Player player) {
-        super(player);
+    public ArtifactPropFather(Player player,Integer slot) {
+        super(player,slot);
     }
     public abstract void onUse(PlayerInteractEvent event);
 }

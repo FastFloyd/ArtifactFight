@@ -4,6 +4,7 @@ import org.bukkit.command.CommandMap;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactFather;
 import zzxcraft.artifactFight.Command.ItemCommands;
 import zzxcraft.artifactFight.Listener.ArtifactFightPlayerListener;
+import zzxcraft.artifactFight.Listener.ArtifactItemListener;
 import zzxcraft.artifactFight.Player.PlayerOnPlay;
 import zzxcraft.artifactFight.Player.PlayerOnWait;
 import zzxcraft.artifactFight.Listener.ArtifactFightPlayerListener;
@@ -22,6 +23,7 @@ public final class ArtifactFight extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new ArtifactFightPlayerListener(),this);
+        getServer().getPluginManager().registerEvents(new ArtifactItemListener(),this);
         PlayerOnWait playerOnWait = new PlayerOnWait();
         playerOnWait.start();
         PlayerOnPlay playerOnPlay = new PlayerOnPlay();

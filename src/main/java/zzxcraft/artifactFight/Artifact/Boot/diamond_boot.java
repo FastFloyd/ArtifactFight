@@ -15,7 +15,6 @@ public class diamond_boot extends ArtifactBootFather {
     public diamond_boot(Player player) {
         super(player);
         this.setItemStack(ItemStack.of(Material.DIAMOND_BOOTS));
-        this.setSlot(100);
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {
@@ -26,7 +25,6 @@ public class diamond_boot extends ArtifactBootFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getBoots(),this.getItemStack())) this.getPlayer().getInventory().setBoots(this.getItemStack());
     }
-
 }

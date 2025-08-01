@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class power_bow extends ArtifactBowFather {
-    public power_bow(Player player) {
-        super(player);
+    public power_bow(Player player,Integer slot) {
+        super(player,slot);
         this.setItemStack(ItemStack.of(Material.BOW));
         this.getItemStack().addEnchantment(Enchantment.POWER,1);
-        this.setSlot(1);
     }
     @Override
     public void onHit(ProjectileHitEvent event) {
@@ -30,11 +29,6 @@ public class power_bow extends ArtifactBowFather {
         if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
             this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
         }
-    }
-
-    @Override
-    public void onLoad(EntityLoadCrossbowEvent event) {
-
     }
 
 
