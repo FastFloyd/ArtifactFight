@@ -18,9 +18,7 @@ public class super_speed_elytra extends ArtifactElytraFather {
 
     @Override
     public void OnGlide(PlayerMoveEvent event) {
-        if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
-            this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
-        }
+
         this.getPlayer().setVelocity(this.getPlayer().getVelocity().multiply(2.5));
     }
 

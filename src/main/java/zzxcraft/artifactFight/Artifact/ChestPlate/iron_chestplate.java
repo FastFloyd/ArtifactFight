@@ -18,9 +18,7 @@ public class iron_chestplate extends ArtifactChestPlateFather {
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {
-        if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
-            this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
-        }
+
     }
 
 

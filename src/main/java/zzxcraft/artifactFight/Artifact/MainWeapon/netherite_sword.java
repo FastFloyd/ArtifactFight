@@ -17,9 +17,7 @@ public class netherite_sword extends ArtifactMainWeaponFather {
 
     @Override
     public void OnFight(EntityDamageByEntityEvent event) {
-        if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
-            this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
-        }
+
     }
 
     @Override

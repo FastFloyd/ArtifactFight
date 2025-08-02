@@ -24,9 +24,7 @@ public class bow extends ArtifactBowFather {
 
     @Override
     public void onLaunch(ProjectileLaunchEvent event) {
-        if (this.getItemStack().getData(DataComponentTypes.DAMAGE) != null) {
-            this.getItemStack().setData(DataComponentTypes.DAMAGE,this.getItemStack().getData(DataComponentTypes.DAMAGE).intValue()-1);
-        }
+
     }
 
 
