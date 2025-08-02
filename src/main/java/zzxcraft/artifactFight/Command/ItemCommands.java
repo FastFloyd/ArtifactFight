@@ -68,15 +68,23 @@ public class ItemCommands extends Command {
                 switch(strings[0]){
                     case "add":{
                         persistentDataContainer.set(namespacedKey, PersistentDataType.INTEGER,persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)+Integer.parseInt(strings[2]));
+                        break;
                     }
                     case "set":{
                         persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,Integer.parseInt(strings[2]));
+                        break;
                     }
                     case "remove":{
                         persistentDataContainer.set(namespacedKey, PersistentDataType.INTEGER,Math.max(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)-Integer.parseInt(strings[2]),0));
+                        break;
                     }
                     case "get":{
                         commandSender.sendMessage(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER).toString());
+                        break;
+                    }
+                    default:{
+                        commandSender.sendMessage(strings[0]+"不是一个合法的指令");
+                        break;
                     }
                 }
             }
