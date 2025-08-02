@@ -1,13 +1,10 @@
 package zzxcraft.artifactFight.Artifact.Boot;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBootFather;
-import zzxcraft.artifactFight.Artifact.Fathers.ArtifactLeggingFather;
-import zzxcraft.artifactFight.Artifact.Type.ArtifactLeggingType;
 
 import java.util.Objects;
 

@@ -1,7 +1,5 @@
 package zzxcraft.artifactFight.Artifact.Bow;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -9,7 +7,6 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBowFather;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class bow extends ArtifactBowFather {

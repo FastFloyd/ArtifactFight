@@ -1,7 +1,5 @@
 package zzxcraft.artifactFight.Artifact.Bow;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

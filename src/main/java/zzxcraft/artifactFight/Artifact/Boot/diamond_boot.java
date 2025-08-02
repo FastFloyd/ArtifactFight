@@ -1,15 +1,12 @@
 package zzxcraft.artifactFight.Artifact.Boot;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBootFather;
 
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Vector;
 
 public class diamond_boot extends ArtifactBootFather {
     public diamond_boot(Player player) {

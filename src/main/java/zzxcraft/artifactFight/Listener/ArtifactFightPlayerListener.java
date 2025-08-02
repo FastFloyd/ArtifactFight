@@ -116,9 +116,9 @@ public class ArtifactFightPlayerListener implements Listener {
 
     @EventHandler
     public void SwapItem(PlayerSwapHandItemsEvent event){
+        event.setCancelled(true);
         HashMap<Integer, ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(event.getPlayer().getUniqueId());
         if(hashMap==null){
-            event.setCancelled(true);
             return;
         }
         ArtifactFather x=hashMap.get(event.getPlayer().getInventory().getHeldItemSlot());
@@ -126,28 +126,31 @@ public class ArtifactFightPlayerListener implements Listener {
         if(x!=null && y!=null){
             if(x instanceof ArtifactShieldFather){
                 x.setSlot(40);
-                hashMap.replace(40,x);
+                hashMap.remove(40);
+                hashMap.put(40,x);
                 y.setSlot(event.getPlayer().getInventory().getHeldItemSlot());
                 hashMap.replace(event.getPlayer().getInventory().getHeldItemSlot(), y);
             }
             else{
-                event.getPlayer().sendMessage(Component.text("你不能把这个物品放在副手"));
+                event.getPlayer().sendMessage(Component.text("你不能把这个物品放在副手",TextColor.color(255,0,0)));
             }
         }
         else if(x!=null){
             if(x instanceof ArtifactShieldFather){
                 x.setSlot(40);
-                hashMap.replace(40,x);
+                hashMap.remove(40);
+                hashMap.put(40,x);
             }
         }
         else if(y!=null){
             y.setSlot(event.getPlayer().getInventory().getHeldItemSlot());
-            hashMap.replace(event.getPlayer().getInventory().getHeldItemSlot(), y);
+            hashMap.remove(event.getPlayer().getInventory().getHeldItemSlot());
+            hashMap.put(event.getPlayer().getInventory().getHeldItemSlot(),y);
         }
-        else;
         event.getPlayer().getInventory().setItem(40,ItemStack.empty());
         event.getPlayer().getInventory().setItem(event.getPlayer().getInventory().getHeldItemSlot(),ItemStack.empty());
-        PlayerArtifactMap.ArtifactMap.replace(event.getPlayer().getUniqueId(),hashMap);
+        PlayerArtifactMap.ArtifactMap.remove(event.getPlayer().getUniqueId());
+        PlayerArtifactMap.ArtifactMap.put(event.getPlayer().getUniqueId(),hashMap);
     }
 
     @EventHandler

@@ -1,6 +1,5 @@
 package zzxcraft.artifactFight.Artifact.Shield;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
