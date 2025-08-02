@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public abstract class ArtifactChestPlateFather extends ArtifactFather {
     public ArtifactChestPlateFather(Player player) {
-        super(player,102);
+        super(player,38);
     }
     public abstract void OnFighted(EntityDamageByEntityEvent event);
 }

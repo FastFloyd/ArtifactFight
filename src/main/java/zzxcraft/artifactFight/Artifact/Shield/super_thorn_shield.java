@@ -25,6 +25,6 @@ public class super_thorn_shield extends ArtifactShieldFather {
 
     @Override
     public void run() {
-        if(Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

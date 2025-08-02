@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import zzxcraft.artifactFight.ArtifactFight;
+import zzxcraft.artifactFight.PlayerArtifactMap;
 
 public abstract class ArtifactFather extends BukkitRunnable {
     private ItemStack itemStack;
@@ -13,6 +14,7 @@ public abstract class ArtifactFather extends BukkitRunnable {
     public ArtifactFather(Player player,Integer slot) {
         this.player=player;
         this.slot=slot;
+        PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(slot,this);
         this.runTaskTimer(ArtifactFight.getMainClass(),0,1);
     }
     public ItemStack getItemStack() {
@@ -24,7 +26,7 @@ public abstract class ArtifactFather extends BukkitRunnable {
     public int getSlot(){
         return this.slot;
     }
-    protected void setSlot(int slot){
+    public void setSlot(int slot){
         this.slot=slot;
     }
     public Player getPlayer(){

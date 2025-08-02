@@ -24,6 +24,6 @@ public class netherite_helmet extends ArtifactHelmetFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getHelmet(),this.getItemStack())) this.getPlayer().getInventory().setHelmet(this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

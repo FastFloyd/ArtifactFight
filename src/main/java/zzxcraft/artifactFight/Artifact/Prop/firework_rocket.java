@@ -22,7 +22,6 @@ public class firework_rocket extends ArtifactPropFather {
     public void onUse(PlayerInteractEvent event) {
         if(this.count==0) event.setCancelled(true);
         this.count--;
-        this.setItemStack(ItemStack.of(Material.FIREWORK_ROCKET,count));
     }
 
     @Override
@@ -33,7 +32,14 @@ public class firework_rocket extends ArtifactPropFather {
             this.count++;
             i=0;
         }
-        this.setItemStack(ItemStack.of(Material.FIREWORK_ROCKET,count));
+        if(this.count<=0){
+            this.setItemStack(ItemStack.of(Material.BARRIER));
+            this.count=0;
+        }
+        else{
+            this.setItemStack(ItemStack.of(Material.FIREWORK_ROCKET,count));
+        }
+
         if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

@@ -24,6 +24,6 @@ public class iron_legging extends ArtifactLeggingFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getLeggings(),this.getItemStack())) this.getPlayer().getInventory().setLeggings(this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

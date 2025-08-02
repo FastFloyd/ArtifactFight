@@ -15,12 +15,15 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactFather;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactShieldFather;
 import zzxcraft.artifactFight.Artifact.Type.*;
 import zzxcraft.artifactFight.ArtifactFight;
 import zzxcraft.artifactFight.Inventory.ChooseInventory.*;
@@ -29,6 +32,7 @@ import zzxcraft.artifactFight.Inventory.GetInventory.*;
 import zzxcraft.artifactFight.PlayerArtifactMap;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 public class ArtifactFightPlayerListener implements Listener {
     private final static JavaPlugin javaPlugin = ArtifactFight.getMainClass();
@@ -50,6 +54,7 @@ public class ArtifactFightPlayerListener implements Listener {
             player.removeScoreboardTag(string);
         }
         player.addScoreboardTag("onWait");
+        PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
         if(PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId()).finish();
         PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
         if(PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId()).finish();
@@ -83,6 +88,7 @@ public class ArtifactFightPlayerListener implements Listener {
             player.removeScoreboardTag(string);
         }
         player.addScoreboardTag("onWait");
+        PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
         if(PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId()).finish();
         PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
         if(PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId()).finish();
@@ -106,6 +112,42 @@ public class ArtifactFightPlayerListener implements Listener {
     @EventHandler
     public void DropItem(PlayerDropItemEvent event){
         if(!event.getPlayer().isOp()) event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void SwapItem(PlayerSwapHandItemsEvent event){
+        HashMap<Integer, ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(event.getPlayer().getUniqueId());
+        if(hashMap==null){
+            event.setCancelled(true);
+            return;
+        }
+        ArtifactFather x=hashMap.get(event.getPlayer().getInventory().getHeldItemSlot());
+        ArtifactFather y=hashMap.get(40);
+        if(x!=null && y!=null){
+            if(x instanceof ArtifactShieldFather){
+                x.setSlot(40);
+                hashMap.replace(40,x);
+                y.setSlot(event.getPlayer().getInventory().getHeldItemSlot());
+                hashMap.replace(event.getPlayer().getInventory().getHeldItemSlot(), y);
+            }
+            else{
+                event.getPlayer().sendMessage(Component.text("你不能把这个物品放在副手"));
+            }
+        }
+        else if(x!=null){
+            if(x instanceof ArtifactShieldFather){
+                x.setSlot(40);
+                hashMap.replace(40,x);
+            }
+        }
+        else if(y!=null){
+            y.setSlot(event.getPlayer().getInventory().getHeldItemSlot());
+            hashMap.replace(event.getPlayer().getInventory().getHeldItemSlot(), y);
+        }
+        else;
+        event.getPlayer().getInventory().setItem(40,ItemStack.empty());
+        event.getPlayer().getInventory().setItem(event.getPlayer().getInventory().getHeldItemSlot(),ItemStack.empty());
+        PlayerArtifactMap.ArtifactMap.replace(event.getPlayer().getUniqueId(),hashMap);
     }
 
     @EventHandler
@@ -134,6 +176,7 @@ public class ArtifactFightPlayerListener implements Listener {
                     player.removeScoreboardTag(string);
                 }
                 player.addScoreboardTag("onPlay");
+                PlayerArtifactMap.ArtifactMap.put(player.getUniqueId(),new HashMap<>());
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 Integer helmetInt=persistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_helmet"),PersistentDataType.INTEGER);
                 if(helmetInt!=null){
@@ -192,7 +235,7 @@ public class ArtifactFightPlayerListener implements Listener {
                         }
                     }
                     else if(deputyweaponInt%10==2){
-                        if (ArtifactBowType.getBow(deputyweaponInt/10) != null) {
+                        if (ArtifactBowType.getBow(deputyweaponInt/10) != null){
                             PlayerArtifactMap.DeputyWeaponPlayerMap.put(player.getUniqueId(),ArtifactBowType.getBow(deputyweaponInt/10).createRunnable(player,1));
                         }
                     }

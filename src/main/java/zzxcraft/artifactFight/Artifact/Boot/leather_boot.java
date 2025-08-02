@@ -27,6 +27,6 @@ public class leather_boot extends ArtifactBootFather {
 
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getBoots(),this.getItemStack())) this.getPlayer().getInventory().setBoots(this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

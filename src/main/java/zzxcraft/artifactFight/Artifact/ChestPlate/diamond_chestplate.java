@@ -23,6 +23,6 @@ public class diamond_chestplate extends ArtifactChestPlateFather {
     }
     @Override
     public void run() {
-        if(!Objects.equals(this.getPlayer().getInventory().getChestplate(),this.getItemStack())) this.getPlayer().getInventory().setChestplate(this.getItemStack());
+        if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

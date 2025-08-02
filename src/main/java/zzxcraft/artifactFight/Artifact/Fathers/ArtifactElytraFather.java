@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public abstract class ArtifactElytraFather extends ArtifactFather{
     public ArtifactElytraFather(Player player) {
-        super(player,102);
+        super(player,38);
     }
     public abstract void OnGlide(PlayerMoveEvent event);
     public abstract void OnFighted(EntityDamageByEntityEvent event);
