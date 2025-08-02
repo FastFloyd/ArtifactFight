@@ -6,6 +6,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +39,7 @@ import java.util.HashMap;
 public class ArtifactFightPlayerListener implements Listener {
     private final static JavaPlugin javaPlugin = ArtifactFight.getMainClass();
     private final FileConfiguration config =ArtifactFight.getMainClass().getConfig();
+
     @EventHandler
     public void PlayerJoin(PlayerJoinEvent playerJoinEvent){
         Player player = playerJoinEvent.getPlayer();
@@ -78,6 +81,10 @@ public class ArtifactFightPlayerListener implements Listener {
     @EventHandler
     public void PlayerDie(PlayerDeathEvent playerDeathEvent){
         Player player = playerDeathEvent.getPlayer();
+        if(player.getKiller()!=null){
+            PersistentDataContainer persistentDataContainer=player.getKiller().getPersistentDataContainer();
+            persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)+10);
+        }
         player.getInventory().clear();
         player.teleport(new Location(javaPlugin.getServer().getWorld("world"),
                 javaPlugin.getConfig().getDouble("spawnWait.x"),
@@ -629,7 +636,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_helmet"+((GetHelmetInventory) inventoryHolder).getArtifactHelmetType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetHelmetInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -645,7 +652,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_chestplate"+((GetChestPlateInventory) inventoryHolder).getArtifactChestPlateType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetChestPlateInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -661,7 +668,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_legging"+((GetLeggingInventory) inventoryHolder).getArtifactLeggingType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetLeggingInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -677,7 +684,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetBootInventory) inventoryHolder).getArtifactBootType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetBootInventory) inventoryHolder).getArtifactBootType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetBootInventory) inventoryHolder).getArtifactBootType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_boot"+((GetBootInventory) inventoryHolder).getArtifactBootType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetBootInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -693,7 +700,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_mainWeapon"+((GetMainWeaponInventory) inventoryHolder).getArtifactMainWeaponType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetMainWeaponInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -709,7 +716,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetShieldInventory) inventoryHolder).getArtifactShieldType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetShieldInventory) inventoryHolder).getArtifactShieldType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetShieldInventory) inventoryHolder).getArtifactShieldType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_shield"+((GetShieldInventory) inventoryHolder).getArtifactShieldType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetShieldInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -725,7 +732,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetBowInventory) inventoryHolder).getArtifactBowType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetBowInventory) inventoryHolder).getArtifactBowType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetBowInventory) inventoryHolder).getArtifactBowType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_bow"+((GetBowInventory) inventoryHolder).getArtifactBowType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetBowInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -741,7 +748,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetPropInventory) inventoryHolder).getArtifactPropType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetPropInventory) inventoryHolder).getArtifactPropType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetPropInventory) inventoryHolder).getArtifactPropType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_prop"+((GetPropInventory) inventoryHolder).getArtifactPropType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetPropInventory) inventoryHolder).getSuper_inventory().getInventory());
@@ -757,7 +764,7 @@ public class ArtifactFightPlayerListener implements Listener {
             }
             else if(slot==8){
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>((GetElytraInventory) inventoryHolder).getArtifactElytraType().getPrice()){
+                if(persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER).intValue()>=((GetElytraInventory) inventoryHolder).getArtifactElytraType().getPrice()){
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)-((GetElytraInventory) inventoryHolder).getArtifactElytraType().getPrice());
                     persistentDataContainer.set(new NamespacedKey(javaPlugin,"bought_elytra"+((GetElytraInventory) inventoryHolder).getArtifactElytraType().getId()),PersistentDataType.BOOLEAN,true);
                     player.openInventory(((GetElytraInventory) inventoryHolder).getSuper_inventory().getInventory());
