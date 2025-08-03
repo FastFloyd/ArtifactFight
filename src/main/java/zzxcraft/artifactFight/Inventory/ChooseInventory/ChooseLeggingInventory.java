@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class ChooseLeggingInventory implements InventoryHolder {
-    private final Set<Inventory> inventorys;
+    private final Inventory inventory;
     private final static JavaPlugin javaPlugin = ArtifactFight.getMainClass();
     private final FileConfiguration config =ArtifactFight.getMainClass().getConfig();
     private final Player player;
@@ -31,10 +31,10 @@ public class ChooseLeggingInventory implements InventoryHolder {
     public ChooseLeggingInventory(Player player,ChooseItemInventory chooseItemInventory){
         this.superInventory=chooseItemInventory;
         this.player=player;
-        this.inventorys = Set.of(javaPlugin.getServer().createInventory(this,54));
+        this.inventory=javaPlugin.getServer().createInventory(this,54);
         this.getInventory().setItem(49,NameItemStack(ItemStack.of(Material.BLACK_WOOL)));
         PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-        for(int i=1,I=0;i<=4;i++){
+        for(int i=1,I=0;i<=ArtifactLeggingType.getLeggingSize();i++){
             Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_legging"+i), PersistentDataType.BOOLEAN);
             if(c==null) continue;
             addLeggingType(I, ArtifactLeggingType.getLegging(i));
@@ -44,10 +44,7 @@ public class ChooseLeggingInventory implements InventoryHolder {
     public ChooseItemInventory getSuperInventory(){return this.superInventory;}
     @Override
     public @NotNull Inventory getInventory() {
-        return (Inventory) inventorys.toArray()[0];
-    }
-    public Inventory getInventory(int slot){
-        return (Inventory) inventorys.toArray()[slot];
+        return this.inventory;
     }
     private static ItemStack NameItemStack(ItemStack itemStack){
         ItemMeta itemMeta=itemStack.getItemMeta();

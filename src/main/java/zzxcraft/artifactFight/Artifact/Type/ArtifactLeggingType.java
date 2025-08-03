@@ -1,5 +1,7 @@
 package zzxcraft.artifactFight.Artifact.Type;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
@@ -19,6 +21,7 @@ import zzxcraft.artifactFight.Artifact.Legging.leather_legging;
 import zzxcraft.artifactFight.Artifact.Legging.netherite_legging;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -51,9 +54,11 @@ public class ArtifactLeggingType {
         itemMeta.displayName(Component.text(name));
         itemMeta.lore(lore);
         itemStack1.setItemMeta(itemMeta);
+        HashMap<Enchantment,Integer> hashMap=new HashMap<>();
         for(Pair<Enchantment,Integer> pair: EnchSet){
-            itemStack1.addEnchantment(pair.getLeft(),pair.getRight());
+            hashMap.put(pair.getLeft(),pair.getRight());
         }
+        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap,true));
         return itemStack1;
     }
     public Set<ArtifactLeggingType> getChildren(){
@@ -64,6 +69,9 @@ public class ArtifactLeggingType {
     }
     public Integer getId(){
         return this.id;
+    }
+    public static Integer getLeggingSize(){
+        return 4;
     }
     public static ArtifactLeggingType getLegging(Integer id){
         return switch (id) {

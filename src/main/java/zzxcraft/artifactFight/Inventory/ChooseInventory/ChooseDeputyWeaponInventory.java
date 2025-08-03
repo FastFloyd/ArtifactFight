@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class ChooseDeputyWeaponInventory implements InventoryHolder {
-    private final Set<Inventory> inventorys;
+    private final Inventory inventory;
     private final static JavaPlugin javaPlugin = ArtifactFight.getMainClass();
     private final FileConfiguration config =ArtifactFight.getMainClass().getConfig();
     private final Player player;
@@ -35,23 +35,23 @@ public class ChooseDeputyWeaponInventory implements InventoryHolder {
     public ChooseDeputyWeaponInventory(Player player,ChooseItemInventory chooseItemInventory){
         this.superInventory=chooseItemInventory;
         this.player=player;
-        this.inventorys = Set.of(javaPlugin.getServer().createInventory(this,54));
+        this.inventory=javaPlugin.getServer().createInventory(this,54);
         this.getInventory().setItem(49,NameItemStack(ItemStack.of(Material.BLACK_WOOL)));
         PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
         int I=0;
-        for(int i=1;i<=5;i++){
+        for(int i=1;i<=ArtifactMainWeaponType.getMainWeaponSize();i++){
             Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_mainWeapon"+i), PersistentDataType.BOOLEAN);
             if(c==null) continue;
             addDeputyWeaponType(I,ArtifactMainWeaponType.getWeapon(i));
             I++;
         }
-        for(int i=1;i<=3;i++){
+        for(int i=1;i<=ArtifactShieldType.getShieldSize();i++){
             Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_shield"+i),PersistentDataType.BOOLEAN);
             if(c==null) continue;
             addDeputyWeaponType(I,ArtifactShieldType.getShield(i));
             I++;
         }
-        for(int i=1;i<=4;i++){
+        for(int i=1;i<=ArtifactBowType.getBowSize();i++){
             Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_bow"+i),PersistentDataType.BOOLEAN);
             if(c==null) continue;
             addDeputyWeaponType(I,ArtifactBowType.getBow(i));
@@ -61,10 +61,7 @@ public class ChooseDeputyWeaponInventory implements InventoryHolder {
     public ChooseItemInventory getSuperInventory(){return this.superInventory;}
     @Override
     public @NotNull Inventory getInventory() {
-        return (Inventory) inventorys.toArray()[0];
-    }
-    public Inventory getInventory(int slot){
-        return (Inventory) inventorys.toArray()[slot];
+        return this.inventory;
     }
     private static ItemStack NameItemStack(ItemStack itemStack){
         ItemMeta itemMeta=itemStack.getItemMeta();

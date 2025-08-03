@@ -1,5 +1,7 @@
 package zzxcraft.artifactFight.Artifact.Type;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
@@ -12,7 +14,9 @@ import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 import zzxcraft.artifactFight.Artifact.MainWeapon.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ArtifactMainWeaponType {
@@ -21,7 +25,9 @@ public class ArtifactMainWeaponType {
     Set<ArtifactMainWeaponType> children;
     Integer price;
     Integer id;
-    public static final ArtifactMainWeaponType NETHERITE_SWORD = new ArtifactMainWeaponType(5,createItemStack(Material.NETHERITE_SWORD,1,"下界合金剑",List.of(Component.text("来自灼热的下界"),Component.text("Piece:1000")),Set.of()), netherite_sword.class,Set.of(),1000);
+    public static final ArtifactMainWeaponType SUPER_FIRE_SWORD = new ArtifactMainWeaponType(7,createItemStack(Material.NETHERITE_SWORD,1,"炽火",List.of(Component.text("携带下界的烈火而来"),Component.text("Piece:1500")),Set.of(Pair.of(Enchantment.FIRE_ASPECT,5))), super_fire_sword.class,Set.of(),1500);
+    public static final ArtifactMainWeaponType SUPER_SHARP_SWORD = new ArtifactMainWeaponType(6,createItemStack(Material.NETHERITE_SWORD,1,"神锋",List.of(Component.text("世上最坚硬的剑"),Component.text("Piece:1500")),Set.of(Pair.of(Enchantment.SHARPNESS,5))), super_sharp_sword.class,Set.of(),1500);
+    public static final ArtifactMainWeaponType NETHERITE_SWORD = new ArtifactMainWeaponType(5,createItemStack(Material.NETHERITE_SWORD,1,"下界合金剑",List.of(Component.text("来自灼热的下界"),Component.text("Piece:1000")),Set.of()), netherite_sword.class,Set.of(ArtifactMainWeaponType.SUPER_FIRE_SWORD,ArtifactMainWeaponType.SUPER_SHARP_SWORD),1000);
     public static final ArtifactMainWeaponType DIAMOND_SWORD = new ArtifactMainWeaponType(4,createItemStack(Material.DIAMOND_SWORD,1,"钻石剑",List.of(Component.text("由大地的宝物构成"),Component.text("Piece:750")),Set.of()), diamond_sword.class,Set.of(ArtifactMainWeaponType.NETHERITE_SWORD),750);
     public static final ArtifactMainWeaponType IRON_SWORD = new ArtifactMainWeaponType(3,createItemStack(Material.IRON_SWORD,1,"铁剑",List.of(Component.text("由坚硬的铁锻造而成"),Component.text("Piece:500")),Set.of()), iron_sword.class,Set.of(ArtifactMainWeaponType.DIAMOND_SWORD),500);
     public static final ArtifactMainWeaponType STONE_SWORD = new ArtifactMainWeaponType(2,createItemStack(Material.STONE_SWORD,1,"石剑",List.of(Component.text("由石头捶打而成"),Component.text("Piece:200")),Set.of()), stone_sword.class,Set.of(ArtifactMainWeaponType.IRON_SWORD),200);
@@ -45,9 +51,11 @@ public class ArtifactMainWeaponType {
         itemMeta.displayName(Component.text(name));
         itemMeta.lore(lore);
         itemStack1.setItemMeta(itemMeta);
+        HashMap<Enchantment,Integer> hashMap=new HashMap<>();
         for(Pair<Enchantment,Integer> pair: EnchSet){
-            itemStack1.addEnchantment(pair.getLeft(),pair.getRight());
+            hashMap.put(pair.getLeft(),pair.getRight());
         }
+        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap,true));
         return itemStack1;
     }
     public Set<ArtifactMainWeaponType> getChildren(){
@@ -59,6 +67,9 @@ public class ArtifactMainWeaponType {
     public Integer getId(){
         return this.id;
     }
+    public static Integer getMainWeaponSize(){
+        return 7;
+    }
     public static ArtifactMainWeaponType getWeapon(Integer id){
         return switch (id) {
             case 1 -> ArtifactMainWeaponType.WOODEN_SWORD;
@@ -66,6 +77,8 @@ public class ArtifactMainWeaponType {
             case 3 -> ArtifactMainWeaponType.IRON_SWORD;
             case 4 -> ArtifactMainWeaponType.DIAMOND_SWORD;
             case 5 -> ArtifactMainWeaponType.NETHERITE_SWORD;
+            case 6 -> ArtifactMainWeaponType.SUPER_SHARP_SWORD;
+            case 7 -> ArtifactMainWeaponType.SUPER_FIRE_SWORD;
             default -> null;
         };
     }

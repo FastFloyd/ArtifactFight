@@ -68,10 +68,16 @@ public class ArtifactItemListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
-            HashMap<Integer,ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(hitEntity.getUniqueId());
-            ((ArtifactBowFather)hashMap.get(event.getEntity().getPersistentDataContainer().get(new NamespacedKey(javaPlugin,"LaunchSlot"),PersistentDataType.INTEGER))).onHit(event);
-            PlayerArtifactMap.ArtifactMap.remove(hitEntity.getUniqueId());
-            PlayerArtifactMap.ArtifactMap.put(hitEntity.getUniqueId(),hashMap);
+            if(hitEntity instanceof Player && hitedEntity instanceof Player){
+                HashMap<Integer,ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(hitEntity.getUniqueId());
+                if(hashMap==null){
+                    event.setCancelled(true);
+                    return;
+                }
+                ((ArtifactBowFather)hashMap.get(event.getEntity().getPersistentDataContainer().get(new NamespacedKey(javaPlugin,"LaunchSlot"),PersistentDataType.INTEGER))).onHit(event);
+                PlayerArtifactMap.ArtifactMap.remove(hitEntity.getUniqueId());
+                PlayerArtifactMap.ArtifactMap.put(hitEntity.getUniqueId(),hashMap);
+            }
         }
 
     }

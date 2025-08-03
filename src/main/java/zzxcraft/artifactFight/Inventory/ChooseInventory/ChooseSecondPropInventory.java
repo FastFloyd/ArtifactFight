@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class ChooseSecondPropInventory implements InventoryHolder {
-    private final Set<Inventory> inventorys;
+    private final Inventory inventory;
     private final static JavaPlugin javaPlugin = ArtifactFight.getMainClass();
     private final FileConfiguration config =ArtifactFight.getMainClass().getConfig();
     private final Player player;
@@ -30,10 +30,10 @@ public class ChooseSecondPropInventory implements InventoryHolder {
     public ChooseSecondPropInventory(Player player, ChooseItemInventory chooseItemInventory){
         this.superInventory=chooseItemInventory;
         this.player=player;
-        this.inventorys = Set.of(javaPlugin.getServer().createInventory(this,54));
+        this.inventory=javaPlugin.getServer().createInventory(this,54);
         this.getInventory().setItem(49,NameItemStack(ItemStack.of(Material.BLACK_WOOL)));
         PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-        for(int i=1,I=0;i<=3;i++){
+        for(int i=1,I=0;i<=ArtifactPropType.getPropSize();i++){
             Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_prop"+i), PersistentDataType.BOOLEAN);
             if(c==null) continue;
             addPropType(I,ArtifactPropType.getProp(i));
@@ -43,11 +43,9 @@ public class ChooseSecondPropInventory implements InventoryHolder {
     public ChooseItemInventory getSuperInventory(){return this.superInventory;}
     @Override
     public @NotNull Inventory getInventory() {
-        return (Inventory) inventorys.toArray()[0];
+        return this.inventory;
     }
-    public Inventory getInventory(int slot){
-        return (Inventory) inventorys.toArray()[slot];
-    }
+
     private static ItemStack NameItemStack(ItemStack itemStack){
         ItemMeta itemMeta=itemStack.getItemMeta();
         itemMeta.displayName(Component.text("返回"));
