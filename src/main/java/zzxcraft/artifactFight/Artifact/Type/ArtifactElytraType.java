@@ -28,9 +28,9 @@ public class ArtifactElytraType {
     Set<ArtifactElytraType> children;
     Integer price;
     Integer id;
-    public static final ArtifactElytraType SUPER_SPEED_ELYTRA = new ArtifactElytraType(3,createItemStack(Material.ELYTRA,1,"闪电",List.of(Component.text("快如闪电"),Component.text("速度极快")),Set.of()), super_speed_elytra.class,Set.of(),750);
-    public static final ArtifactElytraType SPEED_ELYTRA = new ArtifactElytraType(2,createItemStack(Material.ELYTRA,1,"疾风",List.of(Component.text("翱翔蓝天"),Component.text("速度很快")),Set.of()), speed_elytra.class,Set.of(ArtifactElytraType.SUPER_SPEED_ELYTRA),500);
-    public static final ArtifactElytraType ELYTRA = new ArtifactElytraType(1,createItemStack(Material.ELYTRA,1,"鞘翅", List.of(Component.text("天空即为极限"),Component.text("从大地到天空")),Set.of()), elytra.class,Set.of(ArtifactElytraType.SPEED_ELYTRA),0);
+    public static final ArtifactElytraType SUPER_SPEED_ELYTRA = new ArtifactElytraType(3,createItemStack(Material.ELYTRA,1,"闪电",List.of(Component.text("快如闪电"),Component.text("Piece:500")),Set.of()), super_speed_elytra.class,Set.of(),500);
+    public static final ArtifactElytraType SPEED_ELYTRA = new ArtifactElytraType(2,createItemStack(Material.ELYTRA,1,"疾风",List.of(Component.text("翱翔蓝天"),Component.text("Piece:200")),Set.of()), speed_elytra.class,Set.of(ArtifactElytraType.SUPER_SPEED_ELYTRA),200);
+    public static final ArtifactElytraType ELYTRA = new ArtifactElytraType(1,createItemStack(Material.ELYTRA,1,"鞘翅", List.of(Component.text("天空即为极限"),Component.text("Piece:free")),Set.of()), elytra.class,Set.of(ArtifactElytraType.SPEED_ELYTRA),0);
     public static final ArtifactElytraType BUY_ELYTRA= new ArtifactElytraType(-1,ItemStack.of(Material.BARRIER), ArtifactElytraFather.class,Set.of(ArtifactElytraType.ELYTRA),0);
     private ArtifactElytraType(Integer id, ItemStack itemStack, Class<? extends ArtifactElytraFather> prclass, Set<ArtifactElytraType> children, Integer price){
         this.id=id;

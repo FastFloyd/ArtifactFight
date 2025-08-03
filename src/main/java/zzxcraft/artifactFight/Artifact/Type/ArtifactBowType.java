@@ -23,10 +23,10 @@ public class ArtifactBowType {
     Set<ArtifactBowType> children;
     Integer price;
     Integer id;
-    public static final ArtifactBowType SUPER_POWER_BOW = new ArtifactBowType(4,createItemStack(Material.BOW,1,"力量V弓",List.of(Component.text("会挽雕弓如满月"),Component.text("西北望，射天狼！")),Set.of(Pair.of(Enchantment.POWER,5))), super_power_bow.class,Set.of(),1000);
-    public static final ArtifactBowType POWER_BOW_PLUS = new ArtifactBowType(3,createItemStack(Material.BOW,1,"力量III弓",List.of(Component.text("一击毙命"),Component.text("令人恐惧的杀人机器")),Set.of(Pair.of(Enchantment.POWER,3))), power_bow_plus.class,Set.of(ArtifactBowType.SUPER_POWER_BOW),500);
-    public static final ArtifactBowType POWER_BOW = new ArtifactBowType(2,createItemStack(Material.BOW,1,"力量I弓",List.of(Component.text("更强的力量"),Component.text("数百次的发射，力大无穷")),Set.of(Pair.of(Enchantment.POWER,1))), power_bow.class,Set.of(ArtifactBowType.POWER_BOW_PLUS),100);
-    public static final ArtifactBowType BOW = new ArtifactBowType(1,createItemStack(Material.BOW,1,"普通弓箭", List.of(Component.text("简单的远程武器"),Component.text("人类走向霸主的开始")),Set.of()), bow.class,Set.of(ArtifactBowType.POWER_BOW),0);
+    public static final ArtifactBowType SUPER_POWER_BOW = new ArtifactBowType(4,createItemStack(Material.BOW,1,"力量V弓",List.of(Component.text("平明寻白羽，没在石棱中"),Component.text("Piece:$1000")),Set.of(Pair.of(Enchantment.POWER,5))), super_power_bow.class,Set.of(),1000);
+    public static final ArtifactBowType POWER_BOW_PLUS = new ArtifactBowType(3,createItemStack(Material.BOW,1,"力量III弓",List.of(Component.text("力大无穷"),Component.text("Piece:$500")),Set.of(Pair.of(Enchantment.POWER,3))), power_bow_plus.class,Set.of(ArtifactBowType.SUPER_POWER_BOW),500);
+    public static final ArtifactBowType POWER_BOW = new ArtifactBowType(2,createItemStack(Material.BOW,1,"力量I弓",List.of(Component.text("更强的力量"),Component.text("Piece:$100")),Set.of(Pair.of(Enchantment.POWER,1))), power_bow.class,Set.of(ArtifactBowType.POWER_BOW_PLUS),100);
+    public static final ArtifactBowType BOW = new ArtifactBowType(1,createItemStack(Material.BOW,1,"普通弓箭", List.of(Component.text("简单的远程武器"),Component.text("Piece:free")),Set.of()), bow.class,Set.of(ArtifactBowType.POWER_BOW),0);
     public static final ArtifactBowType BUY_BOW= new ArtifactBowType(-1,ItemStack.of(Material.BARRIER), ArtifactBowFather.class,Set.of(ArtifactBowType.BOW),0);
     private ArtifactBowType(Integer id,ItemStack itemStack, Class<? extends ArtifactBowFather> prclass, Set<ArtifactBowType> children, Integer price){
         this.id=id;

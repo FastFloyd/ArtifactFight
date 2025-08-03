@@ -21,11 +21,11 @@ public class ArtifactMainWeaponType {
     Set<ArtifactMainWeaponType> children;
     Integer price;
     Integer id;
-    public static final ArtifactMainWeaponType NETHERITE_SWORD = new ArtifactMainWeaponType(5,createItemStack(Material.NETHERITE_SWORD,1,"下界合金剑",List.of(Component.text("超越极限的武器"),Component.text("来自灼热")),Set.of()), netherite_sword.class,Set.of(),1000);
-    public static final ArtifactMainWeaponType DIAMOND_SWORD = new ArtifactMainWeaponType(4,createItemStack(Material.DIAMOND_SWORD,1,"钻石剑",List.of(Component.text("巅峰武器"),Component.text("由地下的宝物构成")),Set.of()), diamond_sword.class,Set.of(ArtifactMainWeaponType.NETHERITE_SWORD),750);
-    public static final ArtifactMainWeaponType IRON_SWORD = new ArtifactMainWeaponType(3,createItemStack(Material.IRON_SWORD,1,"铁剑",List.of(Component.text("强力的武器"),Component.text("由坚硬的铁锻造而成")),Set.of()), iron_sword.class,Set.of(ArtifactMainWeaponType.DIAMOND_SWORD),500);
-    public static final ArtifactMainWeaponType STONE_SWORD = new ArtifactMainWeaponType(2,createItemStack(Material.STONE_SWORD,1,"石剑",List.of(Component.text("进阶的武器"),Component.text("由石头捶打而成")),Set.of()), stone_sword.class,Set.of(ArtifactMainWeaponType.IRON_SWORD),200);
-    public static final ArtifactMainWeaponType WOODEN_SWORD = new ArtifactMainWeaponType(1,createItemStack(Material.WOODEN_SWORD,1,"木剑",List.of(Component.text("最基本的武器"),Component.text("由木头削成的")),Set.of()), wooden_sword.class,Set.of(ArtifactMainWeaponType.STONE_SWORD),100);
+    public static final ArtifactMainWeaponType NETHERITE_SWORD = new ArtifactMainWeaponType(5,createItemStack(Material.NETHERITE_SWORD,1,"下界合金剑",List.of(Component.text("来自灼热的下界"),Component.text("Piece:1000")),Set.of()), netherite_sword.class,Set.of(),1000);
+    public static final ArtifactMainWeaponType DIAMOND_SWORD = new ArtifactMainWeaponType(4,createItemStack(Material.DIAMOND_SWORD,1,"钻石剑",List.of(Component.text("由大地的宝物构成"),Component.text("Piece:750")),Set.of()), diamond_sword.class,Set.of(ArtifactMainWeaponType.NETHERITE_SWORD),750);
+    public static final ArtifactMainWeaponType IRON_SWORD = new ArtifactMainWeaponType(3,createItemStack(Material.IRON_SWORD,1,"铁剑",List.of(Component.text("由坚硬的铁锻造而成"),Component.text("Piece:500")),Set.of()), iron_sword.class,Set.of(ArtifactMainWeaponType.DIAMOND_SWORD),500);
+    public static final ArtifactMainWeaponType STONE_SWORD = new ArtifactMainWeaponType(2,createItemStack(Material.STONE_SWORD,1,"石剑",List.of(Component.text("由石头捶打而成"),Component.text("Piece:200")),Set.of()), stone_sword.class,Set.of(ArtifactMainWeaponType.IRON_SWORD),200);
+    public static final ArtifactMainWeaponType WOODEN_SWORD = new ArtifactMainWeaponType(1,createItemStack(Material.WOODEN_SWORD,1,"木剑",List.of(Component.text("由木头削成"),Component.text("Piece:free")),Set.of()), wooden_sword.class,Set.of(ArtifactMainWeaponType.STONE_SWORD),0);
     public static final ArtifactMainWeaponType BUY_WEAPON= new ArtifactMainWeaponType(-1,ItemStack.of(Material.BARRIER), ArtifactMainWeaponFather.class,Set.of(ArtifactMainWeaponType.WOODEN_SWORD),0);
     private ArtifactMainWeaponType(Integer id,ItemStack itemStack,Class<? extends ArtifactMainWeaponFather> prclass,Set<ArtifactMainWeaponType> children,Integer price){
         this.id=id;

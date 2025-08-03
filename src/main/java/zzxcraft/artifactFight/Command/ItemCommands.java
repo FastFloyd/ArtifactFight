@@ -45,6 +45,7 @@ public class ItemCommands extends Command {
                         return false;
                     }
                     persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)+Integer.parseInt(strings[2]));
+                    break;
                 }
                 case "remove":{
                     if(strings.length<3){
@@ -52,6 +53,7 @@ public class ItemCommands extends Command {
                         return false;
                     }
                     persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)-Integer.parseInt(strings[2]));
+                    break;
                 }
                 case "set":{
                     if(strings.length<3){
@@ -59,12 +61,15 @@ public class ItemCommands extends Command {
                         return false;
                     }
                     persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,Integer.parseInt(strings[2]));
+                    break;
                 }
                 case "get":{
                     commandSender.sendMessage(String.valueOf(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)));
+                    break;
                 }
                 default:{
                     commandSender.sendMessage(Component.text("错误的指令参数",TextColor.color(255,0,0)));
+                    break;
                 }
             }
         }

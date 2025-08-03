@@ -23,10 +23,10 @@ public class ArtifactHelmetType {
     Set<ArtifactHelmetType> children;
     Integer price;
     Integer id;
-    public static ArtifactHelmetType NETHERITE_HELMET=new ArtifactHelmetType(4,createItemStack(Material.NETHERITE_HELMET,1,"下界合金头盔",List.of(Component.text("合金头盔"),Component.text("在烈火的灼烧下形成")),Set.of(Pair.of(Enchantment.FIRE_PROTECTION,4))), netherite_helmet.class,Set.of(),1000);
-    public static final ArtifactHelmetType DIAMOND_HELMET= new ArtifactHelmetType(3,createItemStack(Material.DIAMOND_HELMET,1,"钻石头盔",List.of(Component.text("无比坚硬的装甲"),Component.text("由大地的宝物铸造")),Set.of()), diamond_helmet.class,Set.of(ArtifactHelmetType.NETHERITE_HELMET),500);
-    public static final ArtifactHelmetType IRON_HELMET = new ArtifactHelmetType(2,createItemStack(Material.IRON_HELMET,1,"铁头盔",List.of(Component.text("百炼成钢"),Component.text("在千锤万打中铸造")),Set.of()), iron_helmet.class,Set.of(ArtifactHelmetType.DIAMOND_HELMET),100);
-    public static final ArtifactHelmetType LEATHER_HELMET = new ArtifactHelmetType(1,createItemStack(Material.LEATHER_HELMET,1,"皮革头盔",List.of(Component.text("旅行者的最爱"),Component.text("让你在低温下屹立")),Set.of()), leather_helmet.class,Set.of(ArtifactHelmetType.IRON_HELMET),0);
+    public static ArtifactHelmetType NETHERITE_HELMET=new ArtifactHelmetType(4,createItemStack(Material.NETHERITE_HELMET,1,"下界合金头盔",List.of(Component.text("合金铸造"),Component.text("Piece:1000")),Set.of(Pair.of(Enchantment.FIRE_PROTECTION,4))), netherite_helmet.class,Set.of(),1000);
+    public static final ArtifactHelmetType DIAMOND_HELMET= new ArtifactHelmetType(3,createItemStack(Material.DIAMOND_HELMET,1,"钻石头盔",List.of(Component.text("无比坚硬的装甲"),Component.text("Piece:500")),Set.of()), diamond_helmet.class,Set.of(ArtifactHelmetType.NETHERITE_HELMET),500);
+    public static final ArtifactHelmetType IRON_HELMET = new ArtifactHelmetType(2,createItemStack(Material.IRON_HELMET,1,"铁头盔",List.of(Component.text("百炼成钢"),Component.text("Piece:100")),Set.of()), iron_helmet.class,Set.of(ArtifactHelmetType.DIAMOND_HELMET),100);
+    public static final ArtifactHelmetType LEATHER_HELMET = new ArtifactHelmetType(1,createItemStack(Material.LEATHER_HELMET,1,"皮革头盔",List.of(Component.text("旅行者的最爱"),Component.text("Piece:free")),Set.of()), leather_helmet.class,Set.of(ArtifactHelmetType.IRON_HELMET),0);
     public static final ArtifactHelmetType BUY_HELMET= new ArtifactHelmetType(-1,ItemStack.of(Material.BARRIER),ArtifactHelmetFather.class,Set.of(ArtifactHelmetType.LEATHER_HELMET),0);
     private ArtifactHelmetType(Integer id,ItemStack itemStack,Class<? extends ArtifactHelmetFather> prclass,Set<ArtifactHelmetType> children,Integer price){
         this.id=id;

@@ -27,9 +27,9 @@ public class ArtifactShieldType {
     Set<ArtifactShieldType> children;
     Integer price;
     Integer id;
-    public static final ArtifactShieldType SUPER_THORN_SHIELD = new ArtifactShieldType(3,createItemStack(Material.SHIELD,1,"强化荆棘盾牌",List.of(Component.text("地表最强输出"),Component.text("在防御同时提供更高输出")),Set.of()), super_thorn_shield.class,Set.of(),750);
-    public static final ArtifactShieldType THORN_SHIELD = new ArtifactShieldType(2,createItemStack(Material.SHIELD,1,"荆棘盾牌",List.of(Component.text("攻防兼备"),Component.text("在防御同时输出")),Set.of()), thorn_shield.class,Set.of(ArtifactShieldType.SUPER_THORN_SHIELD),250);
-    public static final ArtifactShieldType SHIELD = new ArtifactShieldType(1,createItemStack(Material.SHIELD,1,"盾牌", List.of(Component.text("绝对防御"),Component.text("可以完美防御剑和大部分远程武器的伤害")),Set.of()), shield.class,Set.of(ArtifactShieldType.THORN_SHIELD),0);
+    public static final ArtifactShieldType SUPER_THORN_SHIELD = new ArtifactShieldType(3,createItemStack(Material.SHIELD,1,"强化荆棘盾牌",List.of(Component.text("在防御同时提供更高输出"),Component.text("Piece:750")),Set.of()), super_thorn_shield.class,Set.of(),750);
+    public static final ArtifactShieldType THORN_SHIELD = new ArtifactShieldType(2,createItemStack(Material.SHIELD,1,"荆棘盾牌",List.of(Component.text("在防御同时输出"),Component.text("Piece:250")),Set.of()), thorn_shield.class,Set.of(ArtifactShieldType.SUPER_THORN_SHIELD),250);
+    public static final ArtifactShieldType SHIELD = new ArtifactShieldType(1,createItemStack(Material.SHIELD,1,"盾牌", List.of(Component.text("可以完美防御剑和大部分远程武器的伤害"),Component.text("Piece:free")),Set.of()), shield.class,Set.of(ArtifactShieldType.THORN_SHIELD),0);
     public static final ArtifactShieldType BUY_SHIELD= new ArtifactShieldType(-1,ItemStack.of(Material.BARRIER), ArtifactShieldFather.class,Set.of(ArtifactShieldType.SHIELD),0);
     private ArtifactShieldType(Integer id,ItemStack itemStack,Class<? extends ArtifactShieldFather> prclass,Set<ArtifactShieldType> children,Integer price){
         this.id=id;

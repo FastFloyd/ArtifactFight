@@ -6,6 +6,7 @@ import zzxcraft.artifactFight.Command.ItemCommands;
 import zzxcraft.artifactFight.Listener.ArtifactFightPlayerListener;
 import zzxcraft.artifactFight.Listener.ArtifactItemListener;
 import zzxcraft.artifactFight.Player.PlayerOnPlay;
+import zzxcraft.artifactFight.Player.PlayerOnServer;
 import zzxcraft.artifactFight.Player.PlayerOnWait;
 import zzxcraft.artifactFight.Listener.ArtifactFightPlayerListener;
 import net.kyori.adventure.text.Component;
@@ -14,6 +15,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,16 +27,23 @@ public final class ArtifactFight extends JavaPlugin {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new ArtifactFightPlayerListener(),this);
         getServer().getPluginManager().registerEvents(new ArtifactItemListener(),this);
-        PlayerOnWait playerOnWait = new PlayerOnWait();
-        playerOnWait.start();
-        PlayerOnPlay playerOnPlay = new PlayerOnPlay();
-        playerOnPlay.start();
+        (new PlayerOnWait()).start();
+        (new PlayerOnPlay()).start();
+        (new PlayerOnServer()).start();
         this.getServer().getCommandMap().register("tent", new ItemCommands("tent"));
+        this.getLogger().info("ArtifactFight succeeded in enabling!");
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        this.getLogger().info("EnableTime : "+formatter.format(date));
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        this.getLogger().info("ArtifactFight disable successfully.");
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        this.getLogger().info("DisableTime : "+formatter.format(date));
     }
     public static JavaPlugin getMainClass(){
         return JavaPlugin.getPlugin(ArtifactFight.class);
