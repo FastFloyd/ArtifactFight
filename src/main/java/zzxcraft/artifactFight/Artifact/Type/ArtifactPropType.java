@@ -7,12 +7,14 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.framework.qual.DefaultQualifier;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactHelmetFather;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactPropFather;
 import zzxcraft.artifactFight.Artifact.Helmet.diamond_helmet;
 import zzxcraft.artifactFight.Artifact.Helmet.iron_helmet;
 import zzxcraft.artifactFight.Artifact.Helmet.leather_helmet;
 import zzxcraft.artifactFight.Artifact.Helmet.netherite_helmet;
+import zzxcraft.artifactFight.Artifact.Prop.egg;
 import zzxcraft.artifactFight.Artifact.Prop.firework_rocket;
 import zzxcraft.artifactFight.Artifact.Prop.snowball;
 
@@ -26,9 +28,10 @@ public class ArtifactPropType {
     Set<ArtifactPropType> children;
     Integer price;
     Integer id;
+    public static final ArtifactPropType EGG = new ArtifactPropType(3,createItemStack(Material.EGG,16,"鸡蛋",List.of(),Set.of()), egg.class,Set.of(),50);
     public static final ArtifactPropType FIREWORK_ROCKET = new ArtifactPropType(2,createItemStack(Material.FIREWORK_ROCKET,16,"烟花火箭",List.of(),Set.of()), firework_rocket.class,Set.of(),100);
     public static final ArtifactPropType SNOWBALL = new ArtifactPropType(1,createItemStack(Material.SNOWBALL,16,"雪球", List.of(),Set.of()), snowball.class,Set.of(),0);
-    public static final ArtifactPropType BUY_PROP= new ArtifactPropType(-1,ItemStack.of(Material.BARRIER), ArtifactPropFather.class,Set.of(ArtifactPropType.SNOWBALL,ArtifactPropType.FIREWORK_ROCKET),0);
+    public static final ArtifactPropType BUY_PROP= new ArtifactPropType(-1,ItemStack.of(Material.BARRIER), ArtifactPropFather.class,Set.of(ArtifactPropType.SNOWBALL,ArtifactPropType.FIREWORK_ROCKET,ArtifactPropType.EGG),0);
     private ArtifactPropType(Integer id,ItemStack itemStack,Class<? extends ArtifactPropFather> prclass,Set<ArtifactPropType> children,Integer price){
         this.id=id;
         this.itemStack=itemStack;
@@ -66,6 +69,7 @@ public class ArtifactPropType {
         return switch (id) {
             case 1 -> ArtifactPropType.SNOWBALL;
             case 2 -> ArtifactPropType.FIREWORK_ROCKET;
+            case 3 -> ArtifactPropType.EGG;
             default -> null;
         };
     }

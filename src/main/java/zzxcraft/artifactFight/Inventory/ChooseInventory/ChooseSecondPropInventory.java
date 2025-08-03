@@ -33,7 +33,7 @@ public class ChooseSecondPropInventory implements InventoryHolder {
         this.inventorys = Set.of(javaPlugin.getServer().createInventory(this,54));
         this.getInventory().setItem(49,NameItemStack(ItemStack.of(Material.BLACK_WOOL)));
         PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-        for(int i=1,I=0;i<=2;i++){
+        for(int i=1,I=0;i<=3;i++){
             Boolean c=persistentDataContainer.get(new NamespacedKey(javaPlugin,"bought_prop"+i), PersistentDataType.BOOLEAN);
             if(c==null) continue;
             addPropType(I,ArtifactPropType.getProp(i));

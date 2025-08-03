@@ -31,6 +31,7 @@ public class PlayerOnPlay extends BukkitRunnable {
         this.runTaskTimer(javaPlugin,0,1);
     }
     private void Do(Player player){
-
+        player.getInventory().setItem(8,ItemStack.of(Material.ARROW,64));
+        player.getInventory().setItem(7,ItemStack.of(Material.BREAD,64));
     }
 }

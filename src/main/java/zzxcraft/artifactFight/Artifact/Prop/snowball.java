@@ -14,33 +14,17 @@ public class snowball extends ArtifactPropFather {
     private int count;
     private int i;
     public snowball(Player player,Integer slot) {
-        super(player,slot);
-        this.count=16;
-        this.setItemStack(ItemStack.of(Material.SNOWBALL,16));
-        i=0;
+        super(player,slot,16,20,Material.SNOWBALL);
     }
     @Override
     public void onUse(PlayerInteractEvent event) {
-        if(this.count==0) event.setCancelled(true);
-        this.count--;
+        super.onUse(event);
     }
 
 
     @Override
     public void run() {
-        if(this.count==16) i=0;
-        i++;
-        if(i==20){
-            this.count++;
-            i=0;
-        }
-        if(this.count<=0){
-            this.setItemStack(ItemStack.of(Material.BARRIER,1));
-            this.count=0;
-        }
-        else{
-            this.setItemStack(ItemStack.of(Material.SNOWBALL,count));
-        }
+        super.run();
         if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

@@ -8,10 +8,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import zzxcraft.artifactFight.ArtifactFight;
 
 public class ItemCommands extends Command {
+    JavaPlugin javaplugin=ArtifactFight.getMainClass();
     public ItemCommands(@NotNull String name) {
         super(name);
         this.setDescription("set player tent");
@@ -21,71 +23,48 @@ public class ItemCommands extends Command {
     @Override
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String @NotNull [] strings) {
         if(s.equals("tent")){
-            if(commandSender instanceof Player player){
-                if(!player.isOp()){
-                    player.sendMessage(Component.text("你没有这样做的权限", TextColor.color(255,0,0)));
-                }
-                else{
-                    Player player1= ArtifactFight.getMainClass().getServer().getPlayer(strings[1]);
-                    if(player1==null){
-                        commandSender.sendMessage("这个玩家不存在！");
+            if(commandSender instanceof Player player && !player.isOp()){
+                player.sendMessage(Component.text("你没有这样做的权限！",TextColor.color(255,0,0)));
+                return false;
+            }
+            if(strings.length<2){
+                commandSender.sendMessage(Component.text("不完整的指令参数！",TextColor.color(255,0,0)));
+                return false;
+            }
+            Player player=javaplugin.getServer().getPlayer(strings[1]);
+            if(player==null){
+                commandSender.sendMessage(Component.text("不存在的玩家名",TextColor.color(255,0,0)));
+                return false;
+            }
+            PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
+            NamespacedKey namespacedKey=new NamespacedKey(javaplugin,"tent");
+            switch (strings[0]){
+                case "add":{
+                    if(strings.length<3){
+                        commandSender.sendMessage(Component.text("不完整的指令参数！",TextColor.color(255,0,0)));
                         return false;
                     }
-                    PersistentDataContainer persistentDataContainer=player1.getPersistentDataContainer();
-                    NamespacedKey namespacedKey=new NamespacedKey(ArtifactFight.getMainClass(),"tent");
-                    switch(strings[0]){
-                        case "add":{
-                            persistentDataContainer.set(namespacedKey, PersistentDataType.INTEGER,persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)+Integer.parseInt(strings[2]));
-                            break;
-                        }
-                        case "set":{
-                            persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,Integer.parseInt(strings[2]));
-                            break;
-                        }
-                        case "remove":{
-                            persistentDataContainer.set(namespacedKey, PersistentDataType.INTEGER,Math.max(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)-Integer.parseInt(strings[2]),0));
-                            break;
-                        }
-                        case "get":{
-                            commandSender.sendMessage(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER).toString());
-                            break;
-                        }
-                        default:{
-                            commandSender.sendMessage(strings[0]+"不是一个合法的指令");
-                            break;
-                        }
-                    }
+                    persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)+Integer.parseInt(strings[2]));
                 }
-            }
-            else{
-                Player player= ArtifactFight.getMainClass().getServer().getPlayer(strings[1]);
-                if(player==null){
-                    commandSender.sendMessage("这个玩家不存在！");
-                    return false;
+                case "remove":{
+                    if(strings.length<3){
+                        commandSender.sendMessage(Component.text("不完整的指令参数！",TextColor.color(255,0,0)));
+                        return false;
+                    }
+                    persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)-Integer.parseInt(strings[2]));
                 }
-                PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
-                NamespacedKey namespacedKey=new NamespacedKey(ArtifactFight.getMainClass(),"tent");
-                switch(strings[0]){
-                    case "add":{
-                        persistentDataContainer.set(namespacedKey, PersistentDataType.INTEGER,persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)+Integer.parseInt(strings[2]));
-                        break;
+                case "set":{
+                    if(strings.length<3){
+                        commandSender.sendMessage(Component.text("不完整的指令参数！",TextColor.color(255,0,0)));
+                        return false;
                     }
-                    case "set":{
-                        persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,Integer.parseInt(strings[2]));
-                        break;
-                    }
-                    case "remove":{
-                        persistentDataContainer.set(namespacedKey, PersistentDataType.INTEGER,Math.max(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)-Integer.parseInt(strings[2]),0));
-                        break;
-                    }
-                    case "get":{
-                        commandSender.sendMessage(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER).toString());
-                        break;
-                    }
-                    default:{
-                        commandSender.sendMessage(strings[0]+"不是一个合法的指令");
-                        break;
-                    }
+                    persistentDataContainer.set(namespacedKey,PersistentDataType.INTEGER,Integer.parseInt(strings[2]));
+                }
+                case "get":{
+                    commandSender.sendMessage(String.valueOf(persistentDataContainer.get(namespacedKey,PersistentDataType.INTEGER)));
+                }
+                default:{
+                    commandSender.sendMessage(Component.text("错误的指令参数",TextColor.color(255,0,0)));
                 }
             }
         }

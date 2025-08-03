@@ -6,15 +6,15 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactPropFather;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
-public class firework_rocket extends ArtifactPropFather {
+public class egg extends ArtifactPropFather {
     private int count;
     private int i;
-    public firework_rocket(Player player,Integer slot) {
-        super(player,slot,16,100,Material.FIREWORK_ROCKET);
+    public egg(Player player, Integer slot) {
+        super(player, slot,16,20,Material.EGG);
     }
+
     @Override
     public void onUse(PlayerInteractEvent event) {
         super.onUse(event);
@@ -22,6 +22,7 @@ public class firework_rocket extends ArtifactPropFather {
 
     @Override
     public void run() {
+        super.run();
         if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }
