@@ -39,7 +39,7 @@ public class BuyChestPlateInventory implements InventoryHolder {
     }
     private void addChestPlateType(int slot,ArtifactChestPlateType artifactChestPlateType){
         this.chestPlateTypeHashMap.put(slot,artifactChestPlateType);
-        ItemStack itemStack=artifactChestPlateType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactChestPlateType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

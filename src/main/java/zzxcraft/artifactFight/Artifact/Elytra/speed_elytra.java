@@ -1,11 +1,13 @@
 package zzxcraft.artifactFight.Artifact.Elytra;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactElytraFather;
 
 import java.util.ArrayList;
@@ -14,7 +16,11 @@ import java.util.Objects;
 public class speed_elytra extends ArtifactElytraFather {
     public speed_elytra(Player player) {
         super(player);
-        this.setItemStack(ItemStack.of(Material.ELYTRA));
+        ItemStack itemStack=ItemStack.of(Material.ELYTRA);
+        ItemMeta itemMeta=itemStack.getItemMeta();
+        itemMeta.displayName(Component.text("疾风"));
+        itemStack.setItemMeta(itemMeta);
+        this.setItemStack(itemStack);
     }
     @Override
     public void OnGlide(PlayerMoveEvent event) {

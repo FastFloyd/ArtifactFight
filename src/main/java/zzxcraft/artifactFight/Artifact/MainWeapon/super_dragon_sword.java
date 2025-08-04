@@ -14,25 +14,26 @@ import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 import java.util.Map;
 import java.util.Objects;
 
-public class super_fire_sword extends ArtifactMainWeaponFather {
-    public super_fire_sword(Player player, Integer slot) {
+public class super_dragon_sword extends ArtifactMainWeaponFather {
+    public super_dragon_sword(Player player, Integer slot) {
         super(player, slot);
-        ItemStack itemStack=ItemStack.of(Material.NETHERITE_SWORD);
+        ItemStack itemStack=ItemStack.of(Material.DIAMOND_SWORD);
         ItemMeta itemMeta=itemStack.getItemMeta();
-        itemMeta.displayName(Component.text("炽火"));
+        itemMeta.displayName(Component.text("龙怒"));
         itemStack.setItemMeta(itemMeta);
-        itemStack.setData(DataComponentTypes.ENCHANTMENTS,ItemEnchantments.itemEnchantments(Map.of(Enchantment.FIRE_ASPECT,5),true));
+        itemStack.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(Map.of(Enchantment.BREACH,5),true));
         this.setItemStack(itemStack);
     }
 
     @Override
     public void OnFight(EntityDamageByEntityEvent event) {
-
+        Player player= (Player) event.getEntity();
+        event.setDamage(0.0);
+        player.setHealth(Math.max(player.getHealth()-5,0));
     }
 
     @Override
     public void run() {
-
         if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
     }
 }

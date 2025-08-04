@@ -39,7 +39,7 @@ public class BuyPropInventory implements InventoryHolder {
     }
     private void addPropType(int slot,ArtifactPropType artifactPropType){
         this.propTypeHashMap.put(slot,artifactPropType);
-        ItemStack itemStack=artifactPropType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactPropType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

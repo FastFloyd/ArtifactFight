@@ -39,7 +39,7 @@ public class BuyElytraInventory implements InventoryHolder {
     }
     private void addElytraType(int slot,ArtifactElytraType artifactElytraType){
         this.elytraTypeHashMap.put(slot,artifactElytraType);
-        ItemStack itemStack=artifactElytraType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactElytraType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

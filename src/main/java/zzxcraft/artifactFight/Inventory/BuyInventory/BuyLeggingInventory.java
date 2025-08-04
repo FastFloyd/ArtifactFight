@@ -39,7 +39,7 @@ public class BuyLeggingInventory implements InventoryHolder {
     }
     private void addLeggingType(int slot,ArtifactLeggingType artifactLeggingType){
         this.leggingTypeHashMap.put(slot,artifactLeggingType);
-        ItemStack itemStack=artifactLeggingType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactLeggingType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

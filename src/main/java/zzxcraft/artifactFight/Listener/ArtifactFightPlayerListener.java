@@ -24,8 +24,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
-import zzxcraft.artifactFight.Artifact.Fathers.ArtifactFather;
-import zzxcraft.artifactFight.Artifact.Fathers.ArtifactShieldFather;
+import zzxcraft.artifactFight.Artifact.Fathers.*;
 import zzxcraft.artifactFight.Artifact.Type.*;
 import zzxcraft.artifactFight.ArtifactFight;
 import zzxcraft.artifactFight.Inventory.ChooseInventory.*;
@@ -122,6 +121,9 @@ public class ArtifactFightPlayerListener implements Listener {
         if(hashMap==null){
             return;
         }
+        if(event.getPlayer().getInventory().getHeldItemSlot()==7 || event.getPlayer().getInventory().getHeldItemSlot()==8){
+            return;
+        }
         ArtifactFather x=hashMap.get(event.getPlayer().getInventory().getHeldItemSlot());
         ArtifactFather y=hashMap.get(40);
         if(x!=null && y!=null){
@@ -130,21 +132,29 @@ public class ArtifactFightPlayerListener implements Listener {
                 hashMap.remove(40);
                 hashMap.put(40,x);
                 y.setSlot(event.getPlayer().getInventory().getHeldItemSlot());
-                hashMap.replace(event.getPlayer().getInventory().getHeldItemSlot(), y);
+                hashMap.remove(event.getPlayer().getInventory().getHeldItemSlot());
+                hashMap.put(event.getPlayer().getInventory().getHeldItemSlot(),y);
             }
             else{
                 event.getPlayer().sendMessage(Component.text("你不能把这个物品放在副手",TextColor.color(255,0,0)));
+                return;
             }
         }
         else if(x!=null){
             if(x instanceof ArtifactShieldFather){
                 x.setSlot(40);
+                hashMap.remove(event.getPlayer().getInventory().getHeldItemSlot());
                 hashMap.remove(40);
                 hashMap.put(40,x);
+            }
+            else{
+                event.getPlayer().sendMessage(Component.text("你不能把这个物品放在副手",TextColor.color(255,0,0)));
+                return;
             }
         }
         else if(y!=null){
             y.setSlot(event.getPlayer().getInventory().getHeldItemSlot());
+            hashMap.remove(40);
             hashMap.remove(event.getPlayer().getInventory().getHeldItemSlot());
             hashMap.put(event.getPlayer().getInventory().getHeldItemSlot(),y);
         }
@@ -186,18 +196,21 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(helmetInt!=null){
                     if (ArtifactHelmetType.getHelmet(helmetInt) != null) {
                         PlayerArtifactMap.HelmetPlayerMap.put(player.getUniqueId(),ArtifactHelmetType.getHelmet(helmetInt).createRunnable(player));
+                        PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(39,PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId()));
                     }
                 }
                 Integer chestplateInt=persistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_chestplate"),PersistentDataType.INTEGER);
                 if(chestplateInt!=null){
-                    if(chestplateInt%10==1){
+                    if(chestplateInt%10==1) {
                         if (ArtifactChestPlateType.getChestplate(chestplateInt / 10) != null) {
-                            PlayerArtifactMap.ChestPlatePlayerMap.put(player.getUniqueId(),ArtifactChestPlateType.getChestplate(chestplateInt/10).createRunnable(player));
+                            PlayerArtifactMap.ChestPlatePlayerMap.put(player.getUniqueId(), ArtifactChestPlateType.getChestplate(chestplateInt / 10).createRunnable(player));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(38, PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId()));
                         }
                     }
                     else{
                         if (ArtifactElytraType.getElytra(chestplateInt / 10) != null) {
                             PlayerArtifactMap.ChestPlatePlayerMap.put(player.getUniqueId(),ArtifactElytraType.getElytra(chestplateInt/10).createRunnable(player));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(38,PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId()));
                         }
                     }
                 }
@@ -205,12 +218,14 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(leggingInt!=null){
                     if (ArtifactLeggingType.getLegging(leggingInt) != null) {
                         PlayerArtifactMap.LeggingPlayerMap.put(player.getUniqueId(),ArtifactLeggingType.getLegging(leggingInt).createRunnable(player));
+                        PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(37,PlayerArtifactMap.LeggingPlayerMap.get(player.getUniqueId()));
                     }
                 }
                 Integer bootInt=persistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_boot"),PersistentDataType.INTEGER);
                 if(bootInt!=null){
                     if (ArtifactBootType.getBoot(bootInt) != null) {
                         PlayerArtifactMap.BootPlayerMap.put(player.getUniqueId(),ArtifactBootType.getBoot(bootInt).createRunnable(player));
+                        PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(36,PlayerArtifactMap.BootPlayerMap.get(player.getUniqueId()));
                     }
                 }
                 Integer mainweaponInt=persistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_mainweapon"),PersistentDataType.INTEGER);
@@ -218,16 +233,19 @@ public class ArtifactFightPlayerListener implements Listener {
                     if(mainweaponInt%10==1){
                         if (ArtifactMainWeaponType.getWeapon(mainweaponInt / 10) != null) {
                             PlayerArtifactMap.MainWeaponPlayerMap.put(player.getUniqueId(),ArtifactMainWeaponType.getWeapon(mainweaponInt/10).createRunnable(player,0));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(0,PlayerArtifactMap.MainWeaponPlayerMap.get(player.getUniqueId()));
                         }
                     }
                     else if(mainweaponInt%10==2){
                         if (ArtifactBowType.getBow(mainweaponInt/10) != null) {
                             PlayerArtifactMap.MainWeaponPlayerMap.put(player.getUniqueId(),ArtifactBowType.getBow(mainweaponInt/10).createRunnable(player,0));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(0,PlayerArtifactMap.MainWeaponPlayerMap.get(player.getUniqueId()));
                         }
                     }
                     else{
                         if (ArtifactShieldType.getShield(mainweaponInt/10) != null) {
                             PlayerArtifactMap.MainWeaponPlayerMap.put(player.getUniqueId(),ArtifactShieldType.getShield(mainweaponInt/10).createRunnable(player,0));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(0,PlayerArtifactMap.MainWeaponPlayerMap.get(player.getUniqueId()));
                         }
                     }
                 }
@@ -236,16 +254,19 @@ public class ArtifactFightPlayerListener implements Listener {
                     if(deputyweaponInt%10==1){
                         if (ArtifactMainWeaponType.getWeapon(deputyweaponInt / 10) != null) {
                             PlayerArtifactMap.DeputyWeaponPlayerMap.put(player.getUniqueId(),ArtifactMainWeaponType.getWeapon(deputyweaponInt/10).createRunnable(player,1));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(1,PlayerArtifactMap.DeputyWeaponPlayerMap.get(player.getUniqueId()));
                         }
                     }
                     else if(deputyweaponInt%10==2){
                         if (ArtifactBowType.getBow(deputyweaponInt/10) != null){
                             PlayerArtifactMap.DeputyWeaponPlayerMap.put(player.getUniqueId(),ArtifactBowType.getBow(deputyweaponInt/10).createRunnable(player,1));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(1,PlayerArtifactMap.DeputyWeaponPlayerMap.get(player.getUniqueId()));
                         }
                     }
-                    else{
-                        if (ArtifactShieldType.getShield(deputyweaponInt/10) != null) {
-                            PlayerArtifactMap.DeputyWeaponPlayerMap.put(player.getUniqueId(),ArtifactShieldType.getShield(deputyweaponInt/10).createRunnable(player,1));
+                    else {
+                        if (ArtifactShieldType.getShield(deputyweaponInt / 10) != null) {
+                            PlayerArtifactMap.DeputyWeaponPlayerMap.put(player.getUniqueId(), ArtifactShieldType.getShield(deputyweaponInt / 10).createRunnable(player, 1));
+                            PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(1, PlayerArtifactMap.DeputyWeaponPlayerMap.get(player.getUniqueId()));
                         }
                     }
                 }
@@ -253,18 +274,21 @@ public class ArtifactFightPlayerListener implements Listener {
                 if(firstPropInt!=null){
                     if (ArtifactPropType.getProp(firstPropInt) != null) {
                         PlayerArtifactMap.Prop1PlayerMap.put(player.getUniqueId(),ArtifactPropType.getProp(firstPropInt).createRunnable(player,2));
+                        PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(2,PlayerArtifactMap.Prop1PlayerMap.get(player.getUniqueId()));
                     }
                 }
                 Integer secondPropInt=persistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_secondprop"),PersistentDataType.INTEGER);
                 if(secondPropInt!=null){
                     if (ArtifactPropType.getProp(secondPropInt) != null) {
                         PlayerArtifactMap.Prop2PlayerMap.put(player.getUniqueId(),ArtifactPropType.getProp(secondPropInt).createRunnable(player,3));
+                        PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(3,PlayerArtifactMap.Prop2PlayerMap.get(player.getUniqueId()));
                     }
                 }
                 Integer thirdPropInt=persistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_thirdprop"),PersistentDataType.INTEGER);
                 if(thirdPropInt!=null){
                     if (ArtifactPropType.getProp(thirdPropInt) != null) {
                         PlayerArtifactMap.Prop3PlayerMap.put(player.getUniqueId(),ArtifactPropType.getProp(thirdPropInt).createRunnable(player,4));
+                        PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(4,PlayerArtifactMap.Prop3PlayerMap.get(player.getUniqueId()));
                     }
                 }
             }

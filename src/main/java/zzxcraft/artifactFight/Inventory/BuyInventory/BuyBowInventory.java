@@ -41,7 +41,7 @@ public class BuyBowInventory implements InventoryHolder {
     }
     private void addBowType(int slot, ArtifactBowType artifactBowType){
         this.bowTypeHashMap.put(slot,artifactBowType);
-        ItemStack itemStack=artifactBowType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactBowType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

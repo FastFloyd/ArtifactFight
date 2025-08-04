@@ -40,7 +40,7 @@ public class BuyBootInventory implements InventoryHolder {
     }
     private void addBootType(int slot, ArtifactBootType artifactBootType){
         this.bootTypeHashMap.put(slot,artifactBootType);
-        ItemStack itemStack=artifactBootType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactBootType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

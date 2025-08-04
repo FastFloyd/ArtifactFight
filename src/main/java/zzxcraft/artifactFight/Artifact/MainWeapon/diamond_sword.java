@@ -1,11 +1,13 @@
 package zzxcraft.artifactFight.Artifact.MainWeapon;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 
 import java.util.ArrayList;

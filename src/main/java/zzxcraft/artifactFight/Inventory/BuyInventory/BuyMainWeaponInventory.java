@@ -39,7 +39,7 @@ public class BuyMainWeaponInventory implements InventoryHolder {
     }
     private void addMainWeaponType(int slot,ArtifactMainWeaponType artifactMainWeaponType){
         this.mainWeaponTypeHashMap.put(slot,artifactMainWeaponType);
-        ItemStack itemStack=artifactMainWeaponType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactMainWeaponType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

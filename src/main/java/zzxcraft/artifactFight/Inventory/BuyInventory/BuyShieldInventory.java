@@ -39,7 +39,7 @@ public class BuyShieldInventory implements InventoryHolder {
     }
     private void addShieldType(int slot,ArtifactShieldType artifactShieldType){
         this.shieldTypeHashMap.put(slot,artifactShieldType);
-        ItemStack itemStack=artifactShieldType.getItemStack();
+        ItemStack itemStack=new ItemStack(artifactShieldType.getItemStack());
         ItemMeta itemMeta=itemStack.getItemMeta();
         List<Component> list=itemMeta.lore();
         if(list==null){

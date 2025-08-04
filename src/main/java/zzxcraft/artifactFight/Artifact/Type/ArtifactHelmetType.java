@@ -41,6 +41,7 @@ public class ArtifactHelmetType {
     }
     public ItemStack getItemStack() {return this.itemStack;}
     public ArtifactHelmetFather createRunnable(Player player) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        if(prclass==null) return null;
         return prclass.getConstructor(Player.class).newInstance(player);
     }
     private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet){
