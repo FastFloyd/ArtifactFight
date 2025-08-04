@@ -1,17 +1,21 @@
 package zzxcraft.artifactFight.Inventory.BuyInventory;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactBootType;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactChestPlateType;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactHelmetType;
 import zzxcraft.artifactFight.ArtifactFight;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BuyBootInventory implements InventoryHolder {
     Inventory inventory;
@@ -36,7 +40,16 @@ public class BuyBootInventory implements InventoryHolder {
     }
     private void addBootType(int slot, ArtifactBootType artifactBootType){
         this.bootTypeHashMap.put(slot,artifactBootType);
-        this.getInventory().setItem(slot,artifactBootType.getItemStack());
+        ItemStack itemStack=artifactBootType.getItemStack();
+        ItemMeta itemMeta=itemStack.getItemMeta();
+        List<Component> list=itemMeta.lore();
+        if(list==null){
+            list=new ArrayList<>();
+        }
+        list.add(Component.text("Piece: $"+(artifactBootType.getPrice()==0?"free":String.valueOf(artifactBootType.getPrice()))));
+        itemMeta.lore(list);
+        itemStack.setItemMeta(itemMeta);
+        this.getInventory().setItem(slot,itemStack);
     }
     public ArtifactBootType getBootType(int slot){
         return this.bootTypeHashMap.get(slot);

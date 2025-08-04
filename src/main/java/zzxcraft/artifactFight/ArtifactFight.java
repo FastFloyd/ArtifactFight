@@ -44,6 +44,16 @@ public final class ArtifactFight extends JavaPlugin {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         this.getLogger().info("DisableTime : "+formatter.format(date));
+        PlayerArtifactMap.ArtifactMap.clear();
+        PlayerArtifactMap.HelmetPlayerMap.clear();
+        PlayerArtifactMap.ChestPlatePlayerMap.clear();
+        PlayerArtifactMap.LeggingPlayerMap.clear();
+        PlayerArtifactMap.BootPlayerMap.clear();
+        PlayerArtifactMap.MainWeaponPlayerMap.clear();
+        PlayerArtifactMap.DeputyWeaponPlayerMap.clear();
+        PlayerArtifactMap.Prop1PlayerMap.clear();
+        PlayerArtifactMap.Prop2PlayerMap.clear();
+        PlayerArtifactMap.Prop3PlayerMap.clear();
     }
     public static JavaPlugin getMainClass(){
         return JavaPlugin.getPlugin(ArtifactFight.class);

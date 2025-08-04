@@ -2,6 +2,7 @@ package zzxcraft.artifactFight.Listener;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -34,6 +35,7 @@ import zzxcraft.artifactFight.PlayerArtifactMap;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class ArtifactFightPlayerListener implements Listener {
     private final static JavaPlugin javaPlugin = ArtifactFight.getMainClass();
@@ -56,25 +58,21 @@ public class ArtifactFightPlayerListener implements Listener {
             player.removeScoreboardTag(string);
         }
         player.addScoreboardTag("onWait");
-        PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.LeggingPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.LeggingPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.BootPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.BootPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.BootPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.MainWeaponPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.MainWeaponPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.MainWeaponPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.DeputyWeaponPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.DeputyWeaponPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.DeputyWeaponPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.Prop1PlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.Prop1PlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.Prop1PlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.Prop2PlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.Prop2PlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.Prop3PlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.Prop3PlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
+        if(PlayerArtifactMap.ArtifactMap.get(player.getUniqueId())!=null){
+            for(Integer integer:PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).keySet()){
+                PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).get(integer).finish();
+            }
+            PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.BootPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.MainWeaponPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.DeputyWeaponPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop1PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
+        }
     }
 
     @EventHandler
@@ -94,25 +92,22 @@ public class ArtifactFightPlayerListener implements Listener {
             player.removeScoreboardTag(string);
         }
         player.addScoreboardTag("onWait");
-        PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.HelmetPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.ChestPlatePlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.LeggingPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.LeggingPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.BootPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.BootPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.BootPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.MainWeaponPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.MainWeaponPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.MainWeaponPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.DeputyWeaponPlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.DeputyWeaponPlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.DeputyWeaponPlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.Prop1PlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.Prop1PlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.Prop1PlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.Prop2PlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.Prop2PlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
-        if(PlayerArtifactMap.Prop3PlayerMap.get(player.getUniqueId())!=null) PlayerArtifactMap.Prop3PlayerMap.get(player.getUniqueId()).finish();
-        PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
+        if(PlayerArtifactMap.ArtifactMap.get(player.getUniqueId())!=null){
+            for(Integer integer:PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).keySet()){
+                PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).get(integer).finish();
+            }
+            PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.BootPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.MainWeaponPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.DeputyWeaponPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop1PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
+        }
+
     }
 
     @EventHandler

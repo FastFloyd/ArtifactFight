@@ -31,10 +31,10 @@ public class ArtifactLeggingType {
     Set<ArtifactLeggingType> children;
     Integer price;
     Integer id;
-    public static final ArtifactLeggingType NETHERITE_LEGGING = new ArtifactLeggingType(4,createItemStack(Material.NETHERITE_LEGGINGS,1,"合金护腿",List.of(Component.text("合金铸造"),Component.text("Piece:1000")),Set.of(Pair.of(Enchantment.FIRE_PROTECTION,4))), netherite_legging.class, Set.of(), 1000);
-    public static final ArtifactLeggingType DIAMOND_LEGGING = new ArtifactLeggingType(3,createItemStack(Material.DIAMOND_LEGGINGS,1,"钻石护腿",List.of(Component.text("无比坚硬的装甲"),Component.text("Piece:500")),Set.of()), diamond_legging.class,Set.of(ArtifactLeggingType.NETHERITE_LEGGING),500);
-    public static final ArtifactLeggingType IRON_LEGGING = new ArtifactLeggingType(2,createItemStack(Material.IRON_LEGGINGS,1,"铁护腿",List.of(Component.text("百炼成钢"),Component.text("Piece:100")),Set.of()), iron_legging.class,Set.of(ArtifactLeggingType.DIAMOND_LEGGING),100);
-    public static final ArtifactLeggingType LEATHER_LRGGING = new ArtifactLeggingType(1,createItemStack(Material.LEATHER_LEGGINGS,1,"皮革护腿",List.of(Component.text("旅行者的最爱"),Component.text("Piece:free")),Set.of()), leather_legging.class,Set.of(ArtifactLeggingType.IRON_LEGGING),0);
+    public static final ArtifactLeggingType NETHERITE_LEGGING = new ArtifactLeggingType(4,createItemStack(Material.NETHERITE_LEGGINGS,1,"合金护腿",List.of(Component.text("合金铸造")),Set.of(Pair.of(Enchantment.FIRE_PROTECTION,4))), netherite_legging.class, Set.of(), 1000);
+    public static final ArtifactLeggingType DIAMOND_LEGGING = new ArtifactLeggingType(3,createItemStack(Material.DIAMOND_LEGGINGS,1,"钻石护腿",List.of(Component.text("无比坚硬的装甲")),Set.of()), diamond_legging.class,Set.of(ArtifactLeggingType.NETHERITE_LEGGING),500);
+    public static final ArtifactLeggingType IRON_LEGGING = new ArtifactLeggingType(2,createItemStack(Material.IRON_LEGGINGS,1,"铁护腿",List.of(Component.text("百炼成钢")),Set.of()), iron_legging.class,Set.of(ArtifactLeggingType.DIAMOND_LEGGING),100);
+    public static final ArtifactLeggingType LEATHER_LRGGING = new ArtifactLeggingType(1,createItemStack(Material.LEATHER_LEGGINGS,1,"皮革护腿",List.of(Component.text("旅行者的最爱")),Set.of()), leather_legging.class,Set.of(ArtifactLeggingType.IRON_LEGGING),0);
     public static final ArtifactLeggingType BUY_LEGGING= new ArtifactLeggingType(-1,ItemStack.of(Material.BARRIER), ArtifactLeggingFather.class,Set.of(ArtifactLeggingType.LEATHER_LRGGING),0);
     private ArtifactLeggingType(Integer id,ItemStack itemStack,Class<? extends ArtifactLeggingFather> prclass,Set<ArtifactLeggingType> children,Integer price){
         this.id=id;

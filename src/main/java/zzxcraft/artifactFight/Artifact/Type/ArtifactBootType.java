@@ -31,10 +31,10 @@ public class ArtifactBootType {
     Set<ArtifactBootType> children;
     Integer price;
     Integer id;
-    public static final ArtifactBootType NETHERITE_BOOT = new ArtifactBootType(4,createItemStack(Material.NETHERITE_BOOTS,1,"合金靴子",List.of(Component.text("合金铸造"),Component.text("Piece:$1000")),Set.of(Pair.of(Enchantment.FIRE_PROTECTION,4))), netherite_boot.class, Set.of(), 1000);
-    public static final ArtifactBootType DIAMOND_BOOT = new ArtifactBootType(3,createItemStack(Material.DIAMOND_BOOTS,1,"钻石靴子",List.of(Component.text("无比坚硬的装甲"),Component.text("Piece:$500")),Set.of()), diamond_boot.class,Set.of(ArtifactBootType.NETHERITE_BOOT),500);
-    public static final ArtifactBootType IRON_BOOT = new ArtifactBootType(2,createItemStack(Material.IRON_BOOTS,1,"铁靴子",List.of(Component.text("百炼成钢"),Component.text("Piece:$100")),Set.of()), iron_boot.class,Set.of(ArtifactBootType.DIAMOND_BOOT),100);
-    public static final ArtifactBootType LEATHER_BOOT = new ArtifactBootType(1,createItemStack(Material.LEATHER_BOOTS,1,"皮革靴子", List.of(Component.text("旅行者的最爱"),Component.text("Piece:free")),Set.of()), leather_boot.class,Set.of(ArtifactBootType.IRON_BOOT),0);
+    public static final ArtifactBootType NETHERITE_BOOT = new ArtifactBootType(4,createItemStack(Material.NETHERITE_BOOTS,1,"合金靴子",List.of(Component.text("合金铸造")),Set.of(Pair.of(Enchantment.FIRE_PROTECTION,4))), netherite_boot.class, Set.of(), 1000);
+    public static final ArtifactBootType DIAMOND_BOOT = new ArtifactBootType(3,createItemStack(Material.DIAMOND_BOOTS,1,"钻石靴子",List.of(Component.text("无比坚硬的装甲")),Set.of()), diamond_boot.class,Set.of(ArtifactBootType.NETHERITE_BOOT),500);
+    public static final ArtifactBootType IRON_BOOT = new ArtifactBootType(2,createItemStack(Material.IRON_BOOTS,1,"铁靴子",List.of(Component.text("百炼成钢")),Set.of()), iron_boot.class,Set.of(ArtifactBootType.DIAMOND_BOOT),100);
+    public static final ArtifactBootType LEATHER_BOOT = new ArtifactBootType(1,createItemStack(Material.LEATHER_BOOTS,1,"皮革靴子", List.of(Component.text("旅行者的最爱")),Set.of()), leather_boot.class,Set.of(ArtifactBootType.IRON_BOOT),0);
     public static final ArtifactBootType BUY_BOOT = new ArtifactBootType(-1,ItemStack.of(Material.BARRIER), ArtifactBootFather.class,Set.of(ArtifactBootType.LEATHER_BOOT),0);
     private ArtifactBootType(Integer id,ItemStack itemStack,Class<? extends ArtifactBootFather> prclass,Set<ArtifactBootType> children,Integer price){
         this.id=id;

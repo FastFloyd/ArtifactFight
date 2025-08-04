@@ -1,16 +1,20 @@
 package zzxcraft.artifactFight.Inventory.BuyInventory;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactHelmetType;
 import zzxcraft.artifactFight.Artifact.Type.ArtifactPropType;
 import zzxcraft.artifactFight.ArtifactFight;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BuyPropInventory implements InventoryHolder {
     Inventory inventory;
@@ -35,7 +39,16 @@ public class BuyPropInventory implements InventoryHolder {
     }
     private void addPropType(int slot,ArtifactPropType artifactPropType){
         this.propTypeHashMap.put(slot,artifactPropType);
-        this.getInventory().setItem(slot,artifactPropType.getItemStack());
+        ItemStack itemStack=artifactPropType.getItemStack();
+        ItemMeta itemMeta=itemStack.getItemMeta();
+        List<Component> list=itemMeta.lore();
+        if(list==null){
+            list=new ArrayList<>();
+        }
+        list.add(Component.text("Piece: $"+(artifactPropType.getPrice()==0?"free":String.valueOf(artifactPropType.getPrice()))));
+        itemMeta.lore(list);
+        itemStack.setItemMeta(itemMeta);
+        this.getInventory().setItem(slot,itemStack);
     }
     public ArtifactPropType getPropType(int slot){
         return this.propTypeHashMap.get(slot);
