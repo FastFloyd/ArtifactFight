@@ -28,10 +28,10 @@ public class ArtifactBowType {
     Set<ArtifactBowType> children;
     Integer price;
     Integer id;
-    public static final ArtifactBowType SUPER_POWER_BOW = new ArtifactBowType(4,createItemStack(Material.BOW,1,"力量V弓",List.of(Component.text("力量 V", TextColor.color(168,168,168)),Component.text("平明寻白羽，没在石棱中")),Set.of(Pair.of(Enchantment.VANISHING_CURSE,1)),Set.of(ItemFlag.HIDE_ENCHANTS)), super_power_bow.class,Set.of(),1000);
-    public static final ArtifactBowType POWER_BOW_PLUS = new ArtifactBowType(3,createItemStack(Material.BOW,1,"力量III弓",List.of(Component.text("力量 III", TextColor.color(168,168,168)),Component.text("力大无穷")),Set.of(Pair.of(Enchantment.VANISHING_CURSE,1)),Set.of(ItemFlag.HIDE_ENCHANTS)), power_bow_plus.class,Set.of(ArtifactBowType.SUPER_POWER_BOW),500);
-    public static final ArtifactBowType POWER_BOW = new ArtifactBowType(2,createItemStack(Material.BOW,1,"力量I弓",List.of(Component.text("力量 I", TextColor.color(168,168,168)),Component.text("更强的力量")),Set.of(Pair.of(Enchantment.VANISHING_CURSE,1)),Set.of(ItemFlag.HIDE_ENCHANTS)), power_bow.class,Set.of(ArtifactBowType.POWER_BOW_PLUS),100);
-    public static final ArtifactBowType BOW = new ArtifactBowType(1,createItemStack(Material.BOW,1,"普通弓箭", List.of(Component.text("简单的远程武器")),Set.of(),Set.of()), bow.class,Set.of(ArtifactBowType.POWER_BOW),0);
+    public static final ArtifactBowType SUPER_POWER_BOW = new ArtifactBowType(4,createItemStack(Material.BOW,1,"力量V弓",List.of(Component.text("力量 V", TextColor.color(168,168,168)),Component.text("平明寻白羽，没在石棱中")),true), super_power_bow.class,Set.of(),1000);
+    public static final ArtifactBowType POWER_BOW_PLUS = new ArtifactBowType(3,createItemStack(Material.BOW,1,"力量III弓",List.of(Component.text("力量 III", TextColor.color(168,168,168)),Component.text("力大无穷")),true), power_bow_plus.class,Set.of(ArtifactBowType.SUPER_POWER_BOW),500);
+    public static final ArtifactBowType POWER_BOW = new ArtifactBowType(2,createItemStack(Material.BOW,1,"力量I弓",List.of(Component.text("力量 I", TextColor.color(168,168,168)),Component.text("更强的力量")),true), power_bow.class,Set.of(ArtifactBowType.POWER_BOW_PLUS),100);
+    public static final ArtifactBowType BOW = new ArtifactBowType(1,createItemStack(Material.BOW,1,"普通弓箭", List.of(Component.text("简单的远程武器")),false), bow.class,Set.of(ArtifactBowType.POWER_BOW),0);
     public static final ArtifactBowType BUY_BOW= new ArtifactBowType(-1,ItemStack.of(Material.BARRIER), ArtifactBowFather.class,Set.of(ArtifactBowType.BOW),0);
     private ArtifactBowType(Integer id,ItemStack itemStack, Class<? extends ArtifactBowFather> prclass, Set<ArtifactBowType> children, Integer price){
         this.id=id;
@@ -45,18 +45,14 @@ public class ArtifactBowType {
         if(prclass==null) return null;
         return prclass.getConstructor(Player.class, Integer.class).newInstance(player,slot);
     }
-    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet,Set<ItemFlag> flags){
+    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, boolean glow){
         ItemStack itemStack1=ItemStack.of(material,count);
         ItemMeta itemMeta=itemStack1.getItemMeta();
         itemMeta.displayName(Component.text(name));
         itemMeta.lore(lore);
-        HashMap<Enchantment,Integer> hashMap=new HashMap<>();
-        for(Pair<Enchantment,Integer> pair: EnchSet){
-            hashMap.put(pair.getLeft(), pair.getRight());
-        }
-        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap, true));
-        for (ItemFlag itemFlag : flags) {
-            itemMeta.addItemFlags(itemFlag);
+        if(glow){
+            itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         itemStack1.setItemMeta(itemMeta);
         return itemStack1;

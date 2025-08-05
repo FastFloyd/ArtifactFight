@@ -30,11 +30,11 @@ public class ArtifactLeggingType {
     Set<ArtifactLeggingType> children;
     Integer price;
     Integer id;
-    public static final ArtifactLeggingType SUPER_NETHERITE_LEGGING = new ArtifactLeggingType(5,createItemStack(Material.NETHERITE_LEGGINGS,1,"不摧护腿",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),Set.of(Pair.of(Enchantment.VANISHING_CURSE,1)),Set.of(ItemFlag.HIDE_ENCHANTS)), super_netherite_legging.class,Set.of(),2000);
-    public static final ArtifactLeggingType NETHERITE_LEGGING = new ArtifactLeggingType(4,createItemStack(Material.NETHERITE_LEGGINGS,1,"合金护腿",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),Set.of(Pair.of(Enchantment.VANISHING_CURSE,1)),Set.of(ItemFlag.HIDE_ENCHANTS)), netherite_legging.class, Set.of(ArtifactLeggingType.SUPER_NETHERITE_LEGGING), 1000);
-    public static final ArtifactLeggingType DIAMOND_LEGGING = new ArtifactLeggingType(3,createItemStack(Material.DIAMOND_LEGGINGS,1,"钻石护腿",List.of(Component.text("无比坚硬的装甲")),Set.of(),Set.of()), diamond_legging.class,Set.of(ArtifactLeggingType.NETHERITE_LEGGING),500);
-    public static final ArtifactLeggingType IRON_LEGGING = new ArtifactLeggingType(2,createItemStack(Material.IRON_LEGGINGS,1,"铁护腿",List.of(Component.text("百炼成钢")),Set.of(),Set.of()), iron_legging.class,Set.of(ArtifactLeggingType.DIAMOND_LEGGING),100);
-    public static final ArtifactLeggingType LEATHER_LRGGING = new ArtifactLeggingType(1,createItemStack(Material.LEATHER_LEGGINGS,1,"皮革护腿",List.of(Component.text("旅行者的最爱")),Set.of(),Set.of()), leather_legging.class,Set.of(ArtifactLeggingType.IRON_LEGGING),0);
+    public static final ArtifactLeggingType SUPER_NETHERITE_LEGGING = new ArtifactLeggingType(5,createItemStack(Material.NETHERITE_LEGGINGS,1,"不摧护腿",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true), super_netherite_legging.class,Set.of(),2000);
+    public static final ArtifactLeggingType NETHERITE_LEGGING = new ArtifactLeggingType(4,createItemStack(Material.NETHERITE_LEGGINGS,1,"合金护腿",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),true), netherite_legging.class, Set.of(ArtifactLeggingType.SUPER_NETHERITE_LEGGING), 1000);
+    public static final ArtifactLeggingType DIAMOND_LEGGING = new ArtifactLeggingType(3,createItemStack(Material.DIAMOND_LEGGINGS,1,"钻石护腿",List.of(Component.text("无比坚硬的装甲")),false), diamond_legging.class,Set.of(ArtifactLeggingType.NETHERITE_LEGGING),500);
+    public static final ArtifactLeggingType IRON_LEGGING = new ArtifactLeggingType(2,createItemStack(Material.IRON_LEGGINGS,1,"铁护腿",List.of(Component.text("百炼成钢")),false), iron_legging.class,Set.of(ArtifactLeggingType.DIAMOND_LEGGING),100);
+    public static final ArtifactLeggingType LEATHER_LRGGING = new ArtifactLeggingType(1,createItemStack(Material.LEATHER_LEGGINGS,1,"皮革护腿",List.of(Component.text("旅行者的最爱")),false), leather_legging.class,Set.of(ArtifactLeggingType.IRON_LEGGING),0);
     public static final ArtifactLeggingType BUY_LEGGING= new ArtifactLeggingType(-1,ItemStack.of(Material.BARRIER), ArtifactLeggingFather.class,Set.of(ArtifactLeggingType.LEATHER_LRGGING),0);
     private ArtifactLeggingType(Integer id,ItemStack itemStack,Class<? extends ArtifactLeggingFather> prclass,Set<ArtifactLeggingType> children,Integer price){
         this.id=id;
@@ -48,18 +48,14 @@ public class ArtifactLeggingType {
         if(prclass==null) return null;
         return prclass.getConstructor(Player.class).newInstance(player);
     }
-    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet,Set<ItemFlag> flags){
+    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, boolean glow){
         ItemStack itemStack1=ItemStack.of(material,count);
         ItemMeta itemMeta=itemStack1.getItemMeta();
         itemMeta.displayName(Component.text(name));
         itemMeta.lore(lore);
-        HashMap<Enchantment,Integer> hashMap=new HashMap<>();
-        for(Pair<Enchantment,Integer> pair: EnchSet){
-            hashMap.put(pair.getLeft(), pair.getRight());
-        }
-        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap, true));
-        for (ItemFlag itemFlag : flags) {
-            itemMeta.addItemFlags(itemFlag);
+        if(glow){
+            itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         itemStack1.setItemMeta(itemMeta);
         return itemStack1;

@@ -1,7 +1,5 @@
 package zzxcraft.artifactFight.Artifact.MainWeapon;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -15,16 +13,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-public class null_sword extends ArtifactMainWeaponFather {
-    public null_sword(Player player, Integer slot) {
+public class super_null_sword extends ArtifactMainWeaponFather {
+    public super_null_sword(Player player, Integer slot) {
         super(player, slot);
         ItemStack itemStack=ItemStack.of(Material.IRON_SWORD);
         ItemMeta itemMeta=itemStack.getItemMeta();
-        itemMeta.displayName(Component.text("湮灭之剑"));
-        itemMeta.lore(List.of(Component.text("湮灭 I", TextColor.color(168,168,168))));
+        itemMeta.displayName(Component.text("终焉"));
+        itemMeta.lore(List.of(Component.text("湮灭 V", TextColor.color(168,168,168))));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(itemMeta);
@@ -33,7 +30,7 @@ public class null_sword extends ArtifactMainWeaponFather {
 
     @Override
     public void OnFight(EntityDamageByEntityEvent event) {
-        event.setDamage(this.getPlayer().getAttribute(Attribute.MAX_HEALTH).getBaseValue()*0.1);
+        event.setDamage(this.getPlayer().getAttribute(Attribute.MAX_HEALTH).getBaseValue()*0.5);
     }
 
     @Override

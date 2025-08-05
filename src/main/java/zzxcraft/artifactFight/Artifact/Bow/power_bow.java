@@ -31,7 +31,7 @@ public class power_bow extends ArtifactBowFather {
     }
     @Override
     public void onHit(ProjectileHitEvent event) {
-        ((Player)event.getHitEntity()).damage(5.0, DamageSource.builder(DamageType.ARROW).withCausingEntity(this.getPlayer()).withDamageLocation(event.getEntity().getLocation()).build());
+        ((Player)event.getHitEntity()).damage(3.0, DamageSource.builder(DamageType.ARROW).withCausingEntity(this.getPlayer()).withDirectEntity(event.getHitEntity()).withDamageLocation(event.getEntity().getLocation()).build());
     }
 
     @Override

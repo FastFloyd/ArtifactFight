@@ -32,9 +32,9 @@ public class ArtifactPropType {
     Set<ArtifactPropType> children;
     Integer price;
     Integer id;
-    public static final ArtifactPropType EGG = new ArtifactPropType(3,createItemStack(Material.EGG,16,"鸡蛋",List.of(Component.text("进阶的投掷物")),Set.of(),Set.of()), egg.class,Set.of(),50);
-    public static final ArtifactPropType FIREWORK_ROCKET = new ArtifactPropType(2,createItemStack(Material.FIREWORK_ROCKET,16,"烟花火箭",List.of(Component.text("飞行员的必备物，驽箭手的最爱")),Set.of(),Set.of()), firework_rocket.class,Set.of(),100);
-    public static final ArtifactPropType SNOWBALL = new ArtifactPropType(1,createItemStack(Material.SNOWBALL,16,"雪球", List.of(Component.text("简单的投掷物")),Set.of(),Set.of()), snowball.class,Set.of(ArtifactPropType.EGG),0);
+    public static final ArtifactPropType EGG = new ArtifactPropType(3,createItemStack(Material.EGG,16,"鸡蛋",List.of(Component.text("进阶的投掷物")),false), egg.class,Set.of(),50);
+    public static final ArtifactPropType FIREWORK_ROCKET = new ArtifactPropType(2,createItemStack(Material.FIREWORK_ROCKET,16,"烟花火箭",List.of(Component.text("飞行员的必备物，驽箭手的最爱")),false), firework_rocket.class,Set.of(),100);
+    public static final ArtifactPropType SNOWBALL = new ArtifactPropType(1,createItemStack(Material.SNOWBALL,16,"雪球", List.of(Component.text("简单的投掷物")),false), snowball.class,Set.of(ArtifactPropType.EGG),0);
     public static final ArtifactPropType BUY_PROP= new ArtifactPropType(-1,ItemStack.of(Material.BARRIER), ArtifactPropFather.class,Set.of(ArtifactPropType.SNOWBALL,ArtifactPropType.FIREWORK_ROCKET),0);
     private ArtifactPropType(Integer id,ItemStack itemStack,Class<? extends ArtifactPropFather> prclass,Set<ArtifactPropType> children,Integer price){
         this.id=id;
@@ -49,18 +49,14 @@ public class ArtifactPropType {
         if(prclass==null) return null;
         return prclass.getConstructor(Player.class,Integer.class).newInstance(player,slot);
     }
-    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet,Set<ItemFlag> flags){
+    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, boolean glow){
         ItemStack itemStack1=ItemStack.of(material,count);
         ItemMeta itemMeta=itemStack1.getItemMeta();
         itemMeta.displayName(Component.text(name));
         itemMeta.lore(lore);
-        HashMap<Enchantment,Integer> hashMap=new HashMap<>();
-        for(Pair<Enchantment,Integer> pair: EnchSet){
-            hashMap.put(pair.getLeft(), pair.getRight());
-        }
-        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap, true));
-        for (ItemFlag itemFlag : flags) {
-            itemMeta.addItemFlags(itemFlag);
+        if(glow){
+            itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         itemStack1.setItemMeta(itemMeta);
         return itemStack1;
