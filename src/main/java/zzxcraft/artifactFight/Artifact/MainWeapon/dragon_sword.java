@@ -3,16 +3,19 @@ package zzxcraft.artifactFight.Artifact.MainWeapon;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactHelmetFather;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,8 +25,11 @@ public class dragon_sword extends ArtifactMainWeaponFather {
         ItemStack itemStack=ItemStack.of(Material.DIAMOND_SWORD);
         ItemMeta itemMeta=itemStack.getItemMeta();
         itemMeta.displayName(Component.text("神龙剑"));
+        itemMeta.lore(List.of(Component.text("破甲 III", TextColor.color(168,168,168))));
+        itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(itemMeta);
-        itemStack.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(Map.of(Enchantment.BREACH,3),true));
+
         this.setItemStack(itemStack);
     }
 

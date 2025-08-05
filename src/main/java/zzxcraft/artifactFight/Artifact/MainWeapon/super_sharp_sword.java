@@ -3,16 +3,26 @@ package zzxcraft.artifactFight.Artifact.MainWeapon;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
+import zzxcraft.artifactFight.ArtifactFight;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.jar.Attributes;
 
 public class super_sharp_sword extends ArtifactMainWeaponFather {
     public super_sharp_sword(Player player, Integer slot) {
@@ -20,8 +30,11 @@ public class super_sharp_sword extends ArtifactMainWeaponFather {
         ItemStack itemStack=ItemStack.of(Material.NETHERITE_SWORD);
         ItemMeta itemMeta=itemStack.getItemMeta();
         itemMeta.displayName(Component.text("神锋"));
+        itemMeta.lore(List.of(Component.text("锋利 V", TextColor.color(168,168,168))));
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),10.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
+        itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(itemMeta);
-        itemStack.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(Map.of(Enchantment.SHARPNESS,5),true));
         this.setItemStack(itemStack);
     }
 

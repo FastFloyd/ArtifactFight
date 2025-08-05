@@ -1,6 +1,8 @@
-package zzxcraft.artifactFight.Artifact.Legging;
+package zzxcraft.artifactFight.Artifact.Boot;
 
+import io.papermc.paper.datacomponent.DataComponentType;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -10,28 +12,30 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import zzxcraft.artifactFight.Artifact.Fathers.ArtifactLeggingFather;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBootFather;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-public class netherite_legging extends ArtifactLeggingFather {
-    public netherite_legging(Player player) {
+public class super_netherite_boot extends ArtifactBootFather {
+    public super_netherite_boot(Player player) {
         super(player);
-        ItemStack itemStack=ItemStack.of(Material.NETHERITE_LEGGINGS);
+        ItemStack itemStack=ItemStack.of(Material.NETHERITE_BOOTS);
         ItemMeta itemMeta=itemStack.getItemMeta();
-        itemMeta.displayName(Component.text("下界合金护腿"));
-        itemMeta.lore(List.of(Component.text("抗火 IV", TextColor.color(168,168,168))));
+        itemMeta.displayName(Component.text("不摧靴子"));
+
+        itemMeta.lore(List.of(Component.text("不摧 IV", TextColor.color(168,168,168))));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(itemMeta);
         this.setItemStack(itemStack);
-
     }
 
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {
-
+        event.setDamage(Math.min(event.getDamage(),10.0));
+        event.setDamage(Math.max(0,event.getDamage()-1));
     }
 
     @Override

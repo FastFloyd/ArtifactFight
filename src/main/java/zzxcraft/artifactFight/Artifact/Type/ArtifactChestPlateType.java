@@ -3,18 +3,17 @@ package zzxcraft.artifactFight.Artifact.Type;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import zzxcraft.artifactFight.Artifact.ChestPlate.diamond_chestplate;
-import zzxcraft.artifactFight.Artifact.ChestPlate.iron_chestplate;
-import zzxcraft.artifactFight.Artifact.ChestPlate.leather_chestplate;
+import zzxcraft.artifactFight.Artifact.ChestPlate.*;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactChestPlateFather;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactHelmetFather;
-import zzxcraft.artifactFight.Artifact.ChestPlate.netherite_chestplate;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -27,10 +26,11 @@ public class ArtifactChestPlateType {
     Set<ArtifactChestPlateType> children;
     Integer price;
     Integer id;
-    public static final ArtifactChestPlateType NETHERITE_CHESTPLATE = new ArtifactChestPlateType(4,createItemStack(Material.NETHERITE_CHESTPLATE,1,"合金胸甲",List.of(Component.text("合金铸造")),Set.of(Pair.of(Enchantment.FIRE_PROTECTION,4))), netherite_chestplate.class, Set.of(), 1000);
-    public static final ArtifactChestPlateType DIAMOND_CHESTPLATE = new ArtifactChestPlateType(3,createItemStack(Material.DIAMOND_CHESTPLATE,1,"钻石胸甲",List.of(Component.text("无比坚硬的装甲")),Set.of()), diamond_chestplate.class,Set.of(ArtifactChestPlateType.NETHERITE_CHESTPLATE),500);
-    public static final ArtifactChestPlateType IRON_CHESTPLATE = new ArtifactChestPlateType(2,createItemStack(Material.IRON_CHESTPLATE,1,"铁胸甲",List.of(Component.text("百炼成钢")),Set.of()), iron_chestplate.class,Set.of(ArtifactChestPlateType.DIAMOND_CHESTPLATE),100);
-    public static final ArtifactChestPlateType LEATHER_CHESTPLATE = new ArtifactChestPlateType(1,createItemStack(Material.LEATHER_CHESTPLATE,1,"皮革胸甲",List.of(Component.text("旅行者的最爱")),Set.of()), leather_chestplate.class,Set.of(ArtifactChestPlateType.IRON_CHESTPLATE),0);
+    public static final ArtifactChestPlateType SUPER_NETHERITE_CHESTPLATE = new ArtifactChestPlateType(5,createItemStack(Material.NETHERITE_BOOTS,1,"不摧胸甲",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),Set.of(Pair.of(Enchantment.VANISHING_CURSE,1)),Set.of(ItemFlag.HIDE_ENCHANTS)), super_netherite_chestplate.class,Set.of(),2000);
+    public static final ArtifactChestPlateType NETHERITE_CHESTPLATE = new ArtifactChestPlateType(4,createItemStack(Material.NETHERITE_CHESTPLATE,1,"合金胸甲",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),Set.of(Pair.of(Enchantment.VANISHING_CURSE,1)),Set.of(ItemFlag.HIDE_ENCHANTS)), netherite_chestplate.class, Set.of(ArtifactChestPlateType.SUPER_NETHERITE_CHESTPLATE), 1000);
+    public static final ArtifactChestPlateType DIAMOND_CHESTPLATE = new ArtifactChestPlateType(3,createItemStack(Material.DIAMOND_CHESTPLATE,1,"钻石胸甲",List.of(Component.text("无比坚硬的装甲")),Set.of(),Set.of()), diamond_chestplate.class,Set.of(ArtifactChestPlateType.NETHERITE_CHESTPLATE),500);
+    public static final ArtifactChestPlateType IRON_CHESTPLATE = new ArtifactChestPlateType(2,createItemStack(Material.IRON_CHESTPLATE,1,"铁胸甲",List.of(Component.text("百炼成钢")),Set.of(),Set.of()), iron_chestplate.class,Set.of(ArtifactChestPlateType.DIAMOND_CHESTPLATE),100);
+    public static final ArtifactChestPlateType LEATHER_CHESTPLATE = new ArtifactChestPlateType(1,createItemStack(Material.LEATHER_CHESTPLATE,1,"皮革胸甲",List.of(Component.text("旅行者的最爱")),Set.of(),Set.of()), leather_chestplate.class,Set.of(ArtifactChestPlateType.IRON_CHESTPLATE),0);
     public static final ArtifactChestPlateType BUY_CHESTPLATE= new ArtifactChestPlateType(-1,ItemStack.of(Material.BARRIER), ArtifactChestPlateFather.class,Set.of(ArtifactChestPlateType.LEATHER_CHESTPLATE),0);
     private ArtifactChestPlateType(Integer id,ItemStack itemStack,Class<? extends ArtifactChestPlateFather> prclass,Set<ArtifactChestPlateType> children,Integer price){
         this.id=id;
@@ -44,17 +44,20 @@ public class ArtifactChestPlateType {
         if(prclass==null) return null;
         return prclass.getConstructor(Player.class).newInstance(player);
     }
-    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet){
+    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet,Set<ItemFlag> flags){
         ItemStack itemStack1=ItemStack.of(material,count);
         ItemMeta itemMeta=itemStack1.getItemMeta();
         itemMeta.displayName(Component.text(name));
         itemMeta.lore(lore);
-        itemStack1.setItemMeta(itemMeta);
         HashMap<Enchantment,Integer> hashMap=new HashMap<>();
         for(Pair<Enchantment,Integer> pair: EnchSet){
-            hashMap.put(pair.getLeft(),pair.getRight());
+            hashMap.put(pair.getLeft(), pair.getRight());
         }
-        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap,true));
+        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap, true));
+        for (ItemFlag itemFlag : flags) {
+            itemMeta.addItemFlags(itemFlag);
+        }
+        itemStack1.setItemMeta(itemMeta);
         return itemStack1;
     }
     public Set<ArtifactChestPlateType> getChildren(){
@@ -67,7 +70,7 @@ public class ArtifactChestPlateType {
         return this.id;
     }
     public static Integer getChestPlateSize(){
-        return 4;
+        return 5;
     }
     public static ArtifactChestPlateType getChestplate(Integer id){
         return switch (id) {
@@ -75,6 +78,7 @@ public class ArtifactChestPlateType {
             case 2 -> ArtifactChestPlateType.IRON_CHESTPLATE;
             case 3 -> ArtifactChestPlateType.DIAMOND_CHESTPLATE;
             case 4 -> ArtifactChestPlateType.NETHERITE_CHESTPLATE;
+            case 5 -> ArtifactChestPlateType.SUPER_NETHERITE_CHESTPLATE;
             default -> null;
         };
     }

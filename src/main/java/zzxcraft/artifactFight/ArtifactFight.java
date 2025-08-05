@@ -1,5 +1,6 @@
 package zzxcraft.artifactFight;
 
+import org.bukkit.GameRule;
 import org.bukkit.command.CommandMap;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactFather;
 import zzxcraft.artifactFight.Command.ItemCommands;
@@ -25,12 +26,14 @@ public final class ArtifactFight extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getServer().getPluginManager().registerEvents(new ArtifactFightPlayerListener(),this);
-        getServer().getPluginManager().registerEvents(new ArtifactItemListener(),this);
+        this.getServer().getPluginManager().registerEvents(new ArtifactFightPlayerListener(),this);
+        this.getServer().getPluginManager().registerEvents(new ArtifactItemListener(),this);
+        this.getServer().getCommandMap().register("tent", new ItemCommands("tent"));
         (new PlayerOnWait()).start();
         (new PlayerOnPlay()).start();
         (new PlayerOnServer()).start();
-        this.getServer().getCommandMap().register("tent", new ItemCommands("tent"));
+        this.getServer().getWorld("world").setGameRule(GameRule.KEEP_INVENTORY,true);
+        this.getServer().getWorld("world").setGameRule(GameRule.FALL_DAMAGE,false);
         this.getLogger().info("ArtifactFight succeeded in enabling!");
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

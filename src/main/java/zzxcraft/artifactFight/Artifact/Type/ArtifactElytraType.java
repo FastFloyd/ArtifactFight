@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.ChestPlate.diamond_chestplate;
@@ -31,9 +32,9 @@ public class ArtifactElytraType {
     Set<ArtifactElytraType> children;
     Integer price;
     Integer id;
-    public static final ArtifactElytraType SUPER_SPEED_ELYTRA = new ArtifactElytraType(3,createItemStack(Material.ELYTRA,1,"闪电",List.of(Component.text("快如闪电")),Set.of()), super_speed_elytra.class,Set.of(),500);
-    public static final ArtifactElytraType SPEED_ELYTRA = new ArtifactElytraType(2,createItemStack(Material.ELYTRA,1,"疾风",List.of(Component.text("翱翔蓝天")),Set.of()), speed_elytra.class,Set.of(ArtifactElytraType.SUPER_SPEED_ELYTRA),200);
-    public static final ArtifactElytraType ELYTRA = new ArtifactElytraType(1,createItemStack(Material.ELYTRA,1,"鞘翅", List.of(Component.text("天空即为极限")),Set.of()), elytra.class,Set.of(ArtifactElytraType.SPEED_ELYTRA),0);
+    public static final ArtifactElytraType SUPER_SPEED_ELYTRA = new ArtifactElytraType(3,createItemStack(Material.ELYTRA,1,"闪电",List.of(Component.text("快如闪电")),Set.of(),Set.of()), super_speed_elytra.class,Set.of(),500);
+    public static final ArtifactElytraType SPEED_ELYTRA = new ArtifactElytraType(2,createItemStack(Material.ELYTRA,1,"疾风",List.of(Component.text("翱翔蓝天")),Set.of(),Set.of()), speed_elytra.class,Set.of(ArtifactElytraType.SUPER_SPEED_ELYTRA),200);
+    public static final ArtifactElytraType ELYTRA = new ArtifactElytraType(1,createItemStack(Material.ELYTRA,1,"鞘翅", List.of(Component.text("天空即为极限")),Set.of(),Set.of()), elytra.class,Set.of(ArtifactElytraType.SPEED_ELYTRA),0);
     public static final ArtifactElytraType BUY_ELYTRA= new ArtifactElytraType(-1,ItemStack.of(Material.BARRIER), ArtifactElytraFather.class,Set.of(ArtifactElytraType.ELYTRA),0);
     private ArtifactElytraType(Integer id, ItemStack itemStack, Class<? extends ArtifactElytraFather> prclass, Set<ArtifactElytraType> children, Integer price){
         this.id=id;
@@ -47,17 +48,20 @@ public class ArtifactElytraType {
         if(prclass==null) return null;
         return prclass.getConstructor(Player.class).newInstance(player);
     }
-    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet){
+    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, Set<Pair<Enchantment,Integer>> EnchSet,Set<ItemFlag> flags){
         ItemStack itemStack1=ItemStack.of(material,count);
         ItemMeta itemMeta=itemStack1.getItemMeta();
         itemMeta.displayName(Component.text(name));
         itemMeta.lore(lore);
-        itemStack1.setItemMeta(itemMeta);
         HashMap<Enchantment,Integer> hashMap=new HashMap<>();
         for(Pair<Enchantment,Integer> pair: EnchSet){
-            hashMap.put(pair.getLeft(),pair.getRight());
+            hashMap.put(pair.getLeft(), pair.getRight());
         }
-        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap,true));
+        itemStack1.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments(hashMap, true));
+        for (ItemFlag itemFlag : flags) {
+            itemMeta.addItemFlags(itemFlag);
+        }
+        itemStack1.setItemMeta(itemMeta);
         return itemStack1;
     }
     public Set<ArtifactElytraType> getChildren(){
