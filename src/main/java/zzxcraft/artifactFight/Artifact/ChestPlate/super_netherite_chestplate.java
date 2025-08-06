@@ -32,8 +32,11 @@ public class super_netherite_chestplate extends ArtifactChestPlateFather {
         itemMeta.lore(List.of(Component.text("不摧 IV", TextColor.color(168,168,168))));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        itemStack.setItemMeta(itemMeta);
         itemMeta.addAttributeModifier(Attribute.MAX_HEALTH, new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST));
+        itemMeta.addAttributeModifier(Attribute.ARMOR,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),3, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlotGroup.CHEST));
+        itemMeta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),3, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlotGroup.CHEST));
+        itemMeta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),0.15, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlotGroup.CHEST));
+        itemStack.setItemMeta(itemMeta);
         this.setItemStack(itemStack);
     }
 

@@ -5,19 +5,26 @@ import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactHelmetFather;
 import zzxcraft.artifactFight.Artifact.Helmet.*;
+import zzxcraft.artifactFight.ArtifactFight;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class ArtifactHelmetType {
     Class<? extends ArtifactHelmetFather> prclass;
@@ -25,11 +32,11 @@ public class ArtifactHelmetType {
     Set<ArtifactHelmetType> children;
     Integer price;
     Integer id;
-    public static final ArtifactHelmetType SUPER_NETHERITE_HELMET = new ArtifactHelmetType(5,createItemStack(Material.NETHERITE_HELMET,1,"不摧头盔",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true), super_netherite_helmet.class,Set.of(),2000);
-    public static final ArtifactHelmetType NETHERITE_HELMET =new ArtifactHelmetType(4,createItemStack(Material.NETHERITE_HELMET,1,"合金头盔",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),true), netherite_helmet.class,Set.of(ArtifactHelmetType.SUPER_NETHERITE_HELMET),1000);
-    public static final ArtifactHelmetType DIAMOND_HELMET = new ArtifactHelmetType(3,createItemStack(Material.DIAMOND_HELMET,1,"钻石头盔",List.of(Component.text("无比坚硬的装甲")),false), diamond_helmet.class,Set.of(ArtifactHelmetType.NETHERITE_HELMET),500);
-    public static final ArtifactHelmetType IRON_HELMET = new ArtifactHelmetType(2,createItemStack(Material.IRON_HELMET,1,"铁头盔",List.of(Component.text("百炼成钢")),false), iron_helmet.class,Set.of(ArtifactHelmetType.DIAMOND_HELMET),100);
-    public static final ArtifactHelmetType LEATHER_HELMET = new ArtifactHelmetType(1,createItemStack(Material.LEATHER_HELMET,1,"皮革头盔",List.of(Component.text("旅行者的最爱")),false), leather_helmet.class,Set.of(ArtifactHelmetType.IRON_HELMET),0);
+    public static final ArtifactHelmetType SUPER_NETHERITE_HELMET = new ArtifactHelmetType(5,createItemStack(Material.NETHERITE_HELMET,1,"不摧头盔",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_helmet.class,Set.of(),2000);
+    public static final ArtifactHelmetType NETHERITE_HELMET =new ArtifactHelmetType(4,createItemStack(Material.NETHERITE_HELMET,1,"合金头盔",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),true,Set.of()), netherite_helmet.class,Set.of(ArtifactHelmetType.SUPER_NETHERITE_HELMET),1000);
+    public static final ArtifactHelmetType DIAMOND_HELMET = new ArtifactHelmetType(3,createItemStack(Material.DIAMOND_HELMET,1,"钻石头盔",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_helmet.class,Set.of(ArtifactHelmetType.NETHERITE_HELMET),500);
+    public static final ArtifactHelmetType IRON_HELMET = new ArtifactHelmetType(2,createItemStack(Material.IRON_HELMET,1,"铁头盔",List.of(Component.text("百炼成钢")),false,Set.of()), iron_helmet.class,Set.of(ArtifactHelmetType.DIAMOND_HELMET),100);
+    public static final ArtifactHelmetType LEATHER_HELMET = new ArtifactHelmetType(1,createItemStack(Material.LEATHER_HELMET,1,"皮革头盔",List.of(Component.text("旅行者的最爱")),false,Set.of()), leather_helmet.class,Set.of(ArtifactHelmetType.IRON_HELMET),0);
     public static final ArtifactHelmetType BUY_HELMET = new ArtifactHelmetType(-1,ItemStack.of(Material.BARRIER),ArtifactHelmetFather.class,Set.of(ArtifactHelmetType.LEATHER_HELMET),0);
     private ArtifactHelmetType(Integer id,ItemStack itemStack,Class<? extends ArtifactHelmetFather> prclass,Set<ArtifactHelmetType> children,Integer price){
         this.id=id;
@@ -44,7 +51,7 @@ public class ArtifactHelmetType {
         if(prclass==null) return null;
         return prclass.getConstructor(Player.class).newInstance(player);
     }
-    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, boolean glow){
+    private static ItemStack createItemStack(Material material, Integer count, String name, List<Component> lore, boolean glow, Set<Triple<Attribute, AttributeModifier.Operation,Double>> attributeSet){
         ItemStack itemStack1=ItemStack.of(material,count);
         ItemMeta itemMeta=itemStack1.getItemMeta();
         itemMeta.displayName(Component.text(name));
@@ -52,6 +59,9 @@ public class ArtifactHelmetType {
         if(glow){
             itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        }
+        for(Triple<Attribute, AttributeModifier.Operation,Double> triple:attributeSet){
+            itemMeta.addAttributeModifier(triple.getLeft(),new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),triple.getRight(),triple.getMiddle(), EquipmentSlotGroup.HEAD));
         }
         itemStack1.setItemMeta(itemMeta);
         return itemStack1;

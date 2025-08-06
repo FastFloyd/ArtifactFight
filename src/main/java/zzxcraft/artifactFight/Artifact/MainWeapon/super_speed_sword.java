@@ -1,7 +1,5 @@
 package zzxcraft.artifactFight.Artifact.MainWeapon;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -18,21 +16,20 @@ import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 import zzxcraft.artifactFight.ArtifactFight;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.jar.Attributes;
 
-public class super_sharp_sword extends ArtifactMainWeaponFather {
-    public super_sharp_sword(Player player, Integer slot) {
+public class super_speed_sword extends ArtifactMainWeaponFather {
+    public super_speed_sword(Player player, Integer slot) {
         super(player, slot);
-        ItemStack itemStack=ItemStack.of(Material.NETHERITE_SWORD);
+        ItemStack itemStack=ItemStack.of(Material.WOODEN_SWORD);
         ItemMeta itemMeta=itemStack.getItemMeta();
-        itemMeta.displayName(Component.text("神锋"));
-        itemMeta.lore(List.of(Component.text("锋利 V", TextColor.color(168,168,168))));
-        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),10.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
-        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),-1.6, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlotGroup.MAINHAND));
+        itemMeta.displayName(Component.text("电光"));
+        itemMeta.lore(List.of(Component.text("轻盈 V", TextColor.color(168,168,168))));
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),0.9, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(itemMeta);
@@ -40,7 +37,7 @@ public class super_sharp_sword extends ArtifactMainWeaponFather {
     }
 
     @Override
-    public void OnFight(EntityDamageByEntityEvent event) {
+    public void OnFight(EntityDamageByEntityEvent event) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
     }
 
