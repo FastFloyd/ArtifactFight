@@ -32,6 +32,7 @@ public class super_sharp_sword extends ArtifactMainWeaponFather {
         itemMeta.displayName(Component.text("神锋"));
         itemMeta.lore(List.of(Component.text("锋利 V", TextColor.color(168,168,168))));
         itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),10.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(),UUID.randomUUID().toString()),1.6, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlotGroup.MAINHAND));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(itemMeta);

@@ -2,12 +2,14 @@ package zzxcraft.artifactFight.Listener;
 
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -16,16 +18,18 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import zzxcraft.artifactFight.Artifact.Fathers.*;
+import zzxcraft.artifactFight.Artifact.Type.ArtifactEffectType;
 import zzxcraft.artifactFight.ArtifactFight;
 import zzxcraft.artifactFight.PlayerArtifactMap;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class ArtifactItemListener implements Listener {
     private final JavaPlugin javaPlugin=ArtifactFight.getMainClass();
     @EventHandler
-    public void PlayerFightedPlayer(EntityDamageByEntityEvent event){
+    public void PlayerFightedPlayer(EntityDamageByEntityEvent event) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
             HashMap<Integer, ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(event.getEntity().getUniqueId());
             HashMap<Integer, ArtifactFather> hashMap1=PlayerArtifactMap.ArtifactMap.get(event.getDamager().getUniqueId());
@@ -33,10 +37,11 @@ public class ArtifactItemListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
-            if(((Player) event.getEntity()).isBlocking() && hashMap.get(((Player) event.getEntity()).getInventory().getHeldItemSlot())!=null && hashMap.get(((Player) event.getEntity()).getInventory().getHeldItemSlot()) instanceof ArtifactShieldFather){
+            DamageType damageType=event.getDamageSource().getDamageType();
+            if((damageType.equals(DamageType.PLAYER_ATTACK) || damageType.equals(DamageType.ARROW)) &&  ((Player) event.getEntity()).isBlocking() && hashMap.get(((Player) event.getEntity()).getInventory().getHeldItemSlot())!=null && hashMap.get(((Player) event.getEntity()).getInventory().getHeldItemSlot()) instanceof ArtifactShieldFather){
                 ((ArtifactShieldFather) hashMap.get(((Player) event.getEntity()).getInventory().getHeldItemSlot())).OnFighted(event);
             }
-            else if(((Player) event.getEntity()).isBlocking() && hashMap.get(40)!=null && hashMap.get(40) instanceof ArtifactShieldFather){
+            else if((damageType.equals(DamageType.PLAYER_ATTACK) || damageType.equals(DamageType.ARROW)) &&  ((Player) event.getEntity()).isBlocking() && hashMap.get(40)!=null && hashMap.get(40) instanceof ArtifactShieldFather){
                 ((ArtifactShieldFather) hashMap.get(40)).OnFighted(event);
             }
             else{
@@ -51,8 +56,10 @@ public class ArtifactItemListener implements Listener {
                 }
                 if(hashMap.get(37)!=null) ((ArtifactLeggingFather)hashMap.get(37)).OnFighted(event);
                 if(hashMap.get(36)!=null) ((ArtifactBootFather)hashMap.get(36)).OnFighted(event);
-                if(hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())!=null && hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot()) instanceof ArtifactMainWeaponFather){
-                    ((ArtifactMainWeaponFather) hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())).OnFight(event);
+                if(damageType.equals(DamageType.PLAYER_ATTACK)){
+                    if(hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())!=null && hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot()) instanceof ArtifactMainWeaponFather){
+                        ((ArtifactMainWeaponFather) hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())).OnFight(event);
+                    }
                 }
             }
 
@@ -113,7 +120,7 @@ public class ArtifactItemListener implements Listener {
         }
     }
     @EventHandler
-    public void PlayPropUse(PlayerInteractEvent event){
+    public void PlayerPropUse(PlayerInteractEvent event){
         ArtifactPropFather prop1=PlayerArtifactMap.Prop1PlayerMap.get(event.getPlayer().getUniqueId());
         ArtifactPropFather prop2=PlayerArtifactMap.Prop2PlayerMap.get(event.getPlayer().getUniqueId());
         ArtifactPropFather prop3=PlayerArtifactMap.Prop3PlayerMap.get(event.getPlayer().getUniqueId());

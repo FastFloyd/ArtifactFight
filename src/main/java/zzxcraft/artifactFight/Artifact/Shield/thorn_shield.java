@@ -36,7 +36,7 @@ public class thorn_shield extends ArtifactShieldFather {
     }
     @Override
     public void OnFighted(EntityDamageByEntityEvent event) {
-        ((Player) event.getDamager()).damage(2.0, DamageSource.builder(DamageType.THORNS).withCausingEntity(event.getEntity()).build());
+        ((Player) event.getDamager()).damage(3.0, DamageSource.builder(DamageType.THORNS).withCausingEntity(event.getEntity()).withDirectEntity(event.getDamager()).build());
 
     }
 

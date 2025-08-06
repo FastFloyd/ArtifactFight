@@ -18,4 +18,5 @@ public class PlayerArtifactMap {
     public static HashMap<UUID, ArtifactPropFather> Prop2PlayerMap=new HashMap<>();
     public static HashMap<UUID, ArtifactPropFather> Prop3PlayerMap=new HashMap<>();
     public static HashMap<UUID, HashMap<Integer,ArtifactFather>> ArtifactMap=new HashMap<>();
+    public static HashMap<UUID,HashMap<Integer,ArtifactEffectFather>> EffectMap=new HashMap<>();
 }

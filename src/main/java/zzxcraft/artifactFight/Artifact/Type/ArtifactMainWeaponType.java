@@ -1,10 +1,7 @@
 package zzxcraft.artifactFight.Artifact.Type;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -15,7 +12,6 @@ import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 import zzxcraft.artifactFight.Artifact.MainWeapon.*;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +21,10 @@ public class ArtifactMainWeaponType {
     Set<ArtifactMainWeaponType> children;
     Integer price;
     Integer id;
+    public static final ArtifactMainWeaponType SUPER_WITHER_SWORD = new ArtifactMainWeaponType(16,createItemStack(Material.STONE_SWORD,1,"凋灭",List.of(Component.text("凋零 V",TextColor.color(168,168,168)),Component.text("凋零本源")),true), super_wither_sword.class,Set.of(),1500);
+    public static final ArtifactMainWeaponType WITHER_SWORD_PLUS_PLUS = new ArtifactMainWeaponType(15,createItemStack(Material.STONE_SWORD,1,"强化凋零之剑",List.of(Component.text("凋零 III",TextColor.color(168,168,168)),Component.text("更强的凋零之力")),true), wither_sword_plus_plus.class,Set.of(ArtifactMainWeaponType.SUPER_WITHER_SWORD),1000);
+    public static final ArtifactMainWeaponType WITHER_SWORD_PLUS = new ArtifactMainWeaponType(14,createItemStack(Material.STONE_SWORD,1,"加强凋零之剑",List.of(Component.text("凋零 II",TextColor.color(168,168,168)),Component.text("加强的凋零之力")),true), wither_sword_plus.class,Set.of(ArtifactMainWeaponType.WITHER_SWORD_PLUS_PLUS),750);
+    public static final ArtifactMainWeaponType WITHER_SWORD = new ArtifactMainWeaponType(13,createItemStack(Material.STONE_SWORD,1,"凋零之剑",List.of(Component.text("凋零 I",TextColor.color(168,168,168)),Component.text("携带凋零之力")),true), wither_sword.class,Set.of(ArtifactMainWeaponType.WITHER_SWORD_PLUS),500);
     public static final ArtifactMainWeaponType SUPER_NULL_SWORD = new ArtifactMainWeaponType(12,createItemStack(Material.IRON_SWORD,1,"终焉",List.of(Component.text("湮灭 V",TextColor.color(168,168,168)),Component.text("虚无铸成剑身")),true), super_null_sword.class,Set.of(),1500);
     public static final ArtifactMainWeaponType NULL_SWORD_PLUS = new ArtifactMainWeaponType(11,createItemStack(Material.IRON_SWORD,1,"强化湮灭之剑",List.of(Component.text("湮灭 III",TextColor.color(168,168,168)),Component.text("传说null曾经使用过这把剑")),true), null_sword_plus.class,Set.of(ArtifactMainWeaponType.SUPER_NULL_SWORD),1000);
     public static final ArtifactMainWeaponType NULL_SWORD = new ArtifactMainWeaponType(10,createItemStack(Material.IRON_SWORD,1,"湮灭之剑",List.of(Component.text("湮灭 I",TextColor.color(168,168,168)),Component.text("高血量克星")),true), null_sword.class,Set.of(ArtifactMainWeaponType.NULL_SWORD_PLUS),750);
@@ -35,7 +35,7 @@ public class ArtifactMainWeaponType {
     public static final ArtifactMainWeaponType NETHERITE_SWORD = new ArtifactMainWeaponType(5,createItemStack(Material.NETHERITE_SWORD,1,"下界合金剑",List.of(Component.text("来自灼热的下界")),false), netherite_sword.class,Set.of(ArtifactMainWeaponType.SUPER_FIRE_SWORD,ArtifactMainWeaponType.SUPER_SHARP_SWORD),1000);
     public static final ArtifactMainWeaponType DIAMOND_SWORD = new ArtifactMainWeaponType(4,createItemStack(Material.DIAMOND_SWORD,1,"钻石剑",List.of(Component.text("由大地的宝物构成")),false), diamond_sword.class,Set.of(ArtifactMainWeaponType.NETHERITE_SWORD,ArtifactMainWeaponType.DRAGON_SWORD),750);
     public static final ArtifactMainWeaponType IRON_SWORD = new ArtifactMainWeaponType(3,createItemStack(Material.IRON_SWORD,1,"铁剑",List.of(Component.text("由坚硬的铁锻造而成")),false), iron_sword.class,Set.of(ArtifactMainWeaponType.DIAMOND_SWORD,ArtifactMainWeaponType.NULL_SWORD),500);
-    public static final ArtifactMainWeaponType STONE_SWORD = new ArtifactMainWeaponType(2,createItemStack(Material.STONE_SWORD,1,"石剑",List.of(Component.text("由石头捶打而成")),false), stone_sword.class,Set.of(ArtifactMainWeaponType.IRON_SWORD),200);
+    public static final ArtifactMainWeaponType STONE_SWORD = new ArtifactMainWeaponType(2,createItemStack(Material.STONE_SWORD,1,"石剑",List.of(Component.text("由石头捶打而成")),false), stone_sword.class,Set.of(ArtifactMainWeaponType.IRON_SWORD,ArtifactMainWeaponType.WITHER_SWORD),200);
     public static final ArtifactMainWeaponType WOODEN_SWORD = new ArtifactMainWeaponType(1,createItemStack(Material.WOODEN_SWORD,1,"木剑",List.of(Component.text("由木头削成")),false), wooden_sword.class,Set.of(ArtifactMainWeaponType.STONE_SWORD),0);
     public static final ArtifactMainWeaponType BUY_WEAPON= new ArtifactMainWeaponType(-1,ItemStack.of(Material.BARRIER), ArtifactMainWeaponFather.class,Set.of(ArtifactMainWeaponType.WOODEN_SWORD),0);
     private ArtifactMainWeaponType(Integer id,ItemStack itemStack,Class<? extends ArtifactMainWeaponFather> prclass,Set<ArtifactMainWeaponType> children,Integer price){
@@ -72,7 +72,7 @@ public class ArtifactMainWeaponType {
         return this.id;
     }
     public static Integer getMainWeaponSize(){
-        return 12;
+        return 16;
     }
     public static ArtifactMainWeaponType getWeapon(Integer id){
         return switch (id) {
@@ -87,7 +87,11 @@ public class ArtifactMainWeaponType {
             case 9 -> ArtifactMainWeaponType.SUPER_DRAGON_SWORD;
             case 10 -> ArtifactMainWeaponType.NULL_SWORD;
             case 11 -> ArtifactMainWeaponType.NULL_SWORD_PLUS;
-            case 12 ->ArtifactMainWeaponType.SUPER_NULL_SWORD;
+            case 12 -> ArtifactMainWeaponType.SUPER_NULL_SWORD;
+            case 13 -> ArtifactMainWeaponType.WITHER_SWORD;
+            case 14 -> ArtifactMainWeaponType.WITHER_SWORD_PLUS;
+            case 15 -> ArtifactMainWeaponType.WITHER_SWORD_PLUS_PLUS;
+            case 16 -> ArtifactMainWeaponType.SUPER_WITHER_SWORD;
             default -> null;
         };
     }

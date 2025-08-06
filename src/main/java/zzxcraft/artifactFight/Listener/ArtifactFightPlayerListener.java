@@ -13,10 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -61,6 +58,9 @@ public class ArtifactFightPlayerListener implements Listener {
             for(Integer integer:PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).keySet()){
                 PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).get(integer).finish();
             }
+            for(Integer integer:PlayerArtifactMap.EffectMap.get(player.getUniqueId()).keySet()){
+                PlayerArtifactMap.EffectMap.get(player.getUniqueId()).get(integer).finish();
+            }
             PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
@@ -71,6 +71,31 @@ public class ArtifactFightPlayerListener implements Listener {
             PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
+            PlayerArtifactMap.EffectMap.remove(player.getUniqueId());
+        }
+    }
+
+    @EventHandler
+    public void PlayerLeft(PlayerQuitEvent playerQuitEvent){
+        Player player=playerQuitEvent.getPlayer();
+        if(PlayerArtifactMap.ArtifactMap.get(player.getUniqueId())!=null){
+            for(Integer integer:PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).keySet()){
+                PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).get(integer).finish();
+            }
+            for(Integer integer:PlayerArtifactMap.EffectMap.get(player.getUniqueId()).keySet()){
+                PlayerArtifactMap.EffectMap.get(player.getUniqueId()).get(integer).finish();
+            }
+            PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.BootPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.MainWeaponPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.DeputyWeaponPlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop1PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
+            PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
+            PlayerArtifactMap.EffectMap.remove(player.getUniqueId());
         }
     }
 
@@ -95,6 +120,9 @@ public class ArtifactFightPlayerListener implements Listener {
             for(Integer integer:PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).keySet()){
                 PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).get(integer).finish();
             }
+            for(Integer integer:PlayerArtifactMap.EffectMap.get(player.getUniqueId()).keySet()){
+                PlayerArtifactMap.EffectMap.get(player.getUniqueId()).get(integer).finish();
+            }
             PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
@@ -105,7 +133,9 @@ public class ArtifactFightPlayerListener implements Listener {
             PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
             PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
+            PlayerArtifactMap.EffectMap.remove(player.getUniqueId());
         }
+
 
     }
 
@@ -191,6 +221,7 @@ public class ArtifactFightPlayerListener implements Listener {
                 }
                 player.addScoreboardTag("onPlay");
                 PlayerArtifactMap.ArtifactMap.put(player.getUniqueId(),new HashMap<>());
+                PlayerArtifactMap.EffectMap.put(player.getUniqueId(),new HashMap<>());
                 PersistentDataContainer persistentDataContainer=player.getPersistentDataContainer();
                 Integer helmetInt=persistentDataContainer.get(new NamespacedKey(javaPlugin,"chose_helmet"),PersistentDataType.INTEGER);
                 if(helmetInt!=null){

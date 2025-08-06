@@ -32,7 +32,7 @@ public class super_fire_sword extends ArtifactMainWeaponFather {
 
     @Override
     public void OnFight(EntityDamageByEntityEvent event) {
-        event.getDamager().setFireTicks(600);
+        event.getEntity().setFireTicks(600);
     }
 
     @Override
