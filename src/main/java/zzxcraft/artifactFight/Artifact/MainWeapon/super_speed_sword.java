@@ -22,14 +22,18 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class super_speed_sword extends ArtifactMainWeaponFather {
+    private int attack;
+    private int fight;
     public super_speed_sword(Player player, Integer slot) {
         super(player, slot);
+        this.attack=0;
+        this.fight=0;
         ItemStack itemStack=ItemStack.of(Material.WOODEN_SWORD);
         ItemMeta itemMeta=itemStack.getItemMeta();
         itemMeta.displayName(Component.text("电光"));
         itemMeta.lore(List.of(Component.text("轻盈 V", TextColor.color(168,168,168))));
         itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),4.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
-        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),0.9, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),1.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemStack.setItemMeta(itemMeta);
@@ -38,11 +42,19 @@ public class super_speed_sword extends ArtifactMainWeaponFather {
 
     @Override
     public void OnFight(EntityDamageByEntityEvent event) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-
+        event.setDamage(event.getDamage()+attack/3.0);
+        this.fight=40;
+        this.attack++;
     }
 
     @Override
     public void run() {
         if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(this.fight>0){
+            this.fight--;
+        }
+        else{
+            this.attack=0;
+        }
     }
 }

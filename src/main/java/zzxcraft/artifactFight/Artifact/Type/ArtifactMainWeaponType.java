@@ -13,6 +13,7 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactEffectFather;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactMainWeaponFather;
 import zzxcraft.artifactFight.Artifact.MainWeapon.*;
 import zzxcraft.artifactFight.ArtifactFight;
@@ -28,11 +29,15 @@ public class ArtifactMainWeaponType {
     Set<ArtifactMainWeaponType> children;
     Integer price;
     Integer id;
-    public static final ArtifactMainWeaponType SUPER_SPEED_SWORD = new ArtifactMainWeaponType(21,createItemStack(Material.WOODEN_SWORD,1,"电光",List.of(Component.text("轻盈 V",TextColor.color(168,168,168)),Component.text("有极强的速度")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,0.9))), super_speed_sword.class,Set.of(),1500);
+    public static final ArtifactMainWeaponType SUPER_FREEZE_SWORD= new ArtifactMainWeaponType(25,createItemStack(Material.GOLDEN_SWORD,1,"极冰",List.of(Component.text("冰冻 V",TextColor.color(168,168,168)),Component.text("在高山的积雪中形成")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,0.6))), super_freeze_sword.class,Set.of(),1500);
+    public static final ArtifactMainWeaponType FREEZE_SWORD_PLUS_PLUS= new ArtifactMainWeaponType(24,createItemStack(Material.GOLDEN_SWORD,1,"强化寒冰之剑",List.of(Component.text("冰冻 III",TextColor.color(168,168,168)),Component.text("更强的寒冰之力")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,0.2))), freeze_sword_plus_plus.class,Set.of(ArtifactMainWeaponType.SUPER_FREEZE_SWORD),1000);
+    public static final ArtifactMainWeaponType FREEZE_SWORD_PLUS = new ArtifactMainWeaponType(23,createItemStack(Material.GOLDEN_SWORD,1,"加强寒冰之剑",List.of(Component.text("冰冻 II",TextColor.color(168,168,168)),Component.text("更强的寒冰之力")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,-0.2))), freeze_sword_plus.class,Set.of(ArtifactMainWeaponType.FREEZE_SWORD_PLUS_PLUS),750);
+    public static final ArtifactMainWeaponType FREEZE_SWORD = new ArtifactMainWeaponType(22,createItemStack(Material.GOLDEN_SWORD,1,"寒冰之剑",List.of(Component.text("冰冻 I",TextColor.color(168,168,168)),Component.text("携带寒冰之力")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,-0.6))), freeze_sword.class,Set.of(ArtifactMainWeaponType.FREEZE_SWORD_PLUS),500);
+    public static final ArtifactMainWeaponType SUPER_SPEED_SWORD = new ArtifactMainWeaponType(21,createItemStack(Material.WOODEN_SWORD,1,"电光",List.of(Component.text("轻盈 V",TextColor.color(168,168,168)),Component.text("有极强的速度")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,1.0))), super_speed_sword.class,Set.of(),1500);
     public static final ArtifactMainWeaponType SPEED_SWORD_PLUS_PLUS_PLUS = new ArtifactMainWeaponType(20,createItemStack(Material.WOODEN_SWORD,1,"超强化轻盈之剑",List.of(Component.text("轻盈 IV",TextColor.color(168,168,168)),Component.text("更快的速度")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,0.4))), speed_sword_plus_plus_plus.class,Set.of(ArtifactMainWeaponType.SUPER_SPEED_SWORD),1000);
     public static final ArtifactMainWeaponType SPEED_SWORD_PLUS_PLUS = new ArtifactMainWeaponType(19,createItemStack(Material.WOODEN_SWORD,1,"强化轻盈之剑",List.of(Component.text("轻盈 III",TextColor.color(168,168,168)),Component.text("更快的速度")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,-0.1))), speed_sword_plus_plus.class,Set.of(ArtifactMainWeaponType.SPEED_SWORD_PLUS_PLUS_PLUS),750);
     public static final ArtifactMainWeaponType SPEED_SWORD_PLUS = new ArtifactMainWeaponType(18,createItemStack(Material.WOODEN_SWORD,1,"加强轻盈之剑",List.of(Component.text("轻盈 II",TextColor.color(168,168,168)),Component.text("更快的速度")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,-0.6))), speed_sword_plus.class,Set.of(ArtifactMainWeaponType.SPEED_SWORD_PLUS_PLUS),500);
-    public static final ArtifactMainWeaponType SPEED_SWORD = new ArtifactMainWeaponType(17,createItemStack(Material.WOODEN_SWORD,1,"轻盈之剑",List.of(Component.text("轻盈 I",TextColor.color(168,168,168)),Component.text("很快的速度")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,-1.1))), speed_sword.class,Set.of(ArtifactMainWeaponType.SPEED_SWORD_PLUS),200);
+    public static final ArtifactMainWeaponType SPEED_SWORD = new ArtifactMainWeaponType(17,createItemStack(Material.WOODEN_SWORD,1,"轻盈之剑",List.of(Component.text("轻盈 I",TextColor.color(168,168,168)),Component.text("很快的速度")),true,Set.of(Triple.of(Attribute.ATTACK_DAMAGE, AttributeModifier.Operation.ADD_NUMBER,4.0),Triple.of(Attribute.ATTACK_SPEED, AttributeModifier.Operation.ADD_NUMBER,-1.1))), speed_sword.class,Set.of(ArtifactMainWeaponType.SPEED_SWORD_PLUS,ArtifactMainWeaponType.FREEZE_SWORD),200);
     public static final ArtifactMainWeaponType SUPER_WITHER_SWORD = new ArtifactMainWeaponType(16,createItemStack(Material.STONE_SWORD,1,"凋灭",List.of(Component.text("凋零 V",TextColor.color(168,168,168)),Component.text("凋零本源")),true,Set.of()), super_wither_sword.class,Set.of(),1500);
     public static final ArtifactMainWeaponType WITHER_SWORD_PLUS_PLUS = new ArtifactMainWeaponType(15,createItemStack(Material.STONE_SWORD,1,"强化凋零之剑",List.of(Component.text("凋零 III",TextColor.color(168,168,168)),Component.text("更强的凋零之力")),true,Set.of()), wither_sword_plus_plus.class,Set.of(ArtifactMainWeaponType.SUPER_WITHER_SWORD),1000);
     public static final ArtifactMainWeaponType WITHER_SWORD_PLUS = new ArtifactMainWeaponType(14,createItemStack(Material.STONE_SWORD,1,"加强凋零之剑",List.of(Component.text("凋零 II",TextColor.color(168,168,168)),Component.text("加强的凋零之力")),true,Set.of()), wither_sword_plus.class,Set.of(ArtifactMainWeaponType.WITHER_SWORD_PLUS_PLUS),750);
@@ -87,7 +92,7 @@ public class ArtifactMainWeaponType {
         return this.id;
     }
     public static Integer getMainWeaponSize(){
-        return 21;
+        return 25;
     }
     public static ArtifactMainWeaponType getWeapon(Integer id){
         return switch (id) {
@@ -112,6 +117,10 @@ public class ArtifactMainWeaponType {
             case 19 -> ArtifactMainWeaponType.SPEED_SWORD_PLUS_PLUS;
             case 20 -> ArtifactMainWeaponType.SPEED_SWORD_PLUS_PLUS_PLUS;
             case 21 -> ArtifactMainWeaponType.SUPER_SPEED_SWORD;
+            case 22 -> ArtifactMainWeaponType.FREEZE_SWORD;
+            case 23 -> ArtifactMainWeaponType.FREEZE_SWORD_PLUS;
+            case 24 -> ArtifactMainWeaponType.FREEZE_SWORD_PLUS_PLUS;
+            case 25 -> ArtifactMainWeaponType.SUPER_FREEZE_SWORD;
             default -> null;
         };
     }

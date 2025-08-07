@@ -102,40 +102,45 @@ public class ArtifactFightPlayerListener implements Listener {
     @EventHandler
     public void PlayerDie(PlayerDeathEvent playerDeathEvent){
         Player player = playerDeathEvent.getPlayer();
-        if(player.getKiller()!=null){
-            PersistentDataContainer persistentDataContainer=player.getKiller().getPersistentDataContainer();
-            persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)+10);
-        }
+
         player.getInventory().clear();
         player.teleport(new Location(javaPlugin.getServer().getWorld("world"),
                 javaPlugin.getConfig().getDouble("spawnWait.x"),
                 javaPlugin.getConfig().getDouble("spawnWait.y"),
                 javaPlugin.getConfig().getDouble("spawnWait.z")
         ));
+        boolean b=false;
         for(String string : player.getScoreboardTags()){
+            if(string.equals("onPlay")) b=true;
             player.removeScoreboardTag(string);
         }
         player.addScoreboardTag("onWait");
+        if(player.getKiller()!=null && b){
+            PersistentDataContainer persistentDataContainer=player.getKiller().getPersistentDataContainer();
+            persistentDataContainer.set(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER,persistentDataContainer.get(new NamespacedKey(javaPlugin,"tent"),PersistentDataType.INTEGER)+10);
+        }
         if(PlayerArtifactMap.ArtifactMap.get(player.getUniqueId())!=null){
             for(Integer integer:PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).keySet()){
                 PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).get(integer).finish();
             }
+        }
+        if(PlayerArtifactMap.EffectMap.get(player.getUniqueId())!=null){
             for(Integer integer:PlayerArtifactMap.EffectMap.get(player.getUniqueId()).keySet()){
                 PlayerArtifactMap.EffectMap.get(player.getUniqueId()).get(integer).finish();
             }
-            PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.BootPlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.MainWeaponPlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.DeputyWeaponPlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.Prop1PlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
-            PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
-            PlayerArtifactMap.EffectMap.remove(player.getUniqueId());
         }
 
+        PlayerArtifactMap.HelmetPlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.ChestPlatePlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.LeggingPlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.BootPlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.MainWeaponPlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.DeputyWeaponPlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.Prop1PlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.Prop2PlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.Prop3PlayerMap.remove(player.getUniqueId());
+        PlayerArtifactMap.ArtifactMap.remove(player.getUniqueId());
+        PlayerArtifactMap.EffectMap.remove(player.getUniqueId());
 
     }
 

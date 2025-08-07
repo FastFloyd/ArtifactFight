@@ -22,8 +22,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class speed_sword_plus_plus extends ArtifactMainWeaponFather {
+    private int attack;
+    private int fight;
     public speed_sword_plus_plus(Player player, Integer slot) {
         super(player, slot);
+        this.attack=0;
+        this.fight=0;
         ItemStack itemStack=ItemStack.of(Material.WOODEN_SWORD);
         ItemMeta itemMeta=itemStack.getItemMeta();
         itemMeta.displayName(Component.text("强化轻盈之剑"));
@@ -38,11 +42,19 @@ public class speed_sword_plus_plus extends ArtifactMainWeaponFather {
 
     @Override
     public void OnFight(EntityDamageByEntityEvent event) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-
+        event.setDamage(event.getDamage()+attack/5.0);
+        this.fight=30;
+        this.attack++;
     }
 
     @Override
     public void run() {
         if(!Objects.equals(this.getPlayer().getInventory().getItem(this.getSlot()), this.getItemStack())) this.getPlayer().getInventory().setItem(this.getSlot(),this.getItemStack());
+        if(this.fight>0){
+            this.fight--;
+        }
+        else{
+            this.attack=0;
+        }
     }
 }
