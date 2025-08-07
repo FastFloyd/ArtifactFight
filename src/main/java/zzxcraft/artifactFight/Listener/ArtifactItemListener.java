@@ -45,6 +45,11 @@ public class ArtifactItemListener implements Listener {
                 ((ArtifactShieldFather) hashMap.get(40)).OnFighted(event);
             }
             else{
+                if(damageType.equals(DamageType.PLAYER_ATTACK)){
+                    if(hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())!=null && hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot()) instanceof ArtifactMainWeaponFather){
+                        ((ArtifactMainWeaponFather) hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())).OnFight(event);
+                    }
+                }
                 if(hashMap.get(39)!=null) ((ArtifactHelmetFather)hashMap.get(39)).OnFighted(event);
                 if(hashMap.get(38)!=null){
                     if(hashMap.get(38) instanceof ArtifactChestPlateFather){
@@ -56,11 +61,6 @@ public class ArtifactItemListener implements Listener {
                 }
                 if(hashMap.get(37)!=null) ((ArtifactLeggingFather)hashMap.get(37)).OnFighted(event);
                 if(hashMap.get(36)!=null) ((ArtifactBootFather)hashMap.get(36)).OnFighted(event);
-                if(damageType.equals(DamageType.PLAYER_ATTACK)){
-                    if(hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())!=null && hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot()) instanceof ArtifactMainWeaponFather){
-                        ((ArtifactMainWeaponFather) hashMap1.get(((Player) event.getDamager()).getInventory().getHeldItemSlot())).OnFight(event);
-                    }
-                }
             }
 
             PlayerArtifactMap.ArtifactMap.remove(event.getEntity().getUniqueId());

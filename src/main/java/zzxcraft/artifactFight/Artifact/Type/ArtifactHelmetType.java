@@ -32,9 +32,11 @@ public class ArtifactHelmetType {
     Set<ArtifactHelmetType> children;
     Integer price;
     Integer id;
-    public static final ArtifactHelmetType SUPER_NETHERITE_HELMET = new ArtifactHelmetType(5,createItemStack(Material.NETHERITE_HELMET,1,"不摧头盔",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_helmet.class,Set.of(),2000);
+    public static final ArtifactHelmetType SUPER_DRAGON_HELMET = new ArtifactHelmetType(7,createItemStack(Material.DIAMOND_HELMET,1,"神龙头盔",List.of(Component.text("神龙 IV",TextColor.color(168,168,168)),Component.text("神龙之力")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), super_dragon_helmet.class,Set.of(),2000);
+    public static final ArtifactHelmetType DRAGON_HELMET = new ArtifactHelmetType(6,createItemStack(Material.DIAMOND_HELMET,1,"龙之头盔",List.of(Component.text("神龙 III",TextColor.color(168,168,168)),Component.text("减弱魔法与箭矢的伤害")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,1.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), dragon_helmet.class,Set.of(ArtifactHelmetType.SUPER_DRAGON_HELMET),1000);
+    public static final ArtifactHelmetType SUPER_NETHERITE_HELMET = new ArtifactHelmetType(5,createItemStack(Material.NETHERITE_HELMET,1,"不摧头盔",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,5.0),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_helmet.class,Set.of(),2000);
     public static final ArtifactHelmetType NETHERITE_HELMET =new ArtifactHelmetType(4,createItemStack(Material.NETHERITE_HELMET,1,"合金头盔",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),true,Set.of()), netherite_helmet.class,Set.of(ArtifactHelmetType.SUPER_NETHERITE_HELMET),1000);
-    public static final ArtifactHelmetType DIAMOND_HELMET = new ArtifactHelmetType(3,createItemStack(Material.DIAMOND_HELMET,1,"钻石头盔",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_helmet.class,Set.of(ArtifactHelmetType.NETHERITE_HELMET),500);
+    public static final ArtifactHelmetType DIAMOND_HELMET = new ArtifactHelmetType(3,createItemStack(Material.DIAMOND_HELMET,1,"钻石头盔",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_helmet.class,Set.of(ArtifactHelmetType.NETHERITE_HELMET,ArtifactHelmetType.DRAGON_HELMET),500);
     public static final ArtifactHelmetType IRON_HELMET = new ArtifactHelmetType(2,createItemStack(Material.IRON_HELMET,1,"铁头盔",List.of(Component.text("百炼成钢")),false,Set.of()), iron_helmet.class,Set.of(ArtifactHelmetType.DIAMOND_HELMET),100);
     public static final ArtifactHelmetType LEATHER_HELMET = new ArtifactHelmetType(1,createItemStack(Material.LEATHER_HELMET,1,"皮革头盔",List.of(Component.text("旅行者的最爱")),false,Set.of()), leather_helmet.class,Set.of(ArtifactHelmetType.IRON_HELMET),0);
     public static final ArtifactHelmetType BUY_HELMET = new ArtifactHelmetType(-1,ItemStack.of(Material.BARRIER),ArtifactHelmetFather.class,Set.of(ArtifactHelmetType.LEATHER_HELMET),0);
@@ -76,7 +78,7 @@ public class ArtifactHelmetType {
         return this.id;
     }
     public static Integer getHelmetSize(){
-        return 5;
+        return 7;
     }
     public static ArtifactHelmetType getHelmet(Integer id){
         return switch (id) {
@@ -85,6 +87,8 @@ public class ArtifactHelmetType {
             case 3 -> ArtifactHelmetType.DIAMOND_HELMET;
             case 4 -> ArtifactHelmetType.NETHERITE_HELMET;
             case 5 -> ArtifactHelmetType.SUPER_NETHERITE_HELMET;
+            case 6 -> ArtifactHelmetType.DRAGON_HELMET;
+            case 7 -> ArtifactHelmetType.SUPER_DRAGON_HELMET;
             default -> null;
         };
     }

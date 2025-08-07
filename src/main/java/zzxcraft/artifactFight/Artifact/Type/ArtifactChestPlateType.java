@@ -19,6 +19,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.ChestPlate.*;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactChestPlateFather;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactHelmetFather;
+import zzxcraft.artifactFight.Artifact.Helmet.dragon_helmet;
+import zzxcraft.artifactFight.Artifact.Helmet.super_netherite_helmet;
 import zzxcraft.artifactFight.ArtifactFight;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,9 +35,11 @@ public class ArtifactChestPlateType {
     Set<ArtifactChestPlateType> children;
     Integer price;
     Integer id;
-    public static final ArtifactChestPlateType SUPER_NETHERITE_CHESTPLATE = new ArtifactChestPlateType(5,createItemStack(Material.NETHERITE_CHESTPLATE,1,"不摧胸甲",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_chestplate.class,Set.of(),2000);
+    public static final ArtifactChestPlateType SUPER_DRAGON_CHESTPLATE = new ArtifactChestPlateType(7,createItemStack(Material.DIAMOND_CHESTPLATE,1,"神龙胸甲",List.of(Component.text("神龙 IV",TextColor.color(168,168,168)),Component.text("神龙之力")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), super_dragon_chestplate.class,Set.of(),2000);
+    public static final ArtifactChestPlateType DRAGON_CHESTPLATE = new ArtifactChestPlateType(6,createItemStack(Material.DIAMOND_CHESTPLATE,1,"龙之胸甲",List.of(Component.text("神龙 III",TextColor.color(168,168,168)),Component.text("减弱魔法与箭矢的伤害")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,1.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), dragon_chestplate.class,Set.of(ArtifactChestPlateType.SUPER_DRAGON_CHESTPLATE),1000);
+    public static final ArtifactChestPlateType SUPER_NETHERITE_CHESTPLATE = new ArtifactChestPlateType(5,createItemStack(Material.NETHERITE_CHESTPLATE,1,"不摧胸甲",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,5.0),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_chestplate.class,Set.of(),2000);
     public static final ArtifactChestPlateType NETHERITE_CHESTPLATE = new ArtifactChestPlateType(4,createItemStack(Material.NETHERITE_CHESTPLATE,1,"合金胸甲",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),true,Set.of()), netherite_chestplate.class, Set.of(ArtifactChestPlateType.SUPER_NETHERITE_CHESTPLATE), 1000);
-    public static final ArtifactChestPlateType DIAMOND_CHESTPLATE = new ArtifactChestPlateType(3,createItemStack(Material.DIAMOND_CHESTPLATE,1,"钻石胸甲",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_chestplate.class,Set.of(ArtifactChestPlateType.NETHERITE_CHESTPLATE),500);
+    public static final ArtifactChestPlateType DIAMOND_CHESTPLATE = new ArtifactChestPlateType(3,createItemStack(Material.DIAMOND_CHESTPLATE,1,"钻石胸甲",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_chestplate.class,Set.of(ArtifactChestPlateType.NETHERITE_CHESTPLATE,ArtifactChestPlateType.DRAGON_CHESTPLATE),500);
     public static final ArtifactChestPlateType IRON_CHESTPLATE = new ArtifactChestPlateType(2,createItemStack(Material.IRON_CHESTPLATE,1,"铁胸甲",List.of(Component.text("百炼成钢")),false,Set.of()), iron_chestplate.class,Set.of(ArtifactChestPlateType.DIAMOND_CHESTPLATE),100);
     public static final ArtifactChestPlateType LEATHER_CHESTPLATE = new ArtifactChestPlateType(1,createItemStack(Material.LEATHER_CHESTPLATE,1,"皮革胸甲",List.of(Component.text("旅行者的最爱")),false,Set.of()), leather_chestplate.class,Set.of(ArtifactChestPlateType.IRON_CHESTPLATE),0);
     public static final ArtifactChestPlateType BUY_CHESTPLATE= new ArtifactChestPlateType(-1,ItemStack.of(Material.BARRIER), ArtifactChestPlateFather.class,Set.of(ArtifactChestPlateType.LEATHER_CHESTPLATE),0);
@@ -76,7 +80,7 @@ public class ArtifactChestPlateType {
         return this.id;
     }
     public static Integer getChestPlateSize(){
-        return 5;
+        return 7;
     }
     public static ArtifactChestPlateType getChestplate(Integer id){
         return switch (id) {
@@ -85,6 +89,8 @@ public class ArtifactChestPlateType {
             case 3 -> ArtifactChestPlateType.DIAMOND_CHESTPLATE;
             case 4 -> ArtifactChestPlateType.NETHERITE_CHESTPLATE;
             case 5 -> ArtifactChestPlateType.SUPER_NETHERITE_CHESTPLATE;
+            case 6 -> ArtifactChestPlateType.DRAGON_CHESTPLATE;
+            case 7 -> ArtifactChestPlateType.SUPER_DRAGON_CHESTPLATE;
             default -> null;
         };
     }

@@ -23,7 +23,7 @@ public class freeze extends ArtifactEffectFather {
     public void run(){
         super.run();
         this.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,1,this.getAmplifier(),false,false));
-        this.getPlayer().damage(this.getAmplifier()*0.3, DamageSource.builder(DamageType.FREEZE).withCausingEntity(this.getCausePlayer()).withDirectEntity(this.getPlayer()).build());
+        this.getPlayer().damage(this.getAmplifier(), DamageSource.builder(DamageType.FREEZE).withCausingEntity(this.getCausePlayer()).withDirectEntity(this.getPlayer()).build());
     }
     @Override
     public void finish(){

@@ -21,6 +21,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import zzxcraft.artifactFight.Artifact.Fathers.*;
 import zzxcraft.artifactFight.Artifact.Type.*;
 import zzxcraft.artifactFight.ArtifactFight;
@@ -327,6 +329,7 @@ public class ArtifactFightPlayerListener implements Listener {
                         PlayerArtifactMap.ArtifactMap.get(player.getUniqueId()).put(4,PlayerArtifactMap.Prop3PlayerMap.get(player.getUniqueId()));
                     }
                 }
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,3,10,false,false));
             }
             else if(itemName.equals("选择装备") && itemStack.getType().equals(Material.CHEST)){
                 player.openInventory(new ChooseItemInventory(player).getInventory());

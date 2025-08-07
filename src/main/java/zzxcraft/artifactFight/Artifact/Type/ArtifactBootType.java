@@ -24,6 +24,8 @@ import zzxcraft.artifactFight.Artifact.ChestPlate.leather_chestplate;
 import zzxcraft.artifactFight.Artifact.ChestPlate.netherite_chestplate;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBootFather;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactChestPlateFather;
+import zzxcraft.artifactFight.Artifact.Helmet.dragon_helmet;
+import zzxcraft.artifactFight.Artifact.Helmet.super_netherite_helmet;
 import zzxcraft.artifactFight.ArtifactFight;
 import org.bukkit.attribute.*;
 
@@ -39,9 +41,11 @@ public class ArtifactBootType {
     Set<ArtifactBootType> children;
     Integer price;
     Integer id;
-    public static final ArtifactBootType SUPER_NETHERITE_BOOT = new ArtifactBootType(5,createItemStack(Material.NETHERITE_BOOTS,1,"不摧靴子",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_boot.class,Set.of(),2000);
+    public static final ArtifactBootType SUPER_DRAGON_BOOT = new ArtifactBootType(7,createItemStack(Material.DIAMOND_BOOTS,1,"神龙靴子",List.of(Component.text("神龙 IV",TextColor.color(168,168,168)),Component.text("神龙之力")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), super_dragon_boot.class,Set.of(),2000);
+    public static final ArtifactBootType DRAGON_BOOT = new ArtifactBootType(6,createItemStack(Material.DIAMOND_BOOTS,1,"龙之靴子",List.of(Component.text("神龙 III",TextColor.color(168,168,168)),Component.text("减弱魔法与箭矢的伤害")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,1.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), dragon_boot.class,Set.of(ArtifactBootType.SUPER_DRAGON_BOOT),1000);
+    public static final ArtifactBootType SUPER_NETHERITE_BOOT = new ArtifactBootType(5,createItemStack(Material.NETHERITE_BOOTS,1,"不摧靴子",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,5.0),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_boot.class,Set.of(),2000);
     public static final ArtifactBootType NETHERITE_BOOT = new ArtifactBootType(4,createItemStack(Material.NETHERITE_BOOTS,1,"合金靴子",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),true,Set.of()), netherite_boot.class, Set.of(ArtifactBootType.SUPER_NETHERITE_BOOT), 1000);
-    public static final ArtifactBootType DIAMOND_BOOT = new ArtifactBootType(3,createItemStack(Material.DIAMOND_BOOTS,1,"钻石靴子",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_boot.class,Set.of(ArtifactBootType.NETHERITE_BOOT),500);
+    public static final ArtifactBootType DIAMOND_BOOT = new ArtifactBootType(3,createItemStack(Material.DIAMOND_BOOTS,1,"钻石靴子",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_boot.class,Set.of(ArtifactBootType.NETHERITE_BOOT,ArtifactBootType.DRAGON_BOOT),500);
     public static final ArtifactBootType IRON_BOOT = new ArtifactBootType(2,createItemStack(Material.IRON_BOOTS,1,"铁靴子",List.of(Component.text("百炼成钢")),false,Set.of()), iron_boot.class,Set.of(ArtifactBootType.DIAMOND_BOOT),100);
     public static final ArtifactBootType LEATHER_BOOT = new ArtifactBootType(1,createItemStack(Material.LEATHER_BOOTS,1,"皮革靴子", List.of(Component.text("旅行者的最爱")),false,Set.of()), leather_boot.class,Set.of(ArtifactBootType.IRON_BOOT),0);
     public static final ArtifactBootType BUY_BOOT = new ArtifactBootType(-1,ItemStack.of(Material.BARRIER), ArtifactBootFather.class,Set.of(ArtifactBootType.LEATHER_BOOT),0);
@@ -82,7 +86,7 @@ public class ArtifactBootType {
         return this.id;
     }
     public static Integer getBootSize(){
-        return 5;
+        return 7;
     }
     public static ArtifactBootType getBoot(Integer id){
         return switch (id) {
@@ -91,6 +95,8 @@ public class ArtifactBootType {
             case 3 -> ArtifactBootType.DIAMOND_BOOT;
             case 4 -> ArtifactBootType.NETHERITE_BOOT;
             case 5 -> ArtifactBootType.SUPER_NETHERITE_BOOT;
+            case 6 -> ArtifactBootType.DRAGON_BOOT;
+            case 7 -> ArtifactBootType.SUPER_DRAGON_BOOT;
             default -> null;
         };
     }

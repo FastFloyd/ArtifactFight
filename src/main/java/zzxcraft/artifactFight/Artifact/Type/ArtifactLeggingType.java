@@ -16,12 +16,9 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import zzxcraft.artifactFight.Artifact.ChestPlate.diamond_chestplate;
-import zzxcraft.artifactFight.Artifact.ChestPlate.iron_chestplate;
-import zzxcraft.artifactFight.Artifact.ChestPlate.leather_chestplate;
-import zzxcraft.artifactFight.Artifact.ChestPlate.netherite_chestplate;
-import zzxcraft.artifactFight.Artifact.Fathers.ArtifactChestPlateFather;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactLeggingFather;
+import zzxcraft.artifactFight.Artifact.Helmet.dragon_helmet;
+import zzxcraft.artifactFight.Artifact.Helmet.super_netherite_helmet;
 import zzxcraft.artifactFight.Artifact.Legging.*;
 import zzxcraft.artifactFight.ArtifactFight;
 
@@ -37,9 +34,11 @@ public class ArtifactLeggingType {
     Set<ArtifactLeggingType> children;
     Integer price;
     Integer id;
-    public static final ArtifactLeggingType SUPER_NETHERITE_LEGGING = new ArtifactLeggingType(5,createItemStack(Material.NETHERITE_LEGGINGS,1,"不摧护腿",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_legging.class,Set.of(),2000);
+    public static final ArtifactLeggingType SUPER_DRAGON_LEGGING = new ArtifactLeggingType(7,createItemStack(Material.DIAMOND_LEGGINGS,1,"神龙护腿",List.of(Component.text("神龙 IV",TextColor.color(168,168,168)),Component.text("神龙之力")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,2.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), super_dragon_legging.class,Set.of(),2000);
+    public static final ArtifactLeggingType DRAGON_LEGGING = new ArtifactLeggingType(6,createItemStack(Material.DIAMOND_LEGGINGS,1,"龙之护腿",List.of(Component.text("神龙 III",TextColor.color(168,168,168)),Component.text("减弱魔法与箭矢的伤害")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,1.5),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,2.0))), dragon_legging.class,Set.of(ArtifactLeggingType.SUPER_DRAGON_LEGGING),1000);
+    public static final ArtifactLeggingType SUPER_NETHERITE_LEGGING = new ArtifactLeggingType(5,createItemStack(Material.NETHERITE_LEGGINGS,1,"不摧护腿",List.of(Component.text("不摧 IV", TextColor.color(168,168,168)),Component.text("坚不可摧")),true,Set.of(Triple.of(Attribute.MAX_HEALTH, AttributeModifier.Operation.ADD_NUMBER,5.0),Triple.of(Attribute.ARMOR, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.ARMOR_TOUGHNESS, AttributeModifier.Operation.ADD_NUMBER,3.0),Triple.of(Attribute.KNOCKBACK_RESISTANCE, AttributeModifier.Operation.ADD_NUMBER,0.15))), super_netherite_legging.class,Set.of(),2000);
     public static final ArtifactLeggingType NETHERITE_LEGGING = new ArtifactLeggingType(4,createItemStack(Material.NETHERITE_LEGGINGS,1,"合金护腿",List.of(Component.text("抗火 IV", TextColor.color(168,168,168)),Component.text("合金铸造")),true,Set.of()), netherite_legging.class, Set.of(ArtifactLeggingType.SUPER_NETHERITE_LEGGING), 1000);
-    public static final ArtifactLeggingType DIAMOND_LEGGING = new ArtifactLeggingType(3,createItemStack(Material.DIAMOND_LEGGINGS,1,"钻石护腿",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_legging.class,Set.of(ArtifactLeggingType.NETHERITE_LEGGING),500);
+    public static final ArtifactLeggingType DIAMOND_LEGGING = new ArtifactLeggingType(3,createItemStack(Material.DIAMOND_LEGGINGS,1,"钻石护腿",List.of(Component.text("无比坚硬的装甲")),false,Set.of()), diamond_legging.class,Set.of(ArtifactLeggingType.NETHERITE_LEGGING,ArtifactLeggingType.DRAGON_LEGGING),500);
     public static final ArtifactLeggingType IRON_LEGGING = new ArtifactLeggingType(2,createItemStack(Material.IRON_LEGGINGS,1,"铁护腿",List.of(Component.text("百炼成钢")),false,Set.of()), iron_legging.class,Set.of(ArtifactLeggingType.DIAMOND_LEGGING),100);
     public static final ArtifactLeggingType LEATHER_LRGGING = new ArtifactLeggingType(1,createItemStack(Material.LEATHER_LEGGINGS,1,"皮革护腿",List.of(Component.text("旅行者的最爱")),false,Set.of()), leather_legging.class,Set.of(ArtifactLeggingType.IRON_LEGGING),0);
     public static final ArtifactLeggingType BUY_LEGGING= new ArtifactLeggingType(-1,ItemStack.of(Material.BARRIER), ArtifactLeggingFather.class,Set.of(ArtifactLeggingType.LEATHER_LRGGING),0);
@@ -80,7 +79,7 @@ public class ArtifactLeggingType {
         return this.id;
     }
     public static Integer getLeggingSize(){
-        return 5;
+        return 7;
     }
     public static ArtifactLeggingType getLegging(Integer id){
         return switch (id) {
@@ -89,6 +88,8 @@ public class ArtifactLeggingType {
             case 3 -> ArtifactLeggingType.DIAMOND_LEGGING;
             case 4 -> ArtifactLeggingType.NETHERITE_LEGGING;
             case 5 -> ArtifactLeggingType.SUPER_NETHERITE_LEGGING;
+            case 6 -> ArtifactLeggingType.DRAGON_LEGGING;
+            case 7 -> ArtifactLeggingType.SUPER_DRAGON_LEGGING;
             default -> null;
         };
     }

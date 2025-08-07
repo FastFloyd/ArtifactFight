@@ -33,8 +33,7 @@ public class super_dragon_sword extends ArtifactMainWeaponFather {
     @Override
     public void OnFight(EntityDamageByEntityEvent event) {
         Player player= (Player) event.getEntity();
-        event.setDamage(5.0);
-        player.setHealth(Math.max(player.getHealth()-3,0));
+        player.setHealth(Math.max(player.getHealth()-5,0));
     }
 
     @Override
