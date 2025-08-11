@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -206,6 +207,14 @@ public class ArtifactFightPlayerListener implements Listener {
         if(!blockPlaceEvent.getPlayer().isOp()){
             blockPlaceEvent.getPlayer().sendMessage(Component.text("你没有这样做的权限",TextColor.color(255,0,0)));
             blockPlaceEvent.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void BlockBreak(BlockBreakEvent blockBreakEvent){
+        if(!blockBreakEvent.getPlayer().isOp()){
+            blockBreakEvent.getPlayer().sendMessage(Component.text("你没有这样做的权限",TextColor.color(255,0,0)));
+            blockBreakEvent.setCancelled(true);
         }
     }
 
