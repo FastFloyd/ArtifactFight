@@ -29,7 +29,7 @@ public class speed_helmet_plus_plus extends ArtifactHelmetFather {
         itemMeta.lore(List.of(Component.text("极速 III", TextColor.color(168,168,168))));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        itemMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),0.075, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
+        itemMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),0.015, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
         itemMeta.addAttributeModifier(Attribute.ARMOR,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
         itemStack.setItemMeta(itemMeta);
         this.setItemStack(itemStack);

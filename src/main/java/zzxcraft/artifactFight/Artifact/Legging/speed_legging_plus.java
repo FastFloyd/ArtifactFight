@@ -29,7 +29,7 @@ public class speed_legging_plus extends ArtifactLeggingFather {
         itemMeta.lore(List.of(Component.text("极速 II", TextColor.color(168,168,168))));
         itemMeta.addEnchant(Enchantment.VANISHING_CURSE,1,true);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        itemMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),0.05, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
+        itemMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),0.01, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
         itemMeta.addAttributeModifier(Attribute.ARMOR,new AttributeModifier(new NamespacedKey(ArtifactFight.getMainClass(), UUID.randomUUID().toString()),1.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
         itemStack.setItemMeta(itemMeta);
         this.setItemStack(itemStack);
