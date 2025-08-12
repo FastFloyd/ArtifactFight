@@ -1,6 +1,7 @@
 package zzxcraft.artifactFight.Listener;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Arrow;
@@ -71,25 +72,15 @@ public class ArtifactItemListener implements Listener {
     }
     @EventHandler
     public void PlayerBowHit(ProjectileHitEvent event){
-        if(event.getEntity() instanceof Arrow){
-            Entity hitEntity=ArtifactFight.getMainClass().getServer().getEntity(Objects.requireNonNull(event.getEntity().getOwnerUniqueId()));
-            Entity hitedEntity=event.getHitEntity();
-            if(hitEntity==null){
+        if(event.getHitEntity() instanceof Player){
+            ArtifactProjectileFather projectileFather=PlayerArtifactMap.ProjectileMap.get(event.getEntity().getUniqueId());
+            if(projectileFather==null){
                 event.setCancelled(true);
                 return;
             }
-            if(hitEntity instanceof Player && hitedEntity instanceof Player){
-                HashMap<Integer,ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(hitEntity.getUniqueId());
-                if(hashMap==null){
-                    event.setCancelled(true);
-                    return;
-                }
-                ((ArtifactBowFather)hashMap.get(event.getEntity().getPersistentDataContainer().get(new NamespacedKey(javaPlugin,"LaunchSlot"),PersistentDataType.INTEGER))).onHit(event);
-                PlayerArtifactMap.ArtifactMap.remove(hitEntity.getUniqueId());
-                PlayerArtifactMap.ArtifactMap.put(hitEntity.getUniqueId(),hashMap);
-            }
+            projectileFather.onHit(event);
+            event.setCancelled(true);
         }
-
     }
     @EventHandler
     public void PlayerBowLaunch(ProjectileLaunchEvent event){

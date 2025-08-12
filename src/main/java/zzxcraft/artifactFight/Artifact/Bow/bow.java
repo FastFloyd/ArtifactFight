@@ -8,6 +8,9 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBowFather;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactProjectileFather;
+import zzxcraft.artifactFight.Artifact.Projectile.arrow;
+import zzxcraft.artifactFight.PlayerArtifactMap;
 
 import java.util.Objects;
 
@@ -20,14 +23,10 @@ public class bow extends ArtifactBowFather {
         itemStack.setItemMeta(itemMeta);
         this.setItemStack(itemStack);
     }
-    @Override
-    public void onHit(ProjectileHitEvent event) {
-
-    }
 
     @Override
     public void onLaunch(ProjectileLaunchEvent event) {
-
+        PlayerArtifactMap.ProjectileMap.put(event.getEntity().getUniqueId(),new arrow(this.getPlayer(),event.getEntity()));
     }
 
 

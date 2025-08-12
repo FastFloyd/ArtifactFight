@@ -15,6 +15,5 @@ public abstract class ArtifactBowFather extends ArtifactFather {
         super(player,slot);
     }
 
-    public abstract void onHit(ProjectileHitEvent event);
     public abstract void onLaunch(ProjectileLaunchEvent event);
 }

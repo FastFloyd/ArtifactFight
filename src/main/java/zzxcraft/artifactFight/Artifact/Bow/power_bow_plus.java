@@ -13,6 +13,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import zzxcraft.artifactFight.Artifact.Fathers.ArtifactBowFather;
+import zzxcraft.artifactFight.Artifact.Fathers.ArtifactProjectileFather;
+import zzxcraft.artifactFight.Artifact.Projectile.arrow;
+import zzxcraft.artifactFight.Artifact.Projectile.power_arrow_plus;
+import zzxcraft.artifactFight.PlayerArtifactMap;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,14 +34,10 @@ public class power_bow_plus extends ArtifactBowFather {
         this.setItemStack(itemStack);
     }
 
-    @Override
-    public void onHit(ProjectileHitEvent event) {
-        ((Player)event.getHitEntity()).damage(5.0, DamageSource.builder(DamageType.ARROW).withCausingEntity(this.getPlayer()).withDirectEntity(event.getHitEntity()).withDamageLocation(event.getEntity().getLocation()).build());
-    }
 
     @Override
     public void onLaunch(ProjectileLaunchEvent event) {
-
+        PlayerArtifactMap.ProjectileMap.put(event.getEntity().getUniqueId(),new power_arrow_plus(this.getPlayer(),event.getEntity()));
     }
 
     @Override
