@@ -1,25 +1,18 @@
 package zzxcraft.artifactFight;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.GameRule;
-import org.bukkit.command.CommandMap;
-import zzxcraft.artifactFight.Artifact.Fathers.ArtifactFather;
+import org.bukkit.plugin.java.JavaPlugin;
 import zzxcraft.artifactFight.Command.ItemCommands;
 import zzxcraft.artifactFight.Listener.ArtifactFightPlayerListener;
 import zzxcraft.artifactFight.Listener.ArtifactItemListener;
 import zzxcraft.artifactFight.Player.PlayerOnPlay;
 import zzxcraft.artifactFight.Player.PlayerOnServer;
 import zzxcraft.artifactFight.Player.PlayerOnWait;
-import zzxcraft.artifactFight.Listener.ArtifactFightPlayerListener;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
 
 
 public final class ArtifactFight extends JavaPlugin {
@@ -48,15 +41,8 @@ public final class ArtifactFight extends JavaPlugin {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         this.getLogger().info("DisableTime : "+formatter.format(date));
         PlayerArtifactMap.ArtifactMap.clear();
-        PlayerArtifactMap.HelmetPlayerMap.clear();
-        PlayerArtifactMap.ChestPlatePlayerMap.clear();
-        PlayerArtifactMap.LeggingPlayerMap.clear();
-        PlayerArtifactMap.BootPlayerMap.clear();
-        PlayerArtifactMap.MainWeaponPlayerMap.clear();
-        PlayerArtifactMap.DeputyWeaponPlayerMap.clear();
-        PlayerArtifactMap.Prop1PlayerMap.clear();
-        PlayerArtifactMap.Prop2PlayerMap.clear();
-        PlayerArtifactMap.Prop3PlayerMap.clear();
+        PlayerArtifactMap.EffectMap.clear();
+        PlayerArtifactMap.ProjectileMap.clear();
     }
     public static JavaPlugin getMainClass(){
         return JavaPlugin.getPlugin(ArtifactFight.class);

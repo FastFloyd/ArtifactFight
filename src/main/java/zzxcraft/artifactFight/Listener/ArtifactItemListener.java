@@ -27,7 +27,7 @@ public class ArtifactItemListener implements Listener {
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
             HashMap<Integer, ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(event.getEntity().getUniqueId());
             HashMap<Integer, ArtifactFather> hashMap1=PlayerArtifactMap.ArtifactMap.get(event.getDamager().getUniqueId());
-            if(hashMap==null){
+            if(hashMap==null || hashMap1==null){
                 event.setCancelled(true);
                 return;
             }
@@ -104,16 +104,29 @@ public class ArtifactItemListener implements Listener {
     @EventHandler
     public void PlayerGlide(PlayerMoveEvent event){
        if(event.getPlayer().isGliding()){
-            if(PlayerArtifactMap.ChestPlatePlayerMap.get(event.getPlayer().getUniqueId())!=null && PlayerArtifactMap.ChestPlatePlayerMap.get(event.getPlayer().getUniqueId()) instanceof ArtifactElytraFather) ((ArtifactElytraFather) PlayerArtifactMap.ChestPlatePlayerMap.get(event.getPlayer().getUniqueId())).OnGlide(event);
+           HashMap<Integer,ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(event.getPlayer().getUniqueId());
+           if(hashMap==null){
+               event.setCancelled(true);
+               return;
+           }
+           if(hashMap.get(38)!=null && hashMap.get(38) instanceof ArtifactElytraFather){
+               ((ArtifactElytraFather) hashMap.get(38)).OnGlide(event);
+           }
+           PlayerArtifactMap.ArtifactMap.remove(event.getPlayer().getUniqueId());
+           PlayerArtifactMap.ArtifactMap.put(event.getPlayer().getUniqueId(),hashMap);
        }
     }
     @EventHandler
     public void PlayerPropUse(PlayerInteractEvent event){
-        ArtifactPropFather prop1=PlayerArtifactMap.Prop1PlayerMap.get(event.getPlayer().getUniqueId());
-        ArtifactPropFather prop2=PlayerArtifactMap.Prop2PlayerMap.get(event.getPlayer().getUniqueId());
-        ArtifactPropFather prop3=PlayerArtifactMap.Prop3PlayerMap.get(event.getPlayer().getUniqueId());
-        if(prop1!=null && prop1.getSlot()==event.getPlayer().getInventory().getHeldItemSlot()) prop1.onUse(event);
-        if(prop2!=null && prop2.getSlot()==event.getPlayer().getInventory().getHeldItemSlot()) prop2.onUse(event);
-        if(prop3!=null && prop3.getSlot()==event.getPlayer().getInventory().getHeldItemSlot()) prop3.onUse(event);
+        HashMap<Integer,ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(event.getPlayer().getUniqueId());
+        if(hashMap==null){
+            event.setCancelled(true);
+            return;
+        }
+        if(hashMap.get(event.getPlayer().getInventory().getHeldItemSlot())!=null && hashMap.get(event.getPlayer().getInventory().getHeldItemSlot()) instanceof ArtifactPropFather){
+            ((ArtifactPropFather) hashMap.get(event.getPlayer().getInventory().getHeldItemSlot())).onUse(event);
+        }
+        PlayerArtifactMap.ArtifactMap.remove(event.getPlayer().getUniqueId());
+        PlayerArtifactMap.ArtifactMap.put(event.getPlayer().getUniqueId(),hashMap);
     }
 }
