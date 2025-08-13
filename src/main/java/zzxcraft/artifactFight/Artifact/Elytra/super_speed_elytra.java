@@ -1,6 +1,5 @@
 package zzxcraft.artifactFight.Artifact.Elytra;
 
-import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,7 +24,7 @@ public class super_speed_elytra extends ArtifactElytraFather {
     @Override
     public void OnGlide(PlayerMoveEvent event) {
 
-        this.getPlayer().setVelocity(this.getPlayer().getVelocity().multiply(2.5));
+        this.getPlayer().getVelocity().multiply(1.3);
     }
 
     @Override

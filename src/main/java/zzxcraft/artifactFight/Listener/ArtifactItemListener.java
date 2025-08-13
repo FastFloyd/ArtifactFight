@@ -1,25 +1,18 @@
 package zzxcraft.artifactFight.Listener;
 
 
-import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.damage.DamageType;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import zzxcraft.artifactFight.Artifact.Fathers.*;
-import zzxcraft.artifactFight.Artifact.Type.ArtifactEffectType;
 import zzxcraft.artifactFight.ArtifactFight;
 import zzxcraft.artifactFight.PlayerArtifactMap;
 
@@ -85,30 +78,34 @@ public class ArtifactItemListener implements Listener {
     @EventHandler
     public void PlayerBowLaunch(ProjectileLaunchEvent event){
         Entity launchEntity=ArtifactFight.getMainClass().getServer().getEntity(Objects.requireNonNull(event.getEntity().getOwnerUniqueId()));
-        Entity launchedEntity=event.getEntity();
-        if(launchedEntity instanceof Arrow){
             if(launchEntity instanceof Player){
-                PersistentDataContainer persistentDataContainer=launchedEntity.getPersistentDataContainer();
                 HashMap<Integer, ArtifactFather> hashMap=PlayerArtifactMap.ArtifactMap.get(launchEntity.getUniqueId());
                 if(hashMap==null){
                     event.setCancelled(true);
                     return;
                 }
                 if(hashMap.get(((Player) launchEntity).getInventory().getHeldItemSlot())!=null){
-                    ((ArtifactBowFather)hashMap.get(((Player) launchEntity).getInventory().getHeldItemSlot())).onLaunch(event);
+                    ArtifactFather artifactFather=hashMap.get(((Player) launchEntity).getInventory().getHeldItemSlot());
+                    if(artifactFather instanceof ArtifactBowFather){
+                        ((ArtifactBowFather) artifactFather).onLaunch(event);
+                    }
+                    else if(artifactFather instanceof ArtifactPropFather){
+                        ((ArtifactPropFather) artifactFather).onLaunch(event);
+                    }
+                    else{
+                        event.setCancelled(true);
+                        return;
+                    }
                 }
-                persistentDataContainer.set(new NamespacedKey(javaPlugin,"LaunchSlot"), PersistentDataType.INTEGER,((Player) launchEntity).getInventory().getHeldItemSlot());
                 PlayerArtifactMap.ArtifactMap.remove(launchEntity.getUniqueId());
                 PlayerArtifactMap.ArtifactMap.put(launchEntity.getUniqueId(),hashMap);
             }
-        }
-
     }
     @EventHandler
     public void PlayerGlide(PlayerMoveEvent event){
-        if(event.getPlayer().isFlying() && event.getPlayer().isGliding()){
+       if(event.getPlayer().isGliding()){
             if(PlayerArtifactMap.ChestPlatePlayerMap.get(event.getPlayer().getUniqueId())!=null && PlayerArtifactMap.ChestPlatePlayerMap.get(event.getPlayer().getUniqueId()) instanceof ArtifactElytraFather) ((ArtifactElytraFather) PlayerArtifactMap.ChestPlatePlayerMap.get(event.getPlayer().getUniqueId())).OnGlide(event);
-        }
+       }
     }
     @EventHandler
     public void PlayerPropUse(PlayerInteractEvent event){

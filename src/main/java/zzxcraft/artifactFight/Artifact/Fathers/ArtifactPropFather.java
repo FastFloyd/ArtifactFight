@@ -2,13 +2,9 @@ package zzxcraft.artifactFight.Artifact.Fathers;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.Vector;
 
 public abstract class ArtifactPropFather extends ArtifactFather {
     protected int count;
@@ -29,6 +25,7 @@ public abstract class ArtifactPropFather extends ArtifactFather {
         if(this.count==0) event.setCancelled(true);
         else this.count--;
     }
+    public abstract void onLaunch(ProjectileLaunchEvent event);
     public void run(){
         if(this.count==this.max_count) i=0;
         this.i++;
