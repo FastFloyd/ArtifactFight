@@ -23,6 +23,7 @@ public class speed_elytra extends ArtifactElytraFather {
     @Override
     public void OnGlide(PlayerMoveEvent event) {
         this.getPlayer().getVelocity().multiply(1.2);
+
     }
 
     @Override
